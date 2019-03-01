@@ -1,0 +1,90 @@
+
+ @font-face { font-family: Delicious; src: url('MADEC___.TTF'); }
+
+.header {
+  height: 30px;	
+  padding-top: 10px;
+  margin-top: 0px;
+  border-top: 0px;
+  text-align: center;
+  background: #D85428;
+  color: white;
+  font-size: 20px;
+
+}
+
+.header h1 {
+	padding: 0px;
+	margin-top: 0px;
+	font-family: Delicious;
+}
+
+body {
+	display: block;
+    margin: 0px;
+	text-align: center;
+	background: #D85428;
+}
+
+#NavigationBar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+#NavigationBar ul li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+#NavigationBar ul li:last-child {
+  border-right: none;
+}
+
+#NavigationBar ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+#report_block {
+	background-color: #111;
+	width: 400px;
+	display: block;
+	text-align: center;
+	position: absolute;
+	left: 35%;
+	margin-top: 10px;
+	
+}
+
+#input_elements {
+	display: block;
+	text-align: center;
+}
+
+.input_element {
+	width: 350px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#reason_box {
+	height: 200px;
+}
+
+#report_block h1 {
+	color: white;
+}
+
+p {
+	color: white;
+}
