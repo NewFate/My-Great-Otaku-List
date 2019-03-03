@@ -12,12 +12,12 @@ function editProfileDetails(e){
 function displayInputSpace(){
 	var button = document.getElementById("edit_profile");
 	var inputs = profileInfoForm.children[1].children;
-	console.log(profileInfoForm.children);
+	//console.log(profileInfoForm.children);
 	if (button.innerText == "Edit Profile"){
 		button.innerText = 'Save';
 
 		for(let i=0; i<inputs.length; i++){
-			console.log(inputs[i]);
+			//console.log(inputs[i]);
 			//inputs[i].parentNode.removeChild(inputs[i]);
 			if(inputs[i].className == "name" ){
 				inputs[i].innerHTML = "<h2>Name: </h2>";
@@ -50,6 +50,7 @@ function displayInputSpace(){
 		var emailValue = document.getElementById("emailInput").value;
 		var dobValue = document.getElementById("dobInput").value;
 
+
 		if(nameValue == "" || emailValue == "" || dobValue == ""){
 			alert("Please fill out empty boxes");
 			return;
@@ -61,6 +62,7 @@ function displayInputSpace(){
 			
 			if(inputs[i].className == "name"){
 				inputs[i].innerHTML = "<h2>Name: " + nameValue + "</h2>";
+				document.getElementById("userName").innerHTML = "<a href='User_Profile.html'>" + nameValue + "</a>";
 			}
 
 			if(inputs[i].className == "email"){
