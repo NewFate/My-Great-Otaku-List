@@ -1,0 +1,212 @@
+
+ @font-face { font-family: Delicious; src: url('MADEC___.TTF'); }
+
+.header {
+  height: 30px;	
+  padding-top: 10px;
+  margin-top: 0px;
+  border-top: 0px;
+  text-align: center;
+  background: #D85428;
+  color: white;
+  font-size: 20px;
+
+}
+
+.header h1 {
+	padding: 0px;
+	margin-top: 0px;
+	font-family: Delicious;
+}
+
+body {
+	display: block;
+  margin: 0px;
+	text-align: center;
+	background: #D85428;
+}
+
+#NavigationBar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+#NavigationBar ul li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+#NavigationBar ul li:last-child {
+  border-right: none;
+}
+
+#NavigationBar ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+#trending_three ul {
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  align-content: center;
+  background-color: #333;
+}
+
+#trending_three ul li {
+  display: inline-block;
+ 
+}
+
+#trending_three ul li a {
+  display: flex;
+  color: white;
+  text-align: center;
+  padding: 20px 20px;
+  text-decoration: none;
+}
+
+#anime_info {
+  border-radius: 15px;
+  display: flex;  
+  font-family: Delicious;
+  background-color: #333;
+  width: 85%;
+  
+  text-align: center;
+  color: white;
+  margin: 7%;
+  margin-top: 3%;
+  
+}
+
+#trending_anime {
+  border-radius: 15px;
+  font-family: Delicious;
+	background-color: #333;
+	width: 50%;
+	float: left;
+	text-align: center;
+  color: white;
+	margin: 10%;
+	margin-top: 3%;
+
+	
+}
+
+#top_ten_anime {
+  border-radius: 15px;
+  border: 1px solid #ddd;
+  
+  font-family: Delicious;
+  background-color: #333;
+  width: 35%;
+  
+  text-align: center;
+  color: white;
+  margin: 10%;
+  margin-top: 3%;
+  
+}
+
+#user_credentials {
+	display: block;
+	text-align: center;
+  margin-bottom: 10px;
+}
+
+.input_element {
+	width: 350px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+
+p {
+	color: white;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+  border-radius: 5px;
+  background-color: #474747;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+input[type=text], select, textarea {
+  width: 60%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+input[type=submit]:hover {
+  background-color: #595959;
+}
+
+#anime_tile {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 100px;
+}
+
+#trending_reviews {
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-family: Monospace;
+  background-color: #333;
+ 
+  text-align: center;
+  color: white;
+  padding: 5px;
+  margin-left: 5%;
+  margin-top: 5%;
+  margin-right: 5%;
+}
+
+#orange {
+  color: #D85428;
+  
+}
+
+#anime_tile_small {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+  width: 50px;
+  
+  vertical-align: middle
+}
+
+#top_ten ol {
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #333;
+
+}
+
+#top_ten ol li a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  
+}
