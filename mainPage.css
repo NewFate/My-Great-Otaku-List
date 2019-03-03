@@ -55,7 +55,7 @@ li a:hover {
   background-color: #111;
 }
 
-#trending_three ul {
+.trending_three ul {
   border: 1px solid #ddd;
   border-radius: 15px;
   list-style-type: none;
@@ -66,12 +66,12 @@ li a:hover {
   background-color: #333;
 }
 
-#trending_three ul li {
+.trending_three ul li {
   display: inline-block;
  
 }
 
-#trending_three ul li a {
+.trending_three ul li a {
   display: flex;
   color: white;
   text-align: center;
@@ -79,7 +79,7 @@ li a:hover {
   text-decoration: none;
 }
 
-#anime_info {
+.anime_info {
   border-radius: 15px;
   display: flex;  
   font-family: Delicious;
@@ -93,7 +93,7 @@ li a:hover {
   
 }
 
-#trending_anime {
+.trending_anime {
   border-radius: 15px;
   font-family: Delicious;
 	background-color: #333;
@@ -107,7 +107,7 @@ li a:hover {
 	
 }
 
-#top_ten_anime {
+.top_ten_anime {
   border-radius: 15px;
   border: 1px solid #ddd;
   
@@ -122,7 +122,7 @@ li a:hover {
   
 }
 
-#user_credentials {
+.user_credentials {
 	display: block;
 	text-align: center;
   margin-bottom: 10px;
@@ -162,14 +162,14 @@ input[type=submit]:hover {
   background-color: #595959;
 }
 
-#anime_tile {
+.anime_tile {
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 5px;
   width: 100px;
 }
 
-#trending_reviews {
+.trending_reviews {
   border-radius: 10px;
   border: 1px solid #ddd;
   font-family: Monospace;
@@ -183,28 +183,28 @@ input[type=submit]:hover {
   margin-right: 5%;
 }
 
-#orange {
+.orange {
   color: #D85428;
   
 }
 
-#anime_tile_small {
+.anime_tile_small {
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 5px;
   width: 50px;
-  
+  margin: 10px;
   vertical-align: middle
 }
 
-#top_ten ol {
+.top_ten ol {
   border-radius: 15px;
   overflow: hidden;
   background-color: #333;
 
 }
 
-#top_ten ol li a {
+.top_ten ol li a {
   color: white;
   text-decoration: none;
   padding: 10px;
