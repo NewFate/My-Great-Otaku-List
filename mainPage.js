@@ -106,3 +106,22 @@ function update_main_page() {
 	update_trending_reviews();
 	update_top_ten();
 }
+
+//adding the event listeners for the anime
+trending_3_anime.addEventListener('click', go_to_anime_page);
+top_10_anime.addEventListener('click', go_to_anime_page);
+
+function go_to_anime_page(e) {
+	e.preventDefault();
+
+	if(event.target.tagName.toLowerCase() === 'a')
+	{
+		
+		let animeTitle = e.target.textContent;
+		console.log("clicked anime " + animeTitle);
+		window.location.href = "Anime.html";
+		//here we would send the anime title to the next page to load it
+		load(animeTitle);
+	}
+
+}
