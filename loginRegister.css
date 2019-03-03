@@ -108,3 +108,8 @@ input[type=text], [type=password], select, textarea {
 input[type=submit]:hover {
   background-color: #595959;
 }
+
+#userName {
+  position: absolute;
+  right: 10px;
+}

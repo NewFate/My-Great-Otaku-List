@@ -236,3 +236,8 @@ img{
 td img:hover {
   background-color: white;
 }
+
+#userName {
+  position: absolute;
+  right: 10px;
+}

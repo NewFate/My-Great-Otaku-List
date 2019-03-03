@@ -210,3 +210,9 @@ input[type=submit]:hover {
   padding: 10px;
   
 }
+
+#userName {
+  position: absolute;
+  right: 10px;
+}
+
