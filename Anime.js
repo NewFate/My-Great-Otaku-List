@@ -2,7 +2,6 @@ let numberOfAnimes = 0;	// Total number of animes
 
 const animeList = [];	// List of animes
 
-
 const log = console.log
 
 class Review{
