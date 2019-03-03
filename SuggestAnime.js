@@ -12,6 +12,7 @@ class suggestedAnime{
 		numberOfSuggestedAnimes++;
 	}
 }
+//log(window.location.href);
 
 function submitAnime(){
 	let title = document.getElementById("titleSuggested").value;
@@ -44,6 +45,7 @@ function loadSuggested(){
 	
 	const description = document.createElement("textarea");
 	const descriptionText = document.createTextNode("Description: ");
+	//descriptionText.setAttribute("color", "purple");
 	description.setAttribute("id", "descriptionSuggested");
 	description.setAttribute("rows", 10);
 	description.setAttribute("cols", 80);
@@ -52,6 +54,7 @@ function loadSuggested(){
 
 	const imgText = document.createTextNode("Image upload will be added later.");
 	document.getElementById("Anime").appendChild(imgText);
+
 	// IMG TO BE ADDED:
 	/*
 	const image = document.createElement("img");

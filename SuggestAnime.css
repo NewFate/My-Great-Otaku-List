@@ -1,5 +1,13 @@
 
 @font-face { font-family: Delicious; src: url('MADEC___.TTF'); }
+@font-face { font-family: Bada; src: url('Adventure.OTF'); }
+
+
+#titleSuggested{
+  top: 200px;
+  display: block;
+  
+}
 
 
 #Anime div{
@@ -40,6 +48,7 @@
 body {
   display: block;
   margin: 0px;
+  background-color: #f6d3c0;
 }
 
 #NavigationBar ul {
