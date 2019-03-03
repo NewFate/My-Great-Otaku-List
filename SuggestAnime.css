@@ -109,3 +109,8 @@ body {
 li a:hover {
   background-color: #111;
 }
+
+#userName {
+  position: absolute;
+  right: 10px;
+}
