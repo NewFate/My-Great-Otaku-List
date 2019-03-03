@@ -1,6 +1,8 @@
 let numberOfAnimes = 0;	// Total number of animes
 
 const animeList = [];	// List of animes
+
+
 const log = console.log
 
 class Review{
@@ -39,6 +41,10 @@ class Anime{
 		this.title = title;
 		this.description = description;
 		this.image = image;
+		if(image == null){
+			log("here");
+			this.image = "image-not-available.jpg";
+		}
 		this.reviews = new Reviews();
 		this.averageScore = this.reviews.calculateAverageScore();
 		numberOfAnimes++;
@@ -185,6 +191,6 @@ function load(title){
 
 }
 
-load("Hunter X Hunter");
+
 
 
