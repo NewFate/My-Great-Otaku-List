@@ -24,6 +24,15 @@ function login(e) {
 		 if(users[username] == password)
 		 {
 		 	alert("Welcome back " + username + "!");
+		 	 if (username === "admin")
+			 {
+			 	window.location.href = "Admin.html";
+			 }
+
+			 else
+			 {
+			 	window.location.href = "User_Profile.html";
+			 }
 		 }
 		 else
 		 {
@@ -50,6 +59,17 @@ function register(e) {
 	{
 		 users[username] = password;
 		 alert("Created Account!");
+
+		 if (username === "admin")
+		 {
+		 	window.location.href = "Admin.html";
+		 }
+
+		 else
+		 {
+		 	window.location.href = "User_Profile.html";
+		 }
+
 	}
 
 	else
