@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+ 	<meta charset="utf-8">
+    <title>Template for CSC309 Project</title>
+    <link rel="stylesheet" type="text/css" href="Admin.css">
+ </head>
+
+
+ <body>
+ 	<div class="header">
+  		<h1>Header</h1>
+	</div>
+	<div id="NavigationBar">
+		<ul>
+			<li><a href="#home">All Anime List</a></li>
+			<li><a href="#news">Top Anime</a></li>
+			<li><a href="#contact">Reviews</a></li>
+			<li><a href="#contact">Request an Anime</a></li>
+			<li style="float:right"><a href="#about">Login/Register</a></li>
+		</ul>
+	</div>
+ 
+	<div id="ContentBlocks">
+		<div id="PasswordResets">
+			<h2>Password Resets</h2>
+			<table id="PasswordTable">
+				<tbody>
+					<tr>
+						<th>
+							User
+						</th>
+						<th>
+							Valid
+						</th>
+						<th>
+							New Password
+						</th>
+						<th>
+							Accept
+						</th>
+						<th>
+							Decline
+						</th>
+					</tr>
+					<tr>
+						<td>
+							IHeartAnime
+						</td>
+						<td>
+							Yes
+						</td>
+						<td>
+							BestGirl
+						</td>
+						<td>
+							<button class="resetPass">Reset</button>
+						</td>
+						<td>
+							<button class="declineReset">Deny</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							IDoIllegalStuff
+						</td>
+						<td>
+							No
+						</td>
+						<td>
+							WantYourInfo
+						</td>
+						<td>
+							<button class="resetPass">Reset</button>
+						</td>
+						<td>
+							<button class="declineReset">Deny</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="ReportInfo">
+			<h2>Report Log</h2>
+			<table id="ReportTable">
+				<tbody>
+					<tr>
+						<th>
+							Reported User
+						</th>
+						<th>
+							User who Issued Report
+						</th>
+						<th>
+							Anime
+						</th>
+						<th>
+							Reason
+						</th>
+						<th>
+							Accept
+						</th>
+						<th>
+							Decline
+						</th>
+					</tr>
+					<tr>
+						<td>
+							Go****Yourself
+						</td>
+						<td>
+							ICareAboutPeople
+						</td>
+						<td>
+							Dragon Ball Z
+						</td>
+						<td>
+							This person does not really comment on the anime itself, but justs attacks people who like it. It does not follow the guidelines of being repectful on the platform.
+						</td>
+						<td>
+							<button class="BanUser">Ban User</button>
+						</td>
+						<td>
+							<button class="DoNotBan">Ignore</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							ObjectiveReviewer
+						</td>
+						<td>
+							BiggestTroll
+						</td>
+						<td>
+							Pokemon
+						</td>
+						<td>
+							This guy is just someone who always picks on me and I want him gone. He says nothing in his review and just slanders me.
+						</td>
+						<td>
+							<button class="BanUser">Ban User</button>
+						</td>
+						<td>
+							<button class="DoNotBan">Ignore</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="AnimeApprovals">
+			<h2>Anime Requests</h2>
+			<table id="AnimeTable">
+				<tbody>
+					<tr>
+						<th>
+							Anime Name
+						</th>
+						<th>
+							User who Submitted Request
+						</th>
+						<th>
+							Accept
+						</th>
+						<th>
+							Decline
+						</th>
+					</tr>
+					<tr>
+						<td>
+							Digimon
+						</td>
+						<td>
+							AnimeFan
+						</td>
+						<td>
+							<button class="AddAnime">Add Anime</button>
+						</td>
+						<td>
+							<button class="IgnoreAnime">Do not Add</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							The Inappropriate Anime
+						</td>
+						<td>
+							LovesTheOtherAnime
+						</td>
+						<td>
+							<button class="AddAnime">Add Anime</button>
+						</td>
+						<td>
+							<button class="IgnoreAnime">Do not Add</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="Admin.js"></script>
+
+ </body>
+
+ </html>
