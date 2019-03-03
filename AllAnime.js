@@ -57,21 +57,19 @@ function update_all_anime_page() {
 	update_all_anime_list();
 }
 
-/*//adding the event listeners for the anime
-trending_3_anime.addEventListener('click', go_to_anime_page);
-top_10_anime.addEventListener('click', go_to_anime_page);
+//adding the event listeners for the anime
+all_anime_table.addEventListener('click', go_to_anime_page);
 
 function go_to_anime_page(e) {
 	e.preventDefault();
 
-	if(event.target.tagName.toLowerCase() === 'a')
+	if(event.target.tagName.toLowerCase() === 'img')
 	{
 		
-		let animeTitle = e.target.textContent;
-		console.log("clicked anime " + animeTitle);
+	    //for now just go to a generic anime page
 		window.location.href = "Anime.html";
 		//here we would send the anime title to the next page to load it
 		load(animeTitle);
 	}
 
-}*/
+}
