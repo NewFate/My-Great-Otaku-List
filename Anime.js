@@ -85,7 +85,6 @@ function submitReview(){
 	document.getElementById("newGradeR").value = "";
 	load(currentAnime);
 	alert("Thank you for your review.")
-
 }
 
 function load(title){

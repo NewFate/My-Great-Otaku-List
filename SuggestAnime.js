@@ -37,9 +37,10 @@ function submitAnime(){
 function loadSuggested(){
 	const title = document.createElement("textarea");
 	const titleText = document.createTextNode("Title: ");
+	titleText.className = "titleText";
 	title.setAttribute("id", "titleSuggested");
 	title.setAttribute("rows", 1);
-	title.setAttribute("cols", 30);
+	title.setAttribute("cols", 80);
 	document.getElementById("Anime").appendChild(titleText);
 	document.getElementById("Anime").appendChild(title);
 	
