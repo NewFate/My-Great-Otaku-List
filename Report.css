@@ -93,3 +93,8 @@ li a:hover {
 p {
 	color: white;
 }
+
+#userName {
+  position: absolute;
+  right: 10px;
+}
