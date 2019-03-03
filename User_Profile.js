@@ -22,16 +22,15 @@ function displayInputSpace(){
 			if(inputs[i].className == "name" ){
 				inputs[i].innerHTML = "<h2>Name: </h2>";
 				var nameInput = document.createElement("INPUT");
+				nameInput.setAttribute("id", "nameInput");
 				nameInput.setAttribute("type", "text");
 				nameInput.setAttribute("placeholder", "Name");
-				nameInput.setAttribute("position", "absolute");
-				nameInput.setAttribute("top", "200px");
-				nameInput.setAttribute("left", "600px");
 				inputs[i].appendChild(nameInput);
 			}
 			if(inputs[i].className == "email"){
 				inputs[i].innerHTML = "<h2>Email: </h2>";
 				var emailInput = document.createElement("INPUT");
+				emailInput.setAttribute("id", "emailInput");
 				emailInput.setAttribute("type", "text");
 				emailInput.setAttribute("placeholder", "Email");
 				inputs[i].appendChild(emailInput);
@@ -39,14 +38,42 @@ function displayInputSpace(){
 			if(inputs[i].className == "dob"){
 				inputs[i].innerHTML = "<h2>Date of Birth: </h2>";
 				var dobInput = document.createElement("INPUT");
+				dobInput.setAttribute("id", "dobInput");
 				dobInput.setAttribute("type", "text");
-				dobInput.setAttribute("placeholder", "Date of Birth");
+				dobInput.setAttribute("placeholder", "Day/Month/Year");
 				inputs[i].appendChild(dobInput);
 			}
 		}
 	}
 	else{
+		var nameValue = document.getElementById("nameInput").value;
+		var emailValue = document.getElementById("emailInput").value;
+		var dobValue = document.getElementById("dobInput").value;
+
+		if(nameValue == "" || emailValue == "" || dobValue == ""){
+			alert("Please fill out empty boxes");
+			return;
+		}
+
+		var inputs = profileInfoForm.children[1].children;
+
+		for(let i=0; i<inputs.length; i++){
+			
+			if(inputs[i].className == "name"){
+				inputs[i].innerHTML = "<h2>Name: " + nameValue + "</h2>";
+			}
+
+			if(inputs[i].className == "email"){
+				inputs[i].innerHTML = "<h2>Email: " + emailValue + "</h2>";
+			}
+
+			if(inputs[i].className == "dob"){
+				inputs[i].innerHTML = "<h2>Date of Birth: " + dobValue + "</h2>";
+			}
+		}
 		button.innerText = "Edit Profile";
 	}
-	
 }
+	
+
+
