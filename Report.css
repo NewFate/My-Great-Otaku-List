@@ -67,6 +67,10 @@ li a:hover {
 	
 }
 
+#report_block h1 {
+	font-family: Delicious;
+}
+
 #input_elements {
 	display: block;
 	text-align: center;
