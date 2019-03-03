@@ -64,10 +64,10 @@ table, td, th {
 #PasswordResets {
 	width: 350px;
 	border-style: solid;
-	border-color: blue;
+	border-color: black;
 	border-width: 3px;
 	margin: 5px;
-	background: #111;
+	background: #333;
 	color: white;
 	text-align: center;
 }
@@ -75,10 +75,10 @@ table, td, th {
 #ReportInfo {
 	width: 700px;
 	border-style: solid;
-	border-color: blue;
+	border-color: black;
 	border-width: 3px;
 	margin: 5px;
-	background: #111;
+	background: #333;
 	color: white;
 	text-align: center;
 }
@@ -86,10 +86,10 @@ table, td, th {
 #AnimeApprovals {
 	width: 500px;
 	border-style: solid;
-	border-color: blue;
+	border-color: black;
 	border-width: 3px;
 	margin: 5px;
-	background: #111;
+	background: #333;
 	color: white;
 	text-align: center;
 }
