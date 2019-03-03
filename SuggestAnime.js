@@ -36,21 +36,26 @@ function submitAnime(){
 
 function loadSuggested(){
 	const title = document.createElement("textarea");
+	const tt = document.createElement("H1");
 	const titleText = document.createTextNode("Title: ");
-	titleText.className = "titleText";
 	title.setAttribute("id", "titleSuggested");
 	title.setAttribute("rows", 1);
 	title.setAttribute("cols", 80);
-	document.getElementById("Anime").appendChild(titleText);
+	tt.className = "titleText";
+	tt.appendChild(titleText);
+	document.getElementById("Anime").appendChild(tt);
 	document.getElementById("Anime").appendChild(title);
 	
 	const description = document.createElement("textarea");
 	const descriptionText = document.createTextNode("Description: ");
+	const dd = document.createElement("H1");
+	dd.className = "descriptionText";
+	dd.appendChild(descriptionText);
 	//descriptionText.setAttribute("color", "purple");
 	description.setAttribute("id", "descriptionSuggested");
 	description.setAttribute("rows", 10);
 	description.setAttribute("cols", 80);
-	document.getElementById("Anime").appendChild(descriptionText);
+	document.getElementById("Anime").appendChild(dd);
 	document.getElementById("Anime").appendChild(description);
 
 	const imgText = document.createTextNode("Image upload will be added later.");

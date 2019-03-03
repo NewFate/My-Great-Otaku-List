@@ -10,15 +10,27 @@
 
 .titleText{
   font-family: Bada;
+  position: relative;
+  left: 30%;
+}
+
+.descriptionText{
+  font-family: Bada;
+  position: relative;
+  left: 30%;
 }
 
 #descriptionSuggested{
-  
   display: block;
 }
 
 .submitSuggestionButton{
   display: block;
+  font-family: Bada;
+  font-size: 20px;
+  border-radius: 20px;
+  position: relative;
+  left: 30%;
 }
 
 #Anime div{
@@ -27,6 +39,7 @@
   border-color: black;
   border-style: solid;
   color: black;
+
   display:inline-block
 }
 
@@ -34,7 +47,11 @@
   border: 10px;
   border-color: black;
   position: absolute;
+  background-color: #f4dfd3;
   left: 30%;
+  border-radius: 20%;
+  padding: 20px;
+
 }
 
 .AnimeDescription {
