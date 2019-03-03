@@ -93,3 +93,8 @@ table, td, th {
 	color: white;
 	text-align: center;
 }
+
+#userName {
+  position: absolute;
+  right: 10px;
+}
