@@ -87,6 +87,10 @@ function submitReview(){
 	alert("Thank you for your review.")
 }
 
+function reportReview(){
+	window.location.href = "report.html";
+}
+
 function load(title){
 	currentAnime = title;
 	var elem = document.getElementById("Anime");
@@ -179,6 +183,8 @@ function load(title){
 				const reportText = document.createTextNode("Report this review");
 				reportButton.appendChild(reportText);
 				reportButton.className = "reviewReport";
+				reportButton.setAttribute("onclick", "reportReview()");
+				reportButton.setAttribute("href", "./report.html");
 				// ADD BUTTON ACTION HERE
 				report.appendChild(reportButton);
 			}
