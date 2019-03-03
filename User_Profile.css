@@ -1,0 +1,131 @@
+
+@font-face { font-family: Delicious; src: url('MADEC___.TTF'); }
+@font-face { font-family: Bada; src: url('Adventure.OTF'); }
+ 
+
+.header {
+  height: 30px; 
+  padding-top: 10px;
+  margin-top: 0px;
+  border-top: 0px;
+  background: #D85428;
+  color: white;
+}
+
+.header h1 {
+  padding: 0px;
+  margin-top: 0px;
+  font-family: Delicious;
+  text-align: center;
+}
+
+body {
+  display: block;
+  margin: 0px;
+  background-color: #f6d3c0;
+}
+
+#NavigationBar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+#NavigationBar ul li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+#NavigationBar ul li:last-child {
+  border-right: none;
+}
+
+#NavigationBar ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 250px;
+  height: 250px;
+  border-radius: 40%;
+  position: absolute;
+  top: 200px;
+  left: 100px;
+}
+
+#ProfileInfo {
+  display: block;
+  background-color: #f4dfd3;
+  border-radius: 10%;
+  padding: 20px;
+  position: fixed;
+  top: 200px;
+  left: 400px;
+  width: 400px;
+  min-height: 200px;
+  font-family: Bada;
+}
+
+
+#ProfileInfo ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+
+#ProfileStatistics {
+  display: block;
+  background-color: #f4dfd3;
+  border-radius: 10%;
+  padding: 20px;
+  position: fixed;
+  top: 200px;
+  left: 900px;
+  width: 400px;
+  min-height: 200px;
+  font-family: Bada;
+}
+
+#ProfileStatistics ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#Reviews {
+  display: block;
+  background-color: #f4dfd3;
+  border-radius: 10%;
+  padding: 20px;
+  position: fixed;
+  top: 500px;
+  left: 120px;
+  width: 900px;
+  min-height: 200px;
+  font-family: Bada;
+}
+
+
+#editProfile {
+  font-family: Bada;
+  background-color: #f4dfd3;
+  position: fixed;
+  top: 700px;
+  right: 20px;
+  width: 200px;
+  height: 30px;
+  font-family: Bada;
+  font-size: 20px;
+}
+
+
