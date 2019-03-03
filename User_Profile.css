@@ -25,6 +25,7 @@ body {
   background-color: #f6d3c0;
 }
 
+
 #NavigationBar ul {
   list-style-type: none;
   margin: 0;
@@ -69,7 +70,7 @@ li a:hover {
   background-color: #f4dfd3;
   border-radius: 10%;
   padding: 20px;
-  position: fixed;
+  position: absolute;
   top: 200px;
   left: 400px;
   width: 400px;
@@ -83,13 +84,12 @@ li a:hover {
   padding: 0;
 }
 
-
 #ProfileStatistics {
   display: block;
   background-color: #f4dfd3;
   border-radius: 10%;
   padding: 20px;
-  position: fixed;
+  position: absolute;
   top: 200px;
   left: 900px;
   width: 400px;
@@ -106,13 +106,14 @@ li a:hover {
   display: block;
   background-color: #f4dfd3;
   border-radius: 10%;
-  padding: 20px;
-  position: fixed;
+  padding: 50px;
+  position: relative;
   top: 500px;
   left: 120px;
   width: 900px;
   min-height: 200px;
   font-family: Bada;
+  margin: 10px;
 }
 
 
