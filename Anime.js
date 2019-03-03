@@ -96,6 +96,13 @@ function load(title){
 	document.body.appendChild(anime);
 	for(let i=0; i<numberOfAnimes; i++){
 		if(animeList[i].title == title){
+
+			const image = document.createElement("img");
+			image.setAttribute("src", animeList[i].image);
+			image.className = "animeImage";
+			image.width = "200";
+			document.getElementById("Anime").appendChild(image);
+
 			const title = document.createElement("div");
 			const titleText = document.createTextNode(animeList[i].title);
 			title.className = "animeTitle";
@@ -109,17 +116,11 @@ function load(title){
 			document.getElementById("Anime").appendChild(description);
 
 			const grade = document.createElement("div");
-			const gradeText = document.createTextNode(animeList[i].averageScore);
+			const gradeText = document.createTextNode("Anime rating: " + animeList[i].averageScore + "/10");
 			grade.className = "animeGrade";
 			grade.appendChild(gradeText);
 			document.getElementById("Anime").appendChild(grade);
-
-			const image = document.createElement("img");
-			image.setAttribute("src", animeList[i].image);
-			image.className = "animeImage";
-			document.getElementById("Anime").appendChild(image);
-
-
+			
 			const newReport = document.createElement("table");
 			newReport.className = "newReport";
 			let newRow = newReport.insertRow(0);

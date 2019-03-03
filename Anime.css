@@ -1,19 +1,52 @@
 
 @font-face { font-family: Delicious; src: url('MADEC___.TTF'); }
+@font-face { font-family: Bada; src: url('Adventure.OTF'); }
 
+.animeTitle{
+  font-family: Bada;
+  position: relative;
+  font-size: 70px;
+}
+
+.newReport{
+  top: 40px;
+  position: relative;
+}
+
+.animeReviews{
+   top: 40px;
+  position: relative;
+}
+
+.animeImage{
+  position: absolute;
+  font-size: 70px;
+}
+.animeDescription{
+  width: 60%;
+  height: 300px;
+  display:block;
+}
 
 #Anime div{
+  position: relative;
+  left: 20%;
   padding: 3px;
   border: 1px;
-  border-color: black;
-  border-style: solid;
   color: black;
-  display:inline-block
+  display:block;
 }
 
 #Anime{
   border: 10px;
   border-color: black;
+  position: absolute;
+  background-color: #f4dfd3;
+  left: 5%;
+  top: 15%;
+  right: 5%;
+  border-radius: 20%;
+  padding: 5%;
 
 }
 
