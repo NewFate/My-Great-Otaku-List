@@ -59,6 +59,7 @@ function register(e) {
 	// create account if not found
 	if (!(username in users))
 	{
+		 //we would need to send this updated list/user detail to the server
 		 users[username] = password;
 		 alert("Created Account!");
 
