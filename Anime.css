@@ -23,7 +23,8 @@
   font-size: 70px;
 }
 .animeDescription{
-  width: 60%;
+  font-size: 20px;
+  width: 80%;
   height: 300px;
   display:block;
 }
@@ -45,14 +46,11 @@
   left: 5%;
   top: 15%;
   right: 5%;
-  border-radius: 20%;
+  border-radius: 10%;
   padding: 5%;
 
 }
 
-.AnimeDescription {
-  border: 1px orange;
-}
 
 .header {
   height: 30px; 
