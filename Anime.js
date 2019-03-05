@@ -110,6 +110,12 @@ function reportReview(){	// Go to the report page.
 	window.location.href = "report.html";
 }
 
+function download(){
+	// This function will download informations about the animes from the database and 
+	// Put it in the animeList array.
+}
+
+// Load selected anime to the page. It has to be on the animeList array.
 function load(title){
 	currentAnime = title;
 	var elem = document.getElementById("Anime");
