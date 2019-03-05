@@ -26,6 +26,8 @@ After logging in the admin will land in the admin page. The admin will be able t
 2. Password Resets: Accept or Deny password reset requests from users
 3. Report Log: Ban existing users or ignore the report if it does not violate the guidelines
 
+The buttons simply at the moment remove it from the list and displays an appropriate message.
+
 
 
 
@@ -42,3 +44,5 @@ They can also view the all the animes that are currently in the website database
 
 
 In the individual anime page, they can submit a review by filling out the appropriate boxes in the bottom. They can also file a report by clicking on the “Report this review” button beside existing reviews. This will navigate them to the report page where they can submit the report.
+
+The submit button in the report page at the moment justs displays a message.
