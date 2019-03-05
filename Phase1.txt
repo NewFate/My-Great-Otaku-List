@@ -34,13 +34,13 @@ The buttons simply at the moment remove it from the list and displays an appropr
 User + Admin
 
 
-Both user and admin can view the Home page, where the top ten rated anime, top trending reviews and top 3 trending animes are displayed. 
+Both user and admin can view the Home page, where the top ten rated anime, top trending reviews and top 3 trending animes are displayed, you can click the tiles to go to the anime page. 
 
 
 They can click on an anime title to navigate to the anime page for more details on the anime.
 
 
-They can also view the all the animes that are currently in the website database by navigating to All Anime List page using the navigation tab. They can also navigate to the individual anime page by clicking on the titles. 
+They can also view the all the animes that are currently in the website database by navigating to All Anime List page using the navigation tab. They can also navigate to the individual anime page by clicking on the anime images.
 
 
 In the individual anime page, they can submit a review by filling out the appropriate boxes in the bottom. They can also file a report by clicking on the “Report this review” button beside existing reviews. This will navigate them to the report page where they can submit the report.
