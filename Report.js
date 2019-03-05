@@ -1,5 +1,8 @@
+//This will listen for when the submit button is pressed
 const report_form = document.querySelector('#input_elements');
 report_form.addEventListener('submit', report_user);
+
+//When implemented, this will send the required data to the admin's report block for review
 function report_user(e) {
 	e.preventDefault();
 	
