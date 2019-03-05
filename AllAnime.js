@@ -1,10 +1,10 @@
 //here are the functions that will be called on page load of the all anime page
-//we would make a call tothe server to get the data 
+//we would make a call to the server to get the data 
 
 //HTML elements to be edited
 const all_anime_table = document.querySelector('.all_anime');
 
-//global variables for updating
+//global variables for updating (we need to call the server to get the data for this)
 let all_anime_list = {
 	"Mob Psycho 100 II": ["mob.gif", "Mob Psycho 100 II", "A cool anime", "10/10"],
 	"Anime2": ["mob.gif", "Mob Psycho 100 II", "A cool anime", "10/10"],
@@ -17,7 +17,8 @@ let all_anime_list = {
 function update_all_anime_list() {
 
 	const animeTable = all_anime_table.getElementsByTagName("table")[0];
-
+	//we would need to get the anime list from the server
+	//a dummy object is used for now
 	for (let key in all_anime_list)
 	{
 		const tr = document.createElement('tr');
@@ -29,7 +30,7 @@ function update_all_anime_list() {
 
 		const animeImg = document.createElement('img');
 
-		//temp link
+		//get dummy data (we will be using the data structure fetched from the server here)
 		tdTitle.textContent = all_anime_list[key][1];
 		tdDesc.textContent = all_anime_list[key][2];
 		tdScore.textContent = all_anime_list[key][3];
@@ -45,6 +46,7 @@ function update_all_anime_list() {
 		tr.appendChild(tdDesc);
 		tr.appendChild(tdScore);
 
+		//Add the element to the all anime table
 		animeTable.appendChild(tr);
 			
 	}
@@ -63,10 +65,12 @@ all_anime_table.addEventListener('click', go_to_anime_page);
 function go_to_anime_page(e) {
 	e.preventDefault();
 
-	if(event.target.tagName.toLowerCase() === 'img')
+	if(e.target.tagName.toLowerCase() === 'img')
 	{
+		// we would need the title from the server data
+		const animeTitle = e.target.parentNode.nextSibling.textContent;
 		
-	    //for now just go to a generic anime page
+	    //for now just go to a generic anime page, would need the data from the server 
 		window.location.href = "Anime.html";
 		//here we would send the anime title to the next page to load it
 		load(animeTitle);

@@ -6,7 +6,7 @@ const top_10_anime = document.querySelector('.top_ten');
 const trending_3_anime = document.querySelector('.trending_three');
 const top_3_reviews = document.querySelector('.trending_reviews');
 
-//global variables for updating
+//global variables for updating (this is where we would call the server to dynamically create these data structures)
 let top_ten_anime = {
 	"Anime1": "mob.gif", "Anime2": "mob.gif", "Anime3": "mob.gif",
 	"Anime4": "mob.gif", "Anime5": "mob.gif", "Anime6": "mob.gif",
@@ -31,8 +31,9 @@ function update_top_three() {
 		const animeA = document.createElement('a');
 		const animeImg = document.createElement('img');
 
-		//temp link
-		animeA.href = "#anime";
+		//fill with the dummy data from the global data structures (here is where the server data is used)
+		//to construct the DOM elements
+		animeA.href = "Anime.html";
 		animeA.textContent = key;
 		animeImg.className = "anime_tile";
 		animeImg.src = trending_three_anime[key];
@@ -51,6 +52,7 @@ function update_trending_reviews() {
 	
 	for (let key in top_three_reviews)
 	{
+		//We will be using the server data here to construct the elements dynamically
 		const animeReviewElmt = document.createElement('p');
 
 		const animeKey = document.createElement('strong');
@@ -63,7 +65,7 @@ function update_trending_reviews() {
 		animeReviewElmt.appendChild(animeKey);
 		animeReviewElmt.appendChild(txt);
 		
-
+		//append to top 3 reviews 
 		top_3_reviews.appendChild(animeReviewElmt);	
 
 	}
@@ -83,13 +85,13 @@ function update_top_ten() {
 		const animeA = document.createElement('a');
 		const animeImg = document.createElement('img');
 
-		//temp link
-		animeA.href = "#anime";
+		//We will be using the server data here to construct the elements dynamically
+		animeA.href = "Anime.html";
 		animeA.textContent = key;
 		animeImg.className = "anime_tile_small";
 		animeImg.src = top_ten_anime[key];
 
-		//construct the element
+		//construct the element and add it to the webpage
 		animeListElmt.appendChild(animeImg);
 		animeListElmt.appendChild(animeA);
 		animeList.appendChild(animeListElmt);
@@ -116,9 +118,9 @@ function go_to_anime_page(e) {
 
 	if(event.target.tagName.toLowerCase() === 'a')
 	{
-		
+		//get the anime title that was clicked to send to the Anime page
 		let animeTitle = e.target.textContent;
-		console.log("clicked anime " + animeTitle);
+		
 		window.location.href = "Anime.html";
 		//here we would send the anime title to the next page to load it
 		load(animeTitle);

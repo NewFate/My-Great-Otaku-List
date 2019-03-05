@@ -5,8 +5,10 @@ const register_button = document.getElementById("register");
 
 //the dummy data structures for username/passwords
 //we would make a call to the server to check the user list and match the password 
+// user:user and admin:admin credentials here
 let users = {user: "user", admin: "admin"};
 
+//added event listeners to the buttons
 login_button.addEventListener('click', login);
 register_button.addEventListener('click', register);
 
