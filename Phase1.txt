@@ -1,0 +1,44 @@
+﻿User
+
+
+Login Credentials
+Username: user
+Password: user
+
+
+After logging in the user will land in the user profile page. The user will be able to edit their name, email and date of birth in the user profile page and also navigate to other pages.
+
+
+
+
+Admin
+
+
+Login Credentials
+Username: admin
+Password: admin
+
+
+After logging in the admin will land in the admin page. The admin will be able to see anime requests, report requests and password reset requests. The admin has three tables to manage, which are given below.
+
+
+1. Anime Requests: Accept or Deny anime requests from users
+2. Password Resets: Accept or Deny password reset requests from users
+3. Report Log: Ban existing users or ignore the report if it does not violate the guidelines
+
+
+
+
+User + Admin
+
+
+Both user and admin can view the Home page, where the top ten rated anime, top trending reviews and top 3 trending animes are displayed. 
+
+
+They can click on an anime title to navigate to the anime page for more details on the anime.
+
+
+They can also view the all the animes that are currently in the website database by navigating to All Anime List page using the navigation tab. They can also navigate to the individual anime page by clicking on the titles. 
+
+
+In the individual anime page, they can submit a review by filling out the appropriate boxes in the bottom. They can also file a report by clicking on the “Report this review” button beside existing reviews. This will navigate them to the report page where they can submit the report.
