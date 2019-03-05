@@ -12,7 +12,6 @@ class suggestedAnime{
 		numberOfSuggestedAnimes++;
 	}
 }
-//log(window.location.href);
 
 function submitAnime(){
 	let title = document.getElementById("titleSuggested").value;
@@ -22,12 +21,14 @@ function submitAnime(){
 		return
 	}
 	// Check if logged in. Must be logged in to suggest.
+		// To be done with backend.
 
 	suggestedAnimeList.push(new suggestedAnime(title, desc, null)); // Add image here
-	animeList.push(new Anime(title, desc, null));
 
-	//load(title);
+	// Admin would see this list and select to accept or deny this anime.
+	// To be done wiht backend.
 
+	
 	document.getElementById("titleSuggested").value = "";
 	document.getElementById("descriptionSuggested").value = "";
 
@@ -51,7 +52,6 @@ function loadSuggested(){
 	const dd = document.createElement("H1");
 	dd.className = "descriptionText";
 	dd.appendChild(descriptionText);
-	//descriptionText.setAttribute("color", "purple");
 	description.setAttribute("id", "descriptionSuggested");
 	description.setAttribute("rows", 10);
 	description.setAttribute("cols", 80);
@@ -61,6 +61,7 @@ function loadSuggested(){
 	const imgText = document.createTextNode("Image upload will be added later.");
 	document.getElementById("Anime").appendChild(imgText);
 
+	// Need to use backend to allow user to upload an image.
 	// IMG TO BE ADDED:
 	/*
 	const image = document.createElement("img");

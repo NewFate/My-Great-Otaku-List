@@ -22,7 +22,6 @@ class Reviews{
 		this.numberOfReviews++;
 	}
 	calculateAverageScore(){
-		//log(this.reviewList);
 		if(this.numberOfReviews == 0){
 			return "N/A";
 		}
@@ -40,8 +39,8 @@ class Anime{
 		this.title = title;
 		this.description = description;
 		this.image = image;
-		if(image == null){
-			log("here");
+
+		if(image == null){ // If no image was declared, use a pre-selected one.
 			this.image = "image-not-available.jpg";
 		}
 		this.reviews = new Reviews();
@@ -57,22 +56,38 @@ class Anime{
 
 let currentAnime = "";
 
+// Dummy data.
+
 animeList.push(new Anime("Hunter X Hunter", "The story focuses on a young boy named Gon Freecss, who discovers that his father, who he was told had left him at a young age, is actually a world renowned Hunter, a licensed profession for those who specialize in, but are not limited to fantastic pursuits such as locating rare or unidentified animal species, treasure hunting, surveying unexplored enclaves, or hunting down lawless individuals. In short, being a hunter is roughly the same as being a professional at a certain profession while being able to utilize the power system within the anime called Nen. Despite being abandoned by his father, Gon departs upon a journey to follow in his footsteps, pass the rigorous Hunter Examination, and eventually find his father. Along the way, Gon meets various other Hunters, including main cast members Kurapika, Leorio, and Killua, and also encounters the paranormal. ", "hunter.jpg"));
 animeList.push(new Anime("Kimi No Na Wa", "Mitsuha and Taki are complete strangers living separate lives until they suddenly switch places. Mitsuha wakes up in Taki's body, and he in hers. This occurrence happens randomly, and they must adjust their lives around each other. Yet, somehow, it works. They build a connection by leaving notes for one another until they wish to finally meet. But something stronger than distance may keep them apart.", null));
 
 animeList[0].createReview(new Review("Gon", "The best anime I've ever seen! Recommend to everybody!!!!", 10));
 animeList[0].createReview(new Review("Killua", "MASTERPIECE!", 10));
 animeList[1].createReview(new Review("Mitsuha", "Very good movie, made me cry of how good it was.", 10));
+animeList[0].createReview(new Review("User23123", "Very good, but its not all its hyped to be...", 7));
 
+// When someone clicks on submit review, grab the information, check if its valid and put in the right place.
 function submitReview(){
 	let username = document.getElementById("usernameR").value;
 	let review = document.getElementById("newReviewR").value;
 	let grade = document.getElementById("newGradeR").value;
 	if(username == "" || review == "" || grade == ""){
 		alert("Please fill all required information.");
-		return
+		return;
 	}
-	// Check if username is valid, if grade is valid
+	for(let i=0; i<grade.length; i++){
+		if(grade[i]>'9' || grade[i]<'0'){
+			alert("Invalid grade. Grade is a number between 0 and 10.")
+			return;
+		}
+	}
+	if(parseInt(grade)<0 || parseInt(grade)>10){
+		alert("Invalid grade. Grade is a number between 0 and 10.")
+		return;
+	}
+	// In this step, with the backend I'd check the username of the person instead of having them
+	// 		manually insert the username.
+	
 
 	for(let i=0; i<numberOfAnimes; i++){
 		if(animeList[i].title == currentAnime){
@@ -83,11 +98,15 @@ function submitReview(){
 	document.getElementById("usernameR").value = "";
 	document.getElementById("newReviewR").value = "";
 	document.getElementById("newGradeR").value = "";
-	load(currentAnime);
+
+	load(currentAnime);	// Updating the page with the review.
+
 	alert("Thank you for your review.")
 }
 
-function reportReview(){
+function reportReview(){	// Go to the report page.
+	// This would send the information to the report page, but needs to be done with backend.
+	// For now, it just goest to the report page.
 	window.location.href = "report.html";
 }
 
@@ -98,9 +117,11 @@ function load(title){
 	const anime = document.createElement("div");
 	anime.setAttribute("id", "Anime");
 	document.body.appendChild(anime);
-	for(let i=0; i<numberOfAnimes; i++){
-		if(animeList[i].title == title){
 
+	for(let i=0; i<numberOfAnimes; i++){
+		// Look for the correct Anime.
+		if(animeList[i].title == title){
+			// Setting up everything in the anime.
 			const image = document.createElement("img");
 			image.setAttribute("src", animeList[i].image);
 			image.className = "animeImage";
@@ -185,15 +206,12 @@ function load(title){
 				reportButton.className = "reviewReport";
 				reportButton.setAttribute("onclick", "reportReview()");
 				reportButton.setAttribute("href", "./report.html");
-				// ADD BUTTON ACTION HERE
 				report.appendChild(reportButton);
 			}
 			document.getElementById("Anime").appendChild(table);
 			return;
 		}
 	}
-
-
 }
 
 
