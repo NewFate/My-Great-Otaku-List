@@ -8,7 +8,7 @@ const { ObjectID } = require('mongodb')
 
 // Mongoose
 const { mongoose } = require('./db/mongoose');
-const { Restaurant } = require('./models/restaurant')
+const { Anime } = require('./models/Anime')
 
 // Express
 const port = process.env.PORT || 3000
