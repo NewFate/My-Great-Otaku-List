@@ -12,7 +12,39 @@ function report_user(e) {
 	const reason = document.querySelector('#reason_box').value;
 	const message = document.createElement('p');
 	message.style.color = 'white';
-	const messageText = document.createTextNode('The report has been submitted!');
-	message.appendChild(messageText);
-	report_block.appendChild(message);
+	let messageText = null;
+	
+	//Phase 2
+	
+	const url = '/report';
+	let data = {
+		reporter: ,
+		reportee: reviewer_name,
+		anime: anime_reviewed,
+		reason: reason
+	};
+	
+	const report = new Request(url, {
+        method: 'post', 
+        body: JSON.stringify(data),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+	
+	fetch(report)
+    .then(function(res) {
+        if (res.status === 200) {
+            messageText = document.createTextNode('The report has been submitted!');
+           
+        } else {
+            messageText = document.createTextNode('The report has failed to send.');
+        }
+        message.appendChild(messageText);
+		report_block.appendChild(message);
+        
+    }).catch((error) => {
+        messageText = document.createTextNode('The report has failed to send.');
+    });
 }
