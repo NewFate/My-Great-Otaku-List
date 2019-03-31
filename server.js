@@ -55,6 +55,8 @@ app.get('/anime', (req, res) =>{
 })
 
 // GET one anime, based on name
+// Name is in the url, with underscore separating words
+// So kimi no na wa is kimi_no_na_wa . This is not case sensitive.
 app.get('/anime/:name', (req, res) => {
 	const xname = req.params.name;
 	//log(xname);
@@ -75,6 +77,7 @@ app.get('/anime/:name', (req, res) => {
 	//log("HERE");
 })
 
+// Not ready yet!
 app.post('/anime/:name/review', (req, res) => {
 	const xname = req.params.name;
 	const newname = xname.replace(/_/g, " ");
