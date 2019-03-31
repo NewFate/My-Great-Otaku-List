@@ -15,6 +15,10 @@ const AnimeSchema = new mongoose.Schema({
     reviews: [ReviewsSchema]
 });
 
+//AnimeSchema.index({name: "text", averageScore: "Number"});
+AnimeSchema.index({name: "text"});
+
+
 const Anime = mongoose.model('Anime', AnimeSchema);
 
 module.exports = { Anime };
