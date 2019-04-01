@@ -77,9 +77,10 @@ const sessionChecker = (req, res, next) => {
 
 
 // POST one anime
-app.post('/anime', (req, res) =>{
+//app.post('/anime', (req, res) =>{
 	// Creating a new anime to be inserted
 
+//}
 // POST one anime
 app.post('/animeinfo', (req, res) =>{
 	// Creating a new anime to be inserted
@@ -113,10 +114,7 @@ app.get('/animeinfo', (req, res) =>{
 	})
 })
 
-// GET one anime, based on name
-// Name is in the url, with underscore separating words
-// So kimi no na wa is kimi_no_na_wa . This is not case sensitive.
-app.get('/animeinfo/:name', (req, res) => {
+app.get('/anime/:name', (req, res) => {
 	const xname = req.params.name;
 	//log(xname);
 	const newname = xname.replace(/_/g, " ");
@@ -129,9 +127,43 @@ app.get('/animeinfo/:name', (req, res) => {
 			res.status(404).send();
 		}else{
 			//anm.loadd("Kimi No Na Wa");
+			//res.send(animes)
+			//res.sendFile(__dirname + '/public/Anime.html');
+			res.render("Anime.hbs", {
+				animeName: xname
+			})
+		}
+		//log("oi");
+	}).catch((error) => {
+		log(error);
+		res.status(404).send();
+	})
+	//log("HERE");
+})
+
+// GET one anime, based on name
+// Name is in the url, with underscore separating words
+// So kimi no na wa is kimi_no_na_wa . This is not case sensitive.
+app.get('/animeinfo/:name', (req, res) => {
+	const xname = req.params.name;
+	//log(xname);
+	const newname = xname.replace(/_/g, " ");
+	log(newname);
+	//log(Anime.find( { $name: { $search: newname } } ));
+	Anime.findOne({ $text: { $search: newname } }).then((animes) =>{
+		//log("SDADSAD");
+		if(!animes){
+			//log("NOT FOUND");
+			res.status(404).send();
+		}else{
+			//anm.loadd("Kimi No Na Wa");
+			//log("SEND");
+			//log(animes);
 			res.send(animes)
 			//res.sendFile(__dirname + '/public/Anime.html');
-			res.render("Anime.hbs")
+			//res.render("Anime.hbs", {
+			//	animeName: newname
+			//})
 		}
 		//log("oi");
 	}).catch((error) => {

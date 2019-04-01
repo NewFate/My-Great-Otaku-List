@@ -127,37 +127,51 @@ function download(){
 // Load selected anime to the page. It has to be on the animeList array.
 //module.exports.loadd = function loadd(title){
 function load(title){
+
 	currentAnime = title;
 	var elem = document.getElementById("Anime");
 	elem.parentNode.removeChild(elem);
 	const anime = document.createElement("div");
 	anime.setAttribute("id", "Anime");
 	document.body.appendChild(anime);
+	const url = '/animeinfo/' + title;
+	//log(url);
 
-	for(let i=0; i<numberOfAnimes; i++){
+	fetch(url).then((res) => {
+		if(res.status == 200){
+			return res.json();
+		}else {
+			alert('Could not get Anime');
+		}
+	}).then((json) => {
+		log("here");
+		log(json.description);
+	
+
+	//for(let i=0; i<numberOfAnimes; i++){
 		// Look for the correct Anime.
-		if(animeList[i].title == title){
+		//if(animeList[i].title == title){
 			// Setting up everything in the anime.
 			const image = document.createElement("img");
-			image.setAttribute("src", animeList[i].image);
+			image.setAttribute("src", json.imageURL);
 			image.className = "animeImage";
 			image.width = "200";
 			document.getElementById("Anime").appendChild(image);
 
 			const title = document.createElement("div");
-			const titleText = document.createTextNode(animeList[i].title);
+			const titleText = document.createTextNode(json.name);
 			title.className = "animeTitle";
 			title.appendChild(titleText);
 			document.getElementById("Anime").appendChild(title);
 			
 			const description = document.createElement("div");
-			const descriptionText = document.createTextNode(animeList[i].description);
+			const descriptionText = document.createTextNode(json.description);
 			description.appendChild(descriptionText);
 			description.className = "animeDescription";
 			document.getElementById("Anime").appendChild(description);
 
 			const grade = document.createElement("div");
-			const gradeText = document.createTextNode("Anime rating: " + animeList[i].averageScore + "/10");
+			const gradeText = document.createTextNode("Anime rating: " + json.averageScore + "/10");
 			grade.className = "animeGrade";
 			grade.appendChild(gradeText);
 			document.getElementById("Anime").appendChild(grade);
@@ -204,7 +218,7 @@ function load(title){
 			submit.appendChild(submitT);
 
 			document.getElementById("Anime").appendChild(newReport);
-
+			/*
 			const table = document.createElement("table");
 			table.className = "animeReviews";
 			for(let j=0; j<animeList[i].reviews.numberOfReviews; j++){
@@ -225,9 +239,10 @@ function load(title){
 				report.appendChild(reportButton);
 			}
 			document.getElementById("Anime").appendChild(table);
-			return;
-		}
-	}
+			return;*/
+	//	}
+	})
+
 }
 
 

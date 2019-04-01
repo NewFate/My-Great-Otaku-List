@@ -10,7 +10,7 @@
 
 <body>
 	<div class="header">
-		<h1>Great Anime List</h1>
+		<h1>Great Anime List{{animeName}}</h1>
 	</div>
 	<div id="NavigationBar">
 		<ul>
@@ -27,7 +27,7 @@
 
 	<script type="text/javascript" src="/js/Anime.js"></script>
 
-	<script> load("Kimi No Na Wa");load("Hunter X Hunter");  </script>
+	<script> var name = "{{animeName}}";load(name);</script>
 </body>
 
 </html>
