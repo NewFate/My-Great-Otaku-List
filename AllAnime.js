@@ -13,6 +13,34 @@ let all_anime_list = {
 	"Anime5": ["mob.gif", "Mob Psycho 100 II", "A cool anime", "10/10"]
 };
 
+//Phase 2: get the anime list from the server
+const url = '/anime';
+// Create our request constructor with all the parameters we need
+const request = new Request(url, {
+        method: 'get', 
+        headers: {
+            'Accept': 'application/json, text/plain, */*', //GETTING SOME STRANGE HTTPS ERROR
+            'Content-Type': 'application/json'
+        },
+    });
+    fetch(request)
+    .then(function(res) {
+        // Handle response we get from the API
+        // Usually check the error codes to see what happened
+        if (res.status === 200) {
+            console.log('Got the anime list')
+            const animeList = JSON.parse(res.json())
+           
+        } else {
+            
+     		 console.log('Did not get anime list')
+        }
+        console.log(res)
+        
+    }).catch((error) => {
+        console.log(error)
+    })
+
 //updates the top ten anime list
 function update_all_anime_list() {
 
