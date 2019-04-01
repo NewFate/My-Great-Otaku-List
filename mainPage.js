@@ -19,6 +19,35 @@ let top_three_reviews = {"[Anime4Lyfe] : Mob Psycho 100 S2": ["It rarely happens
 };
 let trending_three_anime = {"Mob Psycho 100 II": "mob.gif", "JoJo no Kimyou na Bouken: Ougon no Kaze": "mob.gif", "Yakusoku no Neverland": "mob.gif"};
 
+//Phase 2: get the anime list from the server
+const url = '/anime';
+// Create our request constructor with all the parameters we need
+const request = new Request(url, {
+        method: 'get', 
+        headers: {
+            'Accept': 'application/json, text/plain, */*', //GETTING SOME STRANGE HTTPS ERROR
+            'Content-Type': 'application/json'
+        },
+    });
+    fetch(request)
+    .then(function(res) {
+        // Handle response we get from the API
+        // Usually check the error codes to see what happened
+        if (res.status === 200) {
+            console.log('Got the anime list')
+            const animeList = JSON.parse(res.json())
+           
+        } else {
+            
+     		 console.log('Did not get anime list')
+        }
+        console.log(res)
+        
+    }).catch((error) => {
+        console.log(error)
+    })
+
+
 //updates the top three trending anime
 function update_top_three() {
 	
