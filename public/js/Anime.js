@@ -125,6 +125,7 @@ function download(){
 }
 
 // Load selected anime to the page. It has to be on the animeList array.
+//module.exports.loadd = function loadd(title){
 function load(title){
 	currentAnime = title;
 	var elem = document.getElementById("Anime");

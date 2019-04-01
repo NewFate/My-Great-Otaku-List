@@ -16,10 +16,14 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.set('view engine', 'hbs');
 
 app.use(express.static(__dirname + '/public'));
 app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/img', express.static(__dirname + '/public/img'));
+
+// Exports
+var anm = require("./public/js/Anime.js");
 
 app.get('/', (req, res) => {
 	res.redirect('anime');
@@ -29,14 +33,14 @@ app.route('/anime').get((req, res) => {
 	res.sendFile(__dirname + '/public/Anime.html');
 })
 
+
 app.route('/SuggestAnime').get((req, res) => {
 	res.sendFile(__dirname + '/public/SuggestAnime.html');
 })
 
 // POST one anime
-app.post('/anime', (req, res) =>{
+app.post('/animeinfo', (req, res) =>{
 	// Creating a new anime to be inserted
-	
 	const anime = new Anime({
 		name: req.body.name,
 		description: req.body.description,
@@ -54,8 +58,8 @@ app.post('/anime', (req, res) =>{
 })
 
 // GET all animes
-app.get('/anime', (req, res) =>{
-
+app.get('/animeinfo', (req, res) =>{
+	log("HERERERER");
 	Anime.find().then((animes) =>{
 		if(!animes){
 			res.status(404).send();
@@ -70,28 +74,33 @@ app.get('/anime', (req, res) =>{
 // GET one anime, based on name
 // Name is in the url, with underscore separating words
 // So kimi no na wa is kimi_no_na_wa . This is not case sensitive.
-app.get('/anime/:name', (req, res) => {
+app.get('/animeinfo/:name', (req, res) => {
 	const xname = req.params.name;
 	//log(xname);
 	const newname = xname.replace(/_/g, " ");
 	//log(newname);
 	//log(Anime.find( { $name: { $search: newname } } ));
 	Anime.find({ $text: { $search: newname } }).then((animes) =>{
+		//log("SDADSAD");
 		if(!animes){
 			//log("NOT FOUND");
 			res.status(404).send();
 		}else{
-			res.send(animes);
+			//anm.loadd("Kimi No Na Wa");
+			res.send(animes)
+			//res.sendFile(__dirname + '/public/Anime.html');
+			res.render("Anime.hbs")
 		}
+		//log("oi");
 	}).catch((error) => {
-		//log(error);
+		log(error);
 		res.status(404).send();
 	})
 	//log("HERE");
 })
 
 // Not ready yet!
-app.post('/anime/:name/review', (req, res) => {
+app.post('/animeinfo/:name/review', (req, res) => {
 	const xname = req.params.name;
 	const newname = xname.replace(/_/g, " ");
 
