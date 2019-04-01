@@ -29,6 +29,10 @@ app.route('/anime').get((req, res) => {
 	res.sendFile(__dirname + '/public/Anime.html');
 })
 
+app.route('/SuggestAnime').get((req, res) => {
+	res.sendFile(__dirname + '/public/SuggestAnime.html');
+})
+
 // POST one anime
 app.post('/anime', (req, res) =>{
 	// Creating a new anime to be inserted
