@@ -9,14 +9,18 @@ const { ObjectID } = require('mongodb')
 // Mongoose
 const { mongoose } = require('./db/mongoose');
 const { Anime, Review } = require('./models/Anime')
+const { User } = require('./models/User')
 
 // Express
 const port = process.env.PORT || 3000
 const app = express();
 
+const session = require('express-session')
+
 app.use(bodyParser.json());
 
 app.set('view engine', 'hbs');
+
 
 app.use(express.static(__dirname + '/public'));
 app.use('/js', express.static(__dirname + '/public/js'));
@@ -37,6 +41,44 @@ app.route('/anime').get((req, res) => {
 app.route('/SuggestAnime').get((req, res) => {
 	res.sendFile(__dirname + '/public/SuggestAnime.html');
 })
+
+// Add express sesssion middleware
+app.use(session({
+	secret: 'oursecret',
+	resave: false,
+	saveUninitialized: false,
+	cookie: {
+		expires: 600000,
+		httpOnly: true
+	}
+}))
+
+
+// Add middleware to check for logged-in users
+const sessionChecker = (req, res, next) => {
+	if (req.session.user) {
+		res.redirect('User_Profile')
+	} else {
+		next();
+	}
+}
+
+// // route for root; redirect to login
+// app.get('/', sessionChecker, (req, res) => {
+// 	res.redirect('LoginRegister')
+// })
+
+// // route for login
+// app.route('/LoginRegister')
+// 	.get(sessionChecker, (req, res) => {
+// 		res.sendFile(__dirname + '/public/LoginRegister.html')
+// 	})
+
+
+
+// POST one anime
+app.post('/anime', (req, res) =>{
+	// Creating a new anime to be inserted
 
 // POST one anime
 app.post('/animeinfo', (req, res) =>{
