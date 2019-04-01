@@ -51,6 +51,10 @@ function login(e) {
 
 function register(e) {
 	e.preventDefault();
+	window.location.href = "register.html";
+}
+/*function register(e) {
+	e.preventDefault();
 	
 	const username = loginRegister_form.querySelector('#username').value;
 	const password = loginRegister_form.querySelector('#password').value;
@@ -80,4 +84,4 @@ function register(e) {
 		 alert("Username is taken!");
 	}
 
-}
+}*/
