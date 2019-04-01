@@ -13,17 +13,26 @@ const { Anime, Review } = require('./models/Anime')
 // Express
 const port = process.env.PORT || 3000
 const app = express();
+
 app.use(bodyParser.json());
 
 
+app.use(express.static(__dirname + '/public'));
+app.use('/js', express.static(__dirname + '/public/js'));
+app.use('/img', express.static(__dirname + '/public/img'));
+
+app.get('/', (req, res) => {
+	res.redirect('anime');
+})
+
+app.route('/anime').get((req, res) => {
+	res.sendFile(__dirname + '/public/Anime.html');
+})
 
 // POST one anime
 app.post('/anime', (req, res) =>{
 	// Creating a new anime to be inserted
 	
-
-
-
 	const anime = new Anime({
 		name: req.body.name,
 		description: req.body.description,
