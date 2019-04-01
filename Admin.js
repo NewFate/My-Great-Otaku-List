@@ -1,3 +1,5 @@
+//Phase 2
+
 //This is just for message displays so that they don't just stack on each other
 let passwordChanged = false;
 let reportChanged = false;
@@ -10,30 +12,6 @@ const reportManager = document.querySelector('#ReportInfo');
 reportManager.addEventListener('click', reportActions);
 const animeManager = document.querySelector('#AnimeApprovals');
 animeManager.addEventListener('click', animeListActions);
-
-//It's currently just a dummy function, but it will handle te password resets accordingly with the account storage once functional
-function passwordChanges (e) {
-	e.preventDefault();
-	
-	const resetElement = document.createElement('p');
-	if (e.target.classList.contains('resetPass')) {
-		const resetPhrase = document.createTextNode(e.target.parentElement.parentElement.firstElementChild.innerText + " successfully changed passwords!");
-		resetElement.appendChild(resetPhrase);
-		e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
-	} else if (e.target.classList.contains('declineReset')) {
-		const resetPhrase = document.createTextNode(e.target.parentElement.parentElement.firstElementChild.innerText + " denied password change.");
-		resetElement.appendChild(resetPhrase);
-		e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
-	}
-	if (passwordChanged == false) {
-		passwordChanged = true;
-		passwordManager.appendChild(resetElement);
-	} else {
-		passwordManager.removeChild(passwordManager.children[2])
-		passwordManager.appendChild(resetElement);
-	}
-	
-}
 
 //This will later add an account to a stored banned array that will trigger a message if they try to sign in after
 function reportActions (e) {

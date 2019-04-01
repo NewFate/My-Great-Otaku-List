@@ -61,17 +61,6 @@ table, td, th {
 	display: block;
 }
 
-#PasswordResets {
-	width: 350px;
-	border-style: solid;
-	border-color: black;
-	border-width: 3px;
-	margin: 5px;
-	background: #333;
-	color: white;
-	text-align: center;
-}
-
 #ReportInfo {
 	width: 700px;
 	border-style: solid;
