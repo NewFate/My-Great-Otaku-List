@@ -1,12 +1,12 @@
 // New stuff:
 //const request = require('request')
-
-
 /*
 
 	Old stuff:
 
 */
+
+
 let numberOfAnimes = 0;	// Total number of animes
 
 const animeList = [];	// List of animes
@@ -50,7 +50,7 @@ class Anime{
 		this.image = image;
 
 		if(image == null){ // If no image was declared, use a pre-selected one.
-			this.image = "image-not-available.jpg";
+			this.image = "/img/image-not-available.jpg";
 		}
 		this.reviews = new Reviews();
 		this.averageScore = this.reviews.calculateAverageScore();
@@ -67,7 +67,7 @@ let currentAnime = "";
 
 // Dummy data.
 
-animeList.push(new Anime("Hunter X Hunter", "The story focuses on a young boy named Gon Freecss, who discovers that his father, who he was told had left him at a young age, is actually a world renowned Hunter, a licensed profession for those who specialize in, but are not limited to fantastic pursuits such as locating rare or unidentified animal species, treasure hunting, surveying unexplored enclaves, or hunting down lawless individuals. In short, being a hunter is roughly the same as being a professional at a certain profession while being able to utilize the power system within the anime called Nen. Despite being abandoned by his father, Gon departs upon a journey to follow in his footsteps, pass the rigorous Hunter Examination, and eventually find his father. Along the way, Gon meets various other Hunters, including main cast members Kurapika, Leorio, and Killua, and also encounters the paranormal. ", "hunter.jpg"));
+animeList.push(new Anime("Hunter X Hunter", "The story focuses on a young boy named Gon Freecss, who discovers that his father, who he was told had left him at a young age, is actually a world renowned Hunter, a licensed profession for those who specialize in, but are not limited to fantastic pursuits such as locating rare or unidentified animal species, treasure hunting, surveying unexplored enclaves, or hunting down lawless individuals. In short, being a hunter is roughly the same as being a professional at a certain profession while being able to utilize the power system within the anime called Nen. Despite being abandoned by his father, Gon departs upon a journey to follow in his footsteps, pass the rigorous Hunter Examination, and eventually find his father. Along the way, Gon meets various other Hunters, including main cast members Kurapika, Leorio, and Killua, and also encounters the paranormal. ", "/img/hunter.jpg"));
 animeList.push(new Anime("Kimi No Na Wa", "Mitsuha and Taki are complete strangers living separate lives until they suddenly switch places. Mitsuha wakes up in Taki's body, and he in hers. This occurrence happens randomly, and they must adjust their lives around each other. Yet, somehow, it works. They build a connection by leaving notes for one another until they wish to finally meet. But something stronger than distance may keep them apart.", null));
 
 animeList[0].createReview(new Review("Gon", "The best anime I've ever seen! Recommend to everybody!!!!", 10));
@@ -125,6 +125,7 @@ function download(){
 }
 
 // Load selected anime to the page. It has to be on the animeList array.
+//module.exports.loadd = function loadd(title){
 function load(title){
 	currentAnime = title;
 	var elem = document.getElementById("Anime");

@@ -1,1 +1,0 @@
-change name of API from restaurantAPI to greatanimelistAPI
