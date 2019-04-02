@@ -96,7 +96,31 @@ function submitReview(){
 	}
 	// In this step, with the backend I'd check the username of the person instead of having them
 	// 		manually insert the username.
+
+	let data = {
+		animeName: currentAnime.toLowerCase(),
+		reviewer: username,
+		review: review,
+		grade: grade
+	}
 	
+	const url = "/animeinfo/" + currentAnime +"/review";
+
+	const request = new Request(url, {
+		method: 'post',
+		body: JSON.stringify(data),
+		headers: {
+			'Accept': 'application/json, text/plain, */*',
+			'Content-Type': 'application/json'
+		}
+	});
+	fetch(request).then(function(res){
+		if(res.status == 200){
+			alert("posted!");
+		}else{
+			alert("Cant dosville babydoll");
+		}
+	})
 
 	for(let i=0; i<numberOfAnimes; i++){
 		if(animeList[i].title == currentAnime){
@@ -127,15 +151,14 @@ function download(){
 // Load selected anime to the page. It has to be on the animeList array.
 //module.exports.loadd = function loadd(title){
 function load(title){
-
 	currentAnime = title;
 	var elem = document.getElementById("Anime");
 	elem.parentNode.removeChild(elem);
 	const anime = document.createElement("div");
 	anime.setAttribute("id", "Anime");
 	document.body.appendChild(anime);
+
 	const url = '/animeinfo/' + title;
-	//log(url);
 
 	fetch(url).then((res) => {
 		if(res.status == 200){
@@ -146,7 +169,6 @@ function load(title){
 	}).then((json) => {
 		log("here");
 		log(json.description);
-	
 
 	//for(let i=0; i<numberOfAnimes; i++){
 		// Look for the correct Anime.

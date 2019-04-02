@@ -21,13 +21,9 @@ app.use(bodyParser.json());
 
 app.set('view engine', 'hbs');
 
-
 app.use(express.static(__dirname + '/public'));
 app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/img', express.static(__dirname + '/public/img'));
-
-// Exports
-var anm = require("./public/js/Anime.js");
 
 app.get('/', (req, res) => {
 	res.redirect('anime');
@@ -116,17 +112,11 @@ app.get('/animeinfo', (req, res) =>{
 
 app.get('/anime/:name', (req, res) => {
 	const xname = req.params.name;
-	//log(xname);
 	const newname = xname.replace(/_/g, " ");
-	//log(newname);
-	//log(Anime.find( { $name: { $search: newname } } ));
 	Anime.find({ $text: { $search: newname } }).then((animes) =>{
-		//log("SDADSAD");
 		if(!animes){
-			//log("NOT FOUND");
 			res.status(404).send();
 		}else{
-			//anm.loadd("Kimi No Na Wa");
 			//res.send(animes)
 			//res.sendFile(__dirname + '/public/Anime.html');
 			res.render("Anime.hbs", {
@@ -174,6 +164,67 @@ app.get('/animeinfo/:name', (req, res) => {
 })
 
 // Not ready yet!
+
+app.post('/animeinfo/:name/review', (req, res) => {
+	const xname = req.params.name;
+	const newname = xname.replace(/_/g, " ");
+
+	const review = new Review({
+		animeName: newname.toLowerCase(),
+		reviewer: req.body.reviewer,
+    	review: req.body.review,
+   		grade: req.body.grade
+	})
+	Review.findOne({animeName: newname.toLowerCase(), reviewer: review.reviewer}).then((rev) =>{
+		if(!rev){ // This is the first one, create a new one!
+			log("Cant find you dwag!");
+			//anime.reviews.push(review);
+			//anime.averageScore = (anime.averageScore * (anime.reviews.length - 1) + review.grade)/anime.reviews.length;
+			//log(anime.averageScore);
+			/*anime.save().then((anime) => {
+				res.send(anime);
+			}, (error) => {
+				// Bad request
+				res.status(400).send(error);
+			})*/
+			review.save().then((review) =>{
+				//log("here");
+				res.send(review);
+			}, (error) => {
+				res.status(400).send(error);
+			})
+			//log("!!!!Cant find you dwag!");
+			//res.send(review);
+			//res.status(404).send();
+		}else{ // Already there!
+			log("HAHAHAH here you are");
+			//anime.reviews.findOne
+			/*anime.reviews.push(review);
+			anime.averageScore = (anime.averageScore * (anime.reviews.length - 1) + review.grade)/anime.reviews.length;
+			log(anime.averageScore);
+			anime.save().then((anime) => {
+				res.send(anime);
+			}, (error) => {
+				// Bad request
+				res.status(400).send(error);
+			})*/
+			rev.review = req.body.review;
+			rev.grade = req.body.grade;
+			rev.save().then((review) =>{
+				//log("here");
+				res.send(review);
+			}, (error) => {
+				res.status(400).send(error);
+			})
+		}
+	}).catch((error) => {
+		log(error);
+		res.status(404).send();
+	})
+})
+/*
+
+
 app.post('/animeinfo/:name/review', (req, res) => {
 	const xname = req.params.name;
 	const newname = xname.replace(/_/g, " ");
@@ -230,7 +281,7 @@ app.post('/animeinfo/:name/review', (req, res) => {
 		res.status(404).send();
 	})
 
-})
+})*/
 
 
 app.listen(port, () => {
