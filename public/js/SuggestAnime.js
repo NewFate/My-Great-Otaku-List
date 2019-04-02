@@ -13,21 +13,30 @@ class suggestedAnime{
 	}
 }
 
+let loadedImage = "";
+
 function submitAnime(){
 	let title = document.getElementById("titleSuggested").value;
 	let desc = document.getElementById("descriptionSuggested").value;
-	if(title == "" || desc == ""){
-		alert("Please fill all required information.");
+	let imgURL = document.querySelector('img');
+
+	//log("URL");
+	//log(imgURL.src);
+	//log("URL");
+	if(title == "" || desc == "" || loadedImage == ""){
+		alert("Please fill all required information, and upload a picture.");
 		return
 	}
+	//log(imgURL.src);
 	// Check if logged in. Must be logged in to suggest.
 		// To be done with backend.
 	const url = '/suggestinfo';
 
+
 	let data = {
 		name: title,
    		description: desc,
-    	imageURL: "",										///////////for NOW
+    	imageURL: loadedImage,										///////////for NOW
     	averageScore: 0,
     	nReviews: 0
 	}
@@ -55,14 +64,37 @@ function submitAnime(){
 	// Admin would see this list and select to accept or deny this anime.
 	// To be done wiht backend.
 
-	
+	document.location.reload(true);
+	return;
+	/*
 	document.getElementById("titleSuggested").value = "";
 	document.getElementById("descriptionSuggested").value = "";
+	document.querySelector('img').src = "";
+	log(document.querySelector('input[type=file]'));
 
-	alert("Thank you for your suggestion.")
+	alert("Thank you for your suggestion.")*/
 }
 
+function previewFile(){
+       var preview = document.querySelector('img'); //selects the query named img
+       var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+       var reader  = new FileReader();
+
+       reader.onloadend = function () {
+           preview.src = reader.result;
+           loadedImage = reader.result;
+       }
+
+       if (file) {
+           reader.readAsDataURL(file); //reads the data as a URL
+       } else {
+           preview.src = "";
+       }
+  }
+
+
 function loadSuggested(){
+	loadedImage = "";
 	const title = document.createElement("textarea");
 	const tt = document.createElement("H1");
 	const titleText = document.createTextNode("Title: ");
@@ -85,8 +117,20 @@ function loadSuggested(){
 	document.getElementById("Anime").appendChild(dd);
 	document.getElementById("Anime").appendChild(description);
 
-	const imgText = document.createTextNode("Image upload will be added later.");
+	//const imgText = document.createTextNode("Image upload will be added later.");
+	const imgText = document.createElement("input");
+	imgText.setAttribute("type", "file");
+	imgText.setAttribute("onchange", "previewFile()");
+	const imgView = document.createElement("img");
+	imgView.setAttribute("src", "");
+	imgView.setAttribute("height", "200");
+	imgView.setAttribute("alt", "Image preview...");
+
+	//<input type="file" onchange="previewFile()"><br>
+	//<img src="" height="200" alt="Image preview...">
+
 	document.getElementById("Anime").appendChild(imgText);
+	document.getElementById("Anime").appendChild(imgView);
 
 	// Need to use backend to allow user to upload an image.
 	// IMG TO BE ADDED:

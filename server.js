@@ -18,6 +18,9 @@ const app = express();
 const session = require('express-session')
 
 app.use(bodyParser.json());
+// Limit pics to 10MB
+app.use(bodyParser.json({limit: '10mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 
 app.set('view engine', 'hbs');
 
