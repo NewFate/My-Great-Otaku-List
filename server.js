@@ -85,7 +85,7 @@ app.post('/animeinfo', (req, res) =>{
 		description: req.body.description,
    		imageURL: req.body.imageURL,
     	averageScore: 0,
-    	reviews: []
+    	nReviews: 0
 	});
 	// CHECK IF THIS ANIME EXISTS ALREADY	////////////////////////
 	// Save anime to the database
@@ -111,6 +111,7 @@ app.get('/animeinfo', (req, res) =>{
 })
 
 app.get('/anime/:name', (req, res) => {
+	log("AOO");
 	const xname = req.params.name;
 	const newname = xname.replace(/_/g, " ");
 	Anime.find({ $text: { $search: newname } }).then((animes) =>{
@@ -175,6 +176,9 @@ app.post('/animeinfo/:name/review', (req, res) => {
     	review: req.body.review,
    		grade: req.body.grade
 	})
+
+
+	
 	Review.findOne({animeName: newname.toLowerCase(), reviewer: review.reviewer}).then((rev) =>{
 		if(!rev){ // This is the first one, create a new one!
 			log("Cant find you dwag!");
@@ -187,6 +191,26 @@ app.post('/animeinfo/:name/review', (req, res) => {
 				// Bad request
 				res.status(400).send(error);
 			})*/
+
+			Anime.findOne({ $text: { $search: newname } }).then((animes) =>{
+				//log("SDADSAD");
+				if(!animes){
+					log("NOT FOUND");
+					res.status(404).send();
+				}else{
+					log("UPADTE");
+					animes.nReviews = animes.nReviews + 1;
+					animes.averageScore = animes.averageScore + review.grade;
+					animes.save().then((anime) => {}, (error) => {
+						res.status(400).send(error);
+					})
+				}
+				//log("oi");
+			}).catch((error) => {
+				log(error);
+				res.status(404).send();
+			})
+
 			review.save().then((review) =>{
 				//log("here");
 				res.send(review);
@@ -198,6 +222,7 @@ app.post('/animeinfo/:name/review', (req, res) => {
 			//res.status(404).send();
 		}else{ // Already there!
 			log("HAHAHAH here you are");
+			let prevGrade = rev.grade;
 			//anime.reviews.findOne
 			/*anime.reviews.push(review);
 			anime.averageScore = (anime.averageScore * (anime.reviews.length - 1) + review.grade)/anime.reviews.length;
@@ -208,6 +233,28 @@ app.post('/animeinfo/:name/review', (req, res) => {
 				// Bad request
 				res.status(400).send(error);
 			})*/
+
+			Anime.findOne({ $text: { $search: newname } }).then((animes) =>{
+				//log("SDADSAD");
+				if(!animes){
+					//log("NOT FOUND");
+					res.status(404).send();
+				}else{
+					//animes.nReviews = animes.nReviews + 1;
+					animes.averageScore = animes.averageScore + review.grade - prevGrade;
+					log(animes.averageScore);
+					log(review.grade);
+					log(prevGrade);
+					animes.save().then((anime) => {}, (error) => {
+						res.status(400).send(error);
+					})
+				}
+				//log("oi");
+			}).catch((error) => {
+				log(error);
+				res.status(404).send();
+			})
+
 			rev.review = req.body.review;
 			rev.grade = req.body.grade;
 			rev.save().then((review) =>{

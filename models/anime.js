@@ -13,7 +13,8 @@ const AnimeSchema = new mongoose.Schema({
     name: String,
     description: String,
     imageURL: String,
-    averageScore: Number
+    averageScore: Number,
+    nReviews: Number
     //reviews: [ReviewsSchema]
 });
 

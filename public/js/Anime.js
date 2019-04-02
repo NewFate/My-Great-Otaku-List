@@ -120,8 +120,11 @@ function submitReview(){
 		}else{
 			alert("Cant dosville babydoll");
 		}
+	}).catch((error) => {
+		log(error);
 	})
 
+	log("CONTINUE");
 	for(let i=0; i<numberOfAnimes; i++){
 		if(animeList[i].title == currentAnime){
 			animeList[i].createReview(new Review(username, review, grade));
@@ -132,9 +135,28 @@ function submitReview(){
 	document.getElementById("newReviewR").value = "";
 	document.getElementById("newGradeR").value = "";
 
-	load(currentAnime);	// Updating the page with the review.
+	//load(currentAnime);	// Updating the page with the review.
 
-	alert("Thank you for your review.")
+
+	log("VAI CRL");
+
+	//const newurl = 'localhost:3000/anime/' + currentAnime;
+	//const newurl = 'localhost:3000/SuggestAnime';
+	//log(newurl);
+	//window.location.href = newurl;
+	document.location.reload(true);
+	//window.location.replace(newurl);
+	return;
+
+	/*
+	fetch(url).then((res) => {
+		if(res.status == 200){
+			res.render();
+		}else{
+			alert("Could not load anime!");
+		}
+	})*/
+	//alert("Thank you for your review.")
 }
 
 function reportReview(){	// Go to the report page.
@@ -193,7 +215,7 @@ function load(title){
 			document.getElementById("Anime").appendChild(description);
 
 			const grade = document.createElement("div");
-			const gradeText = document.createTextNode("Anime rating: " + json.averageScore + "/10");
+			const gradeText = document.createTextNode("Anime rating: " + json.averageScore/json.nReviews + "/10");
 			grade.className = "animeGrade";
 			grade.appendChild(gradeText);
 			document.getElementById("Anime").appendChild(grade);
