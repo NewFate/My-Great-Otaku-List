@@ -11,6 +11,7 @@ const { mongoose } = require('./db/mongoose');
 const { Anime, Review, Suggested} = require('./models/anime')
 const { User } = require('./models/user')
 
+process.env.MONGO_URL
 // Express
 const port = process.env.PORT || 3000
 const app = express();
