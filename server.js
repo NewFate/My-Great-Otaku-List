@@ -9,7 +9,7 @@ const { ObjectID } = require('mongodb')
 // Mongoose
 const { mongoose } = require('./db/mongoose');
 const { Anime, Review, Suggested} = require('./models/anime')
-const { User } = require('./models/User')
+const { User } = require('./models/user')
 
 // Express
 const port = process.env.PORT || 3000
