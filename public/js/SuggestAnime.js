@@ -52,7 +52,9 @@ function submitAnime(){
 	fetch(request).then(function (res){
 		if(res.status == 200){
 			alert("Posted suggestion!");
+			log("POSTED");
 		}else{
+			log("DIDDINT");	
 			alert("Couldnt post :(");
 		}
 	}).catch((error) => {

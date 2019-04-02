@@ -106,6 +106,7 @@ app.post('/animeinfo', (req, res) =>{
 // POST anime suggestion
 app.post('/suggestinfo', (req, res) =>{
 	// Creating a new anime to be inserted
+	log("POSTING...");
 	const suggested = new Suggested({
 		name: req.body.name,
 		description: req.body.description,
@@ -116,10 +117,13 @@ app.post('/suggestinfo', (req, res) =>{
 	// CHECK IF THIS Suggested EXISTS ALREADY	////////////////////////
 	// Save Suggested to the database
 	suggested.save().then((suggested) => {
+		log("POSTEd");
 		res.send(suggested);
 	}, (error) =>{
+		log("ERRORR??");
 		res.status(400).send(error); // Bad request
 	})
+	log("WHAT");
 })
 
 
