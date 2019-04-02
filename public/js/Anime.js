@@ -6,12 +6,15 @@
 
 */
 
+const log = console.log
+
+/*
 
 let numberOfAnimes = 0;	// Total number of animes
 
 const animeList = [];	// List of animes
 
-const log = console.log
+
 
 class Review{
 	constructor(reviewer, review, grade){
@@ -61,11 +64,12 @@ class Anime{
 		this.reviews.addReview(review);
 		this.averageScore = this.reviews.calculateAverageScore();
 	}
-}
+}*/
 
-let currentAnime = "";
+
 
 // Dummy data.
+/*
 
 animeList.push(new Anime("Hunter X Hunter", "The story focuses on a young boy named Gon Freecss, who discovers that his father, who he was told had left him at a young age, is actually a world renowned Hunter, a licensed profession for those who specialize in, but are not limited to fantastic pursuits such as locating rare or unidentified animal species, treasure hunting, surveying unexplored enclaves, or hunting down lawless individuals. In short, being a hunter is roughly the same as being a professional at a certain profession while being able to utilize the power system within the anime called Nen. Despite being abandoned by his father, Gon departs upon a journey to follow in his footsteps, pass the rigorous Hunter Examination, and eventually find his father. Along the way, Gon meets various other Hunters, including main cast members Kurapika, Leorio, and Killua, and also encounters the paranormal. ", "/img/hunter.jpg"));
 animeList.push(new Anime("Kimi No Na Wa", "Mitsuha and Taki are complete strangers living separate lives until they suddenly switch places. Mitsuha wakes up in Taki's body, and he in hers. This occurrence happens randomly, and they must adjust their lives around each other. Yet, somehow, it works. They build a connection by leaving notes for one another until they wish to finally meet. But something stronger than distance may keep them apart.", null));
@@ -74,6 +78,10 @@ animeList[0].createReview(new Review("Gon", "The best anime I've ever seen! Reco
 animeList[0].createReview(new Review("Killua", "MASTERPIECE!", 10));
 animeList[1].createReview(new Review("Mitsuha", "Very good movie, made me cry of how good it was.", 10));
 animeList[0].createReview(new Review("User23123", "Very good, but its not all its hyped to be...", 7));
+
+*/
+
+let currentAnime = "";
 
 // When someone clicks on submit review, grab the information, check if its valid and put in the right place.
 function submitReview(){
@@ -124,12 +132,12 @@ function submitReview(){
 		log(error);
 	})
 
-	log("CONTINUE");
+	log("CONTINUE");/*
 	for(let i=0; i<numberOfAnimes; i++){
 		if(animeList[i].title == currentAnime){
 			animeList[i].createReview(new Review(username, review, grade));
 		}
-	}
+	}*/
 
 	document.getElementById("usernameR").value = "";
 	document.getElementById("newReviewR").value = "";

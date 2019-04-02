@@ -22,8 +22,35 @@ function submitAnime(){
 	}
 	// Check if logged in. Must be logged in to suggest.
 		// To be done with backend.
+	const url = '/suggestinfo';
 
-	suggestedAnimeList.push(new suggestedAnime(title, desc, null)); // Add image here
+	let data = {
+		name: title,
+   		description: desc,
+    	imageURL: "",										///////////for NOW
+    	averageScore: 0,
+    	nReviews: 0
+	}
+
+	const request = new Request(url, {
+		method: 'post',
+		body: JSON.stringify(data),
+		headers: {
+			'Accept': 'application/json, text/plain, */*',
+			'Content-Type': 'application/json'
+		}
+	});
+	fetch(request).then(function (res){
+		if(res.status == 200){
+			alert("Posted suggestion!");
+		}else{
+			alert("Couldnt post :(");
+		}
+	}).catch((error) => {
+		log(error);
+	})
+
+	//suggestedAnimeList.push(new suggestedAnime(title, desc, null)); // Add image here
 
 	// Admin would see this list and select to accept or deny this anime.
 	// To be done wiht backend.

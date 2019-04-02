@@ -8,7 +8,7 @@ const { ObjectID } = require('mongodb')
 
 // Mongoose
 const { mongoose } = require('./db/mongoose');
-const { Anime, Review } = require('./models/Anime')
+const { Anime, Review, Suggested} = require('./models/Anime')
 const { User } = require('./models/User')
 
 // Express
@@ -35,6 +35,8 @@ app.route('/anime').get((req, res) => {
 
 
 app.route('/SuggestAnime').get((req, res) => {
+	log("HERERERERERER");
+	log(__dirname + '/public/SuggestAnime.html');
 	res.sendFile(__dirname + '/public/SuggestAnime.html');
 })
 
@@ -96,6 +98,26 @@ app.post('/animeinfo', (req, res) =>{
 	})
 })
 
+// POST anime suggestion
+app.post('/suggestinfo', (req, res) =>{
+	// Creating a new anime to be inserted
+	const suggested = new Suggested({
+		name: req.body.name,
+		description: req.body.description,
+   		imageURL: req.body.imageURL,
+    	averageScore: 0,
+    	nReviews: 0
+	});
+	// CHECK IF THIS Suggested EXISTS ALREADY	////////////////////////
+	// Save Suggested to the database
+	suggested.save().then((suggested) => {
+		res.send(suggested);
+	}, (error) =>{
+		res.status(400).send(error); // Bad request
+	})
+})
+
+
 // GET all animes
 app.get('/animeinfo', (req, res) =>{
 	log("HERERERER");
@@ -110,6 +132,37 @@ app.get('/animeinfo', (req, res) =>{
 	})
 })
 
+// GET all suggestions
+app.get('/suggestinfo', (req, res) =>{
+	log("HERERERER");
+	Suggested.find().then((animes) =>{
+		if(!animes){
+			res.status(404).send();
+		}else{
+			res.send(animes);
+		}
+	}).catch((error) => {
+		res.status(404).send();
+	})
+})
+
+app.delete('/suggestinfo/:name', (req, res) => {
+	const xname = req.params.name;
+	const newname = xname.replace(/_/g, " ");
+	Suggested.findOne({ $text: { $search: newname } }).then((anime) =>{
+		if(!anime){
+			res.status(404).send();
+		}else{
+			anime.remove().then((removed) => {
+				res.send(removed);
+			}).catch((error) => {
+				res.status(404).send();
+			})
+		}
+	});
+})
+
+// Show one anime, by name
 app.get('/anime/:name', (req, res) => {
 	log("AOO");
 	const xname = req.params.name;
