@@ -8,7 +8,7 @@ const { ObjectID } = require('mongodb')
 
 // Mongoose
 const { mongoose } = require('./db/mongoose');
-const { Anime, Review, Suggested} = require('./models/Anime')
+const { Anime, Review, Suggested} = require('./models/anime')
 const { User } = require('./models/User')
 
 // Express
@@ -19,6 +19,7 @@ const session = require('express-session')
 
 app.use(bodyParser.json());
 // Limit pics to 10MB
+
 app.use(bodyParser.json({limit: '10mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 
