@@ -215,7 +215,7 @@ function load(title){
 			document.getElementById("Anime").appendChild(description);
 
 			const grade = document.createElement("div");
-			const gradeText = document.createTextNode("Anime rating: " + json.averageScore/json.nReviews + "/10");
+			const gradeText = document.createTextNode("Anime rating: " + json.averageScore/Math.max(1, json.nReviews) + "/10");
 			grade.className = "animeGrade";
 			grade.appendChild(gradeText);
 			document.getElementById("Anime").appendChild(grade);
@@ -262,9 +262,42 @@ function load(title){
 			submit.appendChild(submitT);
 
 			document.getElementById("Anime").appendChild(newReport);
+
+			const urlGetReview = url + '/review';
+
+			fetch(urlGetReview).then((res) => {
+				if(res.status == 200){
+					return res.json();
+				} else {
+					log("NO REVIEWS");
+					return [];
+					// no reviews, no problem
+				}
+			}).then((reviews) => {
+				log("HERE STILL");
+				const table = document.createElement("table");
+				table.className = "animeReviews";
+				for(let j=0; j<reviews.length; j++){
+					let row = table.insertRow(0);
+					let reviewerName = row.insertCell(0);
+					let review = row.insertCell(1);
+					let reviewGrade = row.insertCell(2);
+					let report = row.insertCell(3);
+					reviewerName.innerHTML = "Username: " + reviews[j].reviewer;
+					review.innerHTML = "Review: " + reviews[j].review;
+					reviewGrade.innerHTML = "Grade: " + reviews[j].grade + "/10";
+					const reportButton = document.createElement("button");
+					const reportText = document.createTextNode("Report this review");
+					reportButton.appendChild(reportText);
+					reportButton.className = "reviewReport";
+					reportButton.setAttribute("onclick", "reportReview()");
+					reportButton.setAttribute("href", "./report.html");
+					report.appendChild(reportButton);
+				}
+				document.getElementById("Anime").appendChild(table);
+			})
+			
 			/*
-			const table = document.createElement("table");
-			table.className = "animeReviews";
 			for(let j=0; j<animeList[i].reviews.numberOfReviews; j++){
 				let row = table.insertRow(0);
 				let reviewerName = row.insertCell(0);

@@ -269,66 +269,26 @@ app.post('/animeinfo/:name/review', (req, res) => {
 		res.status(404).send();
 	})
 })
-/*
 
 
-app.post('/animeinfo/:name/review', (req, res) => {
+app.get('/animeinfo/:name/review', (req, res) => {
 	const xname = req.params.name;
 	const newname = xname.replace(/_/g, " ");
-
-	const review = new Review({
-		reviewer: req.body.reviewer,
-    	review: req.body.review,
-   		grade: req.body.grade
-	})
-	log(newname);
-	Anime.findOne({ $text: { $search: newname } }).then((anime) =>{
-		if(!anime){
-			log("WHERE IS THIS ANIME");
-			res.status(404).send();
-		}else{
-			Review.findOne({animeName: newname, reviewer: review.reviewer}).then((rev) =>{
-				if(!rev){ // This is the first one, create a new one!
-					log("Cant find you dwag!");
-					anime.reviews.push(review);
-					anime.averageScore = (anime.averageScore * (anime.reviews.length - 1) + review.grade)/anime.reviews.length;
-					log(anime.averageScore);
-					anime.save().then((anime) => {
-						res.send(anime);
-					}, (error) => {
-						// Bad request
-						res.status(400).send(error);
-					})
-					review.save().then((review) =>{
-						res.send({review, anime});
-					}, (error) => {
-						res.status(400).send(error);
-					})
-					log("Cant find you dwag!");
-					//res.status(404).send();
-				}else{ // Already there!
-					log("HAHAHAH here you are");
-					//anime.reviews.findOne
-					anime.reviews.push(review);
-					anime.averageScore = (anime.averageScore * (anime.reviews.length - 1) + review.grade)/anime.reviews.length;
-					log(anime.averageScore);
-					anime.save().then((anime) => {
-						res.send(anime);
-					}, (error) => {
-						// Bad request
-						res.status(400).send(error);
-					})
-				}
-			}).catch((error) => {
-				res.status(404).send();
-			})
+	
+	Review.find({animeName: newname.toLowerCase()}).then((rev) =>{
+		if(rev.length == 0){ // This is the first one, create a new one!
+			log("Cant find you dwag!");
+			res.send([]);
+			//res.status(404).send();
+		}else{ // Already there!
+			res.send(rev);
 
 		}
 	}).catch((error) => {
+		log(error);
 		res.status(404).send();
 	})
-
-})*/
+})
 
 
 app.listen(port, () => {
