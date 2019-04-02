@@ -1,14 +1,14 @@
 'use strict';
-/*
+
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://teochaban:6ddfw9bf@cluster0-svj3b.azure.mongodb.net/test?retryWrites=true' || 'mongodb://localhost:27017/GreatAnimeListAPI', { useNewUrlParser: true, useCreateIndex: true}).catch(function (reason) {
+mongoose.connect('mongodb+srv://admin:thisadmin@cluster0-svj3b.azure.mongodb.net/test?retryWrites=true' || 'mongodb://localhost:27017/GreatAnimeListAPI', { useNewUrlParser: true, useCreateIndex: true}).catch(function (reason) {
     console.log('Unable to connect to the mongodb instance. Error: ', reason);
 });
 
 module.exports = {
 	mongoose
-}*/
+}
 
 /*
 const MongoClient = require('mongodb').MongoClient;
@@ -24,7 +24,7 @@ client.connect(err => {
 module.exports = {
 	client
 }*/
-
+/*
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://admin:thisadmin@cluster0-svj3b.azure.mongodb.net/test?retryWrites=true";
 const client = new MongoClient(uri, { useNewUrlParser: true });
@@ -37,4 +37,4 @@ client.connect(err => {
 
 module.exports = {
 	MongoClient
-}
+}*/
