@@ -129,7 +129,11 @@ li a:hover {
   font-size: 20px;
 }
 
-#userName {
+#userName{
+  float: right;
+}
+
+#logout {
   position: absolute;
   right: 10px;
 }

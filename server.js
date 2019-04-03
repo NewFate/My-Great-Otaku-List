@@ -65,10 +65,10 @@ app.route('/report').get((req, res) => {
 	res.sendFile(__dirname + '/public/Report.html');
 })
 
-app.route('/userprofile').get((req, res) => {
+/*app.route('/userprofile').get((req, res) => {
 	/// CHECK IF ITS LOGGED IN
 	res.sendFile(__dirname + '/public/User_Profile.html');
-})
+})*/
 
 
 app.route('/SuggestAnime').get((req, res) => {
@@ -124,10 +124,11 @@ app.post('/register', (req, res) =>{
 
 });
 
-app.get('/userprofile', authenticate, (req, res) => {
+app.get('/userprofile', (req, res) => {
 	//res.sendFile(__dirname + '/public/dashboard.html')
 	res.render('User_Profile.hbs', {
-		userName: req.session.username
+		//userName: req.session.username
+		userName: "TEOsadasdasddasds"
 	})
 })
 
