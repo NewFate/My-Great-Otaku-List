@@ -140,7 +140,9 @@ app.get('/userprofile', (req, res) => {
 	//res.sendFile(__dirname + '/public/dashboard.html')
 	console.log("Render")
 	res.render('User_Profile.hbs', {
-		userName: req.session.username
+		userName: req.session.username,
+		email: req.session.email,
+		dob: req.session.dob
 	})
 })
 
@@ -152,15 +154,14 @@ app.post('/login', (req, res) =>{
 	User.findByUserNamePassword(username, password).then((user) => {
 		if(!user) {
 			res.redirect('/login')
-		} else {
-			// Add the user to the session cookie that we will
-			// send to the client
-			//res.redirect('/suggestanime');
-			
+		} else {			
 			console.log('User Found');
 			console.log(user.userName)
 			req.session.user = user._id;
-			req.session.username = user.userName
+			req.session.username = user.userName;
+			req.session.email = user.email;
+			req.session.dob = user.dateOfBirth;
+			req.session.reviews = user.reviews;
 
 			res.send(user);
 		}
@@ -179,6 +180,21 @@ app.get('/logout', (req, res) => {
 			res.redirect('/login')
 		}
 	})
+})
+
+// Get all users
+app.get('/users', (req, res) => {
+	// Add code here
+	User.find().then((user) => {
+		if (!user) {
+			res.status(404).send()
+		} else {
+			res.send(user)}
+		
+		}).catch((error) => {
+			res.status(500).send()
+		})
+
 })
 
 
