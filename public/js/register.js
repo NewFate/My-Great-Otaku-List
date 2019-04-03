@@ -29,18 +29,19 @@ function register(e) {
 		 //check if passwords match
 		 if(password === confPassword){
 			 //check if email/username is in database
-			 users[username] = password;
-			 alert("Created Account!");
+             createUser();
+			 // users[username] = password;
+			 // alert("Created Account!");
 
-			 if (username === "admin")
-			 {
-			 	window.location.href = "Admin.html";
-			 }
+			 // if (username === "admin")
+			 // {
+			 // 	window.location.href = "Admin.html";
+			 // }
 
-			 else
-			 {
-			 	window.location.href = "User_Profile.html";
-			 }
+			 // else
+			 // {
+			 // 	window.location.href = "User_Profile.html";
+			 // }
 		}
 
 		else{
