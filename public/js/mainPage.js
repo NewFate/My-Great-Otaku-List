@@ -19,9 +19,6 @@ let top_three_reviews = {"[Anime4Lyfe] : Mob Psycho 100 S2": ["It rarely happens
 };
 let trending_three_anime = {"Mob Psycho 100 II": "/img/mob.gif", "JoJo no Kimyou na Bouken: Ougon no Kaze": "/img/mob.gif", "Yakusoku no Neverland": "/img/mob.gif"};
 
-//Phase 2: get the anime list from the server
-const url = '/anime';
-// Create our request constructor with all the parameters we need
 
 
 //updates the top three trending anime
@@ -77,26 +74,39 @@ function update_top_three() {
 
 //updates the top 3 trending reviews
 function update_trending_reviews() {
+
+	const url = '/animeinfo';
+
+	fetch(url).then((res) => {
+		if(res.status == 200){
+			return res.json();
+		}else {
+			alert('Could not get Anime');
+		}
+	}).then((json) => {
+		log("here");
+		log(json);
 	
-	for (let key in top_three_reviews)
-	{
-		//We will be using the server data here to construct the elements dynamically
-		const animeReviewElmt = document.createElement('p');
+		for (let key in top_three_reviews)
+		{
+			//We will be using the server data here to construct the elements dynamically
+			const animeReviewElmt = document.createElement('p');
 
-		const animeKey = document.createElement('strong');
-		animeKey.className = "orange";
-		animeKey.textContent = key;
+			const animeKey = document.createElement('strong');
+			animeKey.className = "orange";
+			animeKey.textContent = key;
 
-		const txt = document.createTextNode( " - " + top_three_reviews[key][0] + " Rating " + top_three_reviews[key][1] + "/10 ");
-		//construct the element
-		
-		animeReviewElmt.appendChild(animeKey);
-		animeReviewElmt.appendChild(txt);
-		
-		//append to top 3 reviews 
-		top_3_reviews.appendChild(animeReviewElmt);	
+			const txt = document.createTextNode( " - " + top_three_reviews[key][0] + " Rating " + top_three_reviews[key][1] + "/10 ");
+			//construct the element
+			
+			animeReviewElmt.appendChild(animeKey);
+			animeReviewElmt.appendChild(txt);
+			
+			//append to top 3 reviews 
+			top_3_reviews.appendChild(animeReviewElmt);	
 
-	}
+		}
+	})
 	
 
 }
@@ -104,30 +114,43 @@ function update_trending_reviews() {
 //updates the top ten anime list
 function update_top_ten() {
 
-	const animeList = top_10_anime.getElementsByTagName("ol")[0];
+	const url = '/animeinfo';
 
-	for (let key in top_ten_anime)
-	{
-		const animeListElmt = document.createElement('li');
+	fetch(url).then((res) => {
+		if(res.status == 200){
+			return res.json();
+		}else {
+			alert('Could not get Anime');
+		}
+	}).then((json) => {
+		log("here");
+		log(json);
 
-		const animeA = document.createElement('a');
-		const animeImg = document.createElement('img');
+		const animeList = top_10_anime.getElementsByTagName("ol")[0];
 
-		//We will be using the server data here to construct the elements dynamically
-		let title_underscore = key;
-		title_underscore = title_underscore.replace(/\s+/g, "_");
-		animeA.href = "/anime/"+ title_underscore;
-		animeA.textContent = key;
-		animeImg.className = "anime_tile_small";
-		animeImg.src = top_ten_anime[key];
+		for (let key in json)
+		{
+			const animeListElmt = document.createElement('li');
 
-		//construct the element and add it to the webpage
-		animeListElmt.appendChild(animeImg);
-		animeListElmt.appendChild(animeA);
-		animeList.appendChild(animeListElmt);
-			
+			const animeA = document.createElement('a');
+			const animeImg = document.createElement('img');
 
-	}
+			//We will be using the server data here to construct the elements dynamically
+			let title_underscore = json[key].name;
+			title_underscore = title_underscore.replace(/\s+/g, "_");
+			animeA.href = "/anime/"+ title_underscore;
+			animeA.textContent = json[key].name;
+			animeImg.className = "anime_tile_small";
+			animeImg.src = json[key].imageURL;
+
+			//construct the element and add it to the webpage
+			animeListElmt.appendChild(animeImg);
+			animeListElmt.appendChild(animeA);
+			animeList.appendChild(animeListElmt);
+				
+
+		}
+	})
 	
 }
 
@@ -145,15 +168,19 @@ top_10_anime.addEventListener('click', go_to_anime_page);
 
 function go_to_anime_page(e) {
 	e.preventDefault();
+	
+	
 
 	if(event.target.tagName.toLowerCase() === 'a')
 	{
 		//get the anime title that was clicked to send to the Anime page
+
 		let animeTitle = e.target.textContent;
+		animeTitle = animeTitle.replace(/\s+/g, "_");
 		
-		window.location.href = "/anime";
+		window.location.href = "/anime/" + animeTitle ;
 		//here we would send the anime title to the next page to load it
-		load(animeTitle);
+		
 	}
 
 }
