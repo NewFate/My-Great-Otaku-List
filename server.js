@@ -29,6 +29,7 @@ app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public'));
 app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/img', express.static(__dirname + '/public/img'));
+app.use('/style', express.static(__dirname + '/public/style'));
 
 app.get('/', (req, res) => {
 	res.redirect('anime');
@@ -88,14 +89,40 @@ app.use(session({
 }))
 
 
-// Add middleware to check for logged-in users
-const sessionChecker = (req, res, next) => {
+// Middleware for authentication for resources
+const authenticate = (req, res, next) => {
 	if (req.session.user) {
-		res.redirect('User_Profile')
+		User.findById(req.session.user).then((user) => {
+			if (!user) {
+				return Promise.reject()
+			} else {
+				req.user = user
+				next()
+			}
+		}).catch((error) => {
+			res.redirect('/login')
+		})
 	} else {
-		next();
+		res.redirect('/login')
 	}
 }
+
+//Create a new user
+app.post('/register', (req, res) =>{
+	const user = new User({
+		userName: req.body.username,
+		email: req.body.email,
+		password: req.body.password,
+		dateOfBirth: req.body.dateOfBirth
+	})
+
+	user.save().then((user) => {
+		res.send(user);
+	}, (error) =>{
+		res.status(400).send(error);
+	})
+
+});
 
 // // route for root; redirect to login
 // app.get('/', sessionChecker, (req, res) => {
