@@ -8,7 +8,7 @@ const top_3_reviews = document.querySelector('.trending_reviews');
 
 
 
-//updates the top three trending anime
+//updates the top three new anime
 function update_top_three() {
 
 	const url = '/animeinfo';
@@ -77,11 +77,10 @@ function update_trending_reviews() {
 		log("here");
 		log(json);
 
-		//let trending3 = Object.keys(json).reverse();
 	
 		//for (let key in json)
 		//{
-		for(let key = json.length-1; key>=Math.max(json.length-10, 0); key--){
+		for(let key = json.length-1; key>=Math.max(json.length-3, 0); key--){
 			//We will be using the server data here to construct the elements dynamically
 			const animeReviewElmt = document.createElement('p');
 
@@ -127,9 +126,15 @@ function update_top_ten() {
 		log("here");
 		log(json);
 
+		const topAnime = json.sort(function(a,b){
+    		return a.averageScore/a.nReviews > b.averageScore/b.nReviews;
+ 		 });
+
+		//log("Top: " + topAnime);
+
 		const animeList = top_10_anime.getElementsByTagName("ol")[0];
 
-		for(let key = 0; key<json.length; key++){
+		for(let key = 0; key<=Math.max(10, 0); key++){
 
 			const animeListElmt = document.createElement('li');
 
