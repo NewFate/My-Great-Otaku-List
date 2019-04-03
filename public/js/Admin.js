@@ -79,11 +79,11 @@ fetch(requestUrl)
 })
 .then((json) => {
 	//Creates table rows for anime requests
-	console.log(json);
+	//console.log(json);
     requestList = document.querySelector('#AnimeTable')
     json.map((request) => {
-    	console.log("this is the request");
-    	console.log(request);
+    //	console.log("this is the request");
+    //	console.log(request);
 		requestBody = document.createElement('tr')
 		title = document.createElement('td')
 		titleText = document.createTextNode(request.name)
@@ -96,8 +96,8 @@ fetch(requestUrl)
 		imageBlock = document.createElement('td')
 		imageFile = document.createElement('img')
 		imageFile.src = request.imageURL
-		console.log("THIS IMG IS");
-		console.log(imageFile.src);
+		//console.log("THIS IMG IS");
+		//console.log(imageFile.src);
 		imageBlock.appendChild(imageFile)
 		requestBody.appendChild(imageBlock)
 		addButton = document.createElement('button')
@@ -121,45 +121,68 @@ function reportActions (e) {
 	e.preventDefault();
 	
 	//Removes report from database
-	const idIndex = e.target.parentElement.parentElement.parentElement.children.indexOf(e.target.parentElement.parentElement);
-	const deleteReportUrl = '/report/' + reportIds[idIndex];
-	const deleteReport = new Request(deleteReportUrl, {
-        method: 'delete'
-    });
-	fetch(deleteReport)
-	.then((res) => {
-		if (res.status != 200) {
-			alert("There was an issue in removing the report from the database")
-		}
-	})
+	//console.log("HERER");
+	//console.log(e.target.parentElement.parentElement.children);
+	//console.log(e.target.parentElement.rowIndex);
+	//const idIndex = e.target.parentElement.parentElement.children.indexOf(e.target.parentElement);
+	const idIndex = e.target.parentElement.rowIndex - 1;
+	
 	
 	const reportElement = document.createElement('p');
 	if (e.target.classList.contains('BanUser')) {
+		const deleteReportUrl = '/reportbyname/' + e.target.parentElement.firstElementChild.innerText;
+		//console.log("REMOVIN")
+		const deleteReport = new Request(deleteReportUrl, {
+	        method: 'delete'
+	    });
+		fetch(deleteReport)
+		.then((res) => {
+			if (res.status != 200) {
+				alert("There was an issue in removing the report from the database")
+			}
+		})
+
 		//Removes user from database
 		let reportPhrase = null
-		const userUrl = 'filler'
+		const userUrl = '/user/' + e.target.parentElement.children[0].innerText;
+		//console.log("BANING THIS GUY");
+		//console.log(userUrl);
 		const ban = new Request(userUrl, {
 			method: 'delete'
 		});
 		fetch(ban)
 		.then(function(res) {
 			if (res.status === 200) {
-				reportPhrase = document.createTextNode(e.target.parentElement.parentElement.firstElementChild.innerText + " has been banned!")
-				e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
+				reportPhrase = document.createTextNode(e.target.parentElement.firstElementChild.innerText + " has been banned!")
+				e.target.parentElement.parentElement.removeChild(e.target.parentElement);
+				reportElement.appendChild(reportPhrase);
+
 			} else {
 				reportPhrase = document.createTextNode("There has been an issue with the banning process.")
+				reportElement.appendChild(reportPhrase);
+
 			}
-			message.appendChild(messageText);
-			report_block.appendChild(message);
-        
+        	
 		}).catch((error) => {
+			console.log("THIS is the error");
+			console.log(error);
 			reportPhrase = document.createTextNode("There has been an issue with the banning process.")
+			reportElement.appendChild(reportPhrase);
 		});
-		reportElement.appendChild(reportPhrase);
 	} else if (e.target.classList.contains('DoNotBan')) {
-		const reportPhrase = document.createTextNode(e.target.parentElement.parentElement.firstElementChild.innerText + " has not been banned.");
+		const deleteReportUrl = '/report/' + reportIds[idIndex];
+		const deleteReport = new Request(deleteReportUrl, {
+	        method: 'delete'
+	    });
+		fetch(deleteReport)
+		.then((res) => {
+			if (res.status != 200) {
+				alert("There was an issue in removing the report from the database")
+			}
+		})
+		const reportPhrase = document.createTextNode(e.target.parentElement.firstElementChild.innerText + " has not been banned.");
 		reportElement.appendChild(reportPhrase);
-		e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
+		e.target.parentElement.parentElement.removeChild(e.target.parentElement);
 	}
 	if (reportChanged == false) {
 		reportChanged = true;
@@ -193,7 +216,7 @@ function animeListActions (e) {
 	})
 	
 	const animeElement = document.createElement('p');
-	let animePhrase = document.createTextNode('PLACEHOLDER');;
+	let animePhrase = null;
 	if (e.target.classList.contains('AddAnime')){ 
 		//Adding new anime to database
 		const url = '/animeInfo';
@@ -218,16 +241,19 @@ function animeListActions (e) {
 		.then(function(res) {
 			if (res.status === 200) {
 				animePhrase = document.createTextNode(animeName + " has been added to the anime list!");
+				animeElement.appendChild(animePhrase);
            
 			} else {
 				animePhrase = document.createTextNode('The suggestion has failed to upload.');
+				animeElement.appendChild(animePhrase);
 			}
 			
 		}).catch((error) => {
 			animePhrase = document.createTextNode('The suggestion has failed to upload.');
+			animeElement.appendChild(animePhrase);
 		});
 		//HTML modifiers
-		animeElement.appendChild(animePhrase);
+		
 		const animeDesc = e.target.parentElement.children[2].innerText;
 		e.target.parentElement.parentElement.removeChild(e.target.parentElement);
 	} else if (e.target.classList.contains('IgnoreAnime')) {

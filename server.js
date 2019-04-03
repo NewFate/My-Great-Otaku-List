@@ -60,16 +60,18 @@ app.route('/admin').get((req, res) => {
 	/// CHECK IF ITS LOGGED IN
 	res.sendFile(__dirname + '/public/Admin.html');
 })
-
+/*
 app.route('/report').get((req, res) => {
 	/// CHECK IF ITS LOGGED IN
 	res.sendFile(__dirname + '/public/Report.html');
-})
+})*/
 
 /*app.route('/userprofile').get((req, res) => {
 	/// CHECK IF ITS LOGGED IN
 	res.sendFile(__dirname + '/public/User_Profile.html');
 })*/
+
+
 
 
 app.route('/SuggestAnime').get((req, res) => {
@@ -123,8 +125,11 @@ app.post('/register', (req, res) =>{
 	})
 
 	user.save().then((user) => {
+		log("SAVED USER");
 		res.send(user);
 	}, (error) =>{
+		log("COULDNT SEND ");
+		log(error);
 		res.status(400).send(error);
 	})
 
@@ -464,13 +469,27 @@ app.post('/report', (req, res) =>{
 	});
 
 	report.save().then((reportData) => {
+		log("SAVED REPORT");
 		res.send(reportData);
 	}, (error) =>{
+		log("CANT DOSVILLE");
 		res.status(400).send(error); // Bad request
 	})
 })
 
 //GET all reports
+
+app.get('/report/:reviewer/:anime', (req, res) => {
+	const xname = req.params.anime;
+	const newname = xname.replace(/_/g, " ");
+	log("NEWNAME IS");
+	log(newname);
+	res.render('Report.hbs', {
+		reviewer: req.params.reviewer,
+		animeName: newname
+		//userName: "TEOsadasdasddasds"
+	})
+})
 
 app.get('/report', (req, res) => {
 	/*const id = req.params.id
@@ -478,12 +497,16 @@ app.get('/report', (req, res) => {
 	if (!ObjectID.isValid(id)) {
 		return res.status(404).send()
 	}*/
-
+	log("HERER??");
 	Report.find().then((reports) => {
+		log("FOUND THESE REPORTS");
+		log(reports);
 		res.send(reports)
 	}).catch((error) => {
+		log("COULDNT FIND IT");
 		res.status(500).send()
 	})
+	log("WHAT");
 })
 
 //GET certain report
@@ -523,7 +546,44 @@ app.delete('/report/:id', (req, res) => {
 	}).catch((error) => {
 		res.status(500).send()
 	})
+})
 
+app.delete('/reportbyname/:name', (req, res) => {
+	const name = req.params.name
+	log("TRIED TO REMOVE");
+	log(name);
+	Report.find({ $text: { $search: name } }).then((reports) =>{
+		if(!reports){
+			res.status(404).send();
+		}else{
+			let ret = [];
+			for(let i = 0 ; i<reports.length; i++){
+				reports[i].remove().then((removed) => {
+					log("REMOVED!!!");
+					ret.add(removed);
+					//res.send(removed);
+				}).catch((error) => {
+					res.status(404).send();
+				})
+			}
+			res.send(ret);
+		}
+	});
+})
+
+app.delete('/user/:username', (req, res) => {
+	User.findOne({ $text: { $search: req.params.username } }).then((user) =>{
+		if(!user){
+			res.status(404).send();
+		}else{
+			user.remove().then((removed) => {
+				log("REMOVED user!!!");
+				res.send(removed);
+			}).catch((error) => {
+				res.status(404).send();
+			})
+		}
+	});
 })
 
 app.listen(port, () => {

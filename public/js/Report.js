@@ -18,7 +18,7 @@ function report_user(e) {
 	
 	const url = '/report';
 	let data = {
-		reporter: "Placeholder",
+		reporter: "Placeholder_reporter",
 		reportee: reviewer_name,
 		anime: anime_reviewed,
 		reason: reason
@@ -37,14 +37,16 @@ function report_user(e) {
     .then(function(res) {
         if (res.status === 200) {
             messageText = document.createTextNode('The report has been submitted!');
-           
+           	message.appendChild(messageText);
         } else {
             messageText = document.createTextNode('The report has failed to send.');
+            message.appendChild(messageText);
         }
         
     }).catch((error) => {
         messageText = document.createTextNode('The report has failed to send.');
+        message.appendChild(messageText);
     });
-	message.appendChild(messageText);
+	
 	report_block.appendChild(message);
 }
