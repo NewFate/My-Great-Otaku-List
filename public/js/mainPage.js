@@ -22,61 +22,57 @@ let trending_three_anime = {"Mob Psycho 100 II": "/img/mob.gif", "JoJo no Kimyou
 //Phase 2: get the anime list from the server
 const url = '/anime';
 // Create our request constructor with all the parameters we need
-const request = new Request(url, {
-        method: 'get', 
-        headers: {
-            'Accept': 'application/json, text/plain, */*', //GETTING SOME STRANGE HTTPS ERROR
-            'Content-Type': 'application/json'
-        },
-    });
-    fetch(request)
-    .then(function(res) {
-        // Handle response we get from the API
-        // Usually check the error codes to see what happened
-        if (res.status === 200) {
-            console.log('Got the anime list')
-            const animeList = JSON.parse(res.json())
-           
-        } else {
-            
-     		 console.log('Did not get anime list')
-        }
-        console.log(res)
-        
-    }).catch((error) => {
-        console.log(error)
-    })
 
 
 //updates the top three trending anime
 function update_top_three() {
+
+	const url = '/animeinfo';
+
+	fetch(url).then((res) => {
+		if(res.status == 200){
+			return res.json();
+		}else {
+			alert('Could not get Anime');
+		}
+	}).then((json) => {
+		log("here");
+		log(json);
+
+		const animeList = trending_3_anime.getElementsByTagName("ul")[0];
+
+		for (let key in json)
+		{
+			const animeListElmt = document.createElement('li');
+
+			const animeA = document.createElement('a');
+			const animeImg = document.createElement('img');
+
+			//fill with the dummy data from the global data structures (here is where the server data is used)
+			//to construct the DOM elements
+			let title_underscore = json[key].name;
+			title_underscore = title_underscore.replace(/\s+/g, "_");
+			animeA.href = "/anime/" + title_underscore;
+			//log("/anime/" + title_underscore);
+			animeA.textContent = json[key].name;
+			animeImg.className = "anime_tile";
+			animeImg.src = json[key].imageURL;
+
+			//construct the element
+			animeListElmt.appendChild(animeA);
+			animeListElmt.appendChild(animeImg);
+			animeList.appendChild(animeListElmt);
+				
+
+		}
+
+
+
+
+	})
+
 	
-	const animeList = trending_3_anime.getElementsByTagName("ul")[0];
-
-	for (let key in trending_three_anime)
-	{
-		const animeListElmt = document.createElement('li');
-
-		const animeA = document.createElement('a');
-		const animeImg = document.createElement('img');
-
-		//fill with the dummy data from the global data structures (here is where the server data is used)
-		//to construct the DOM elements
-		let title_underscore = key;
-		title_underscore = title_underscore.replace(/\s+/g, "_");
-		animeA.href = "/anime/" + title_underscore;
-		//log("/anime/" + title_underscore);
-		animeA.textContent = key;
-		animeImg.className = "anime_tile";
-		animeImg.src = trending_three_anime[key];
-
-		//construct the element
-		animeListElmt.appendChild(animeA);
-		animeListElmt.appendChild(animeImg);
-		animeList.appendChild(animeListElmt);
-			
-
-	}
+	
 }
 
 //updates the top 3 trending reviews
