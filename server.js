@@ -127,6 +127,7 @@ app.post('/register', (req, res) =>{
 	user.save().then((user) => {
 		log("SAVED USER");
 		res.send(user);
+		res.redirect('/login');
 	}, (error) =>{
 		log("COULDNT SEND ");
 		log(error);
@@ -137,6 +138,7 @@ app.post('/register', (req, res) =>{
 
 app.get('/userprofile', (req, res) => {
 	//res.sendFile(__dirname + '/public/dashboard.html')
+	console.log("Render")
 	res.render('User_Profile.hbs', {
 		userName: req.session.username
 		//userName: "TEOsadasdasddasds"
@@ -145,15 +147,17 @@ app.get('/userprofile', (req, res) => {
 
 // Log in
 app.post('/login', (req, res) =>{
-	const userName = req.body.userName
+	const username = req.body.username
 	const password = req.body.password
 
-	User.findByUserNamePassword(userName, password).then((user) => {
+	User.findByUserNamePassword(username, password).then((user) => {
 		if(!user) {
 			res.redirect('/login')
 		} else {
 			// Add the user to the session cookie that we will
 			// send to the client
+			console.log('User Found');
+			console.log(user.userName)
 			req.session.user = user._id;
 			req.session.username = user.userName
 			res.redirect('/userprofile')
