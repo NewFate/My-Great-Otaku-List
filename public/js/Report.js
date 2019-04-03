@@ -41,10 +41,10 @@ function report_user(e) {
         } else {
             messageText = document.createTextNode('The report has failed to send.');
         }
-        message.appendChild(messageText);
-		report_block.appendChild(message);
         
     }).catch((error) => {
         messageText = document.createTextNode('The report has failed to send.');
     });
+	message.appendChild(messageText);
+	report_block.appendChild(message);
 }
