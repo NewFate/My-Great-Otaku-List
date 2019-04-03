@@ -447,6 +447,78 @@ app.get('/animeinfo/:name/review', (req, res) => {
 	})
 })
 
+//POST new report
+app.post('/report', (req, res) =>{
+
+	const report = new Report({
+		reporter: req.body.reporter,
+		reportee: req.body.reportee,
+		anime: req.body.anime,
+		reason: req.body.reason,
+	});
+
+	report.save().then((reportData) => {
+		res.send(reportData);
+	}, (error) =>{
+		res.status(400).send(error); // Bad request
+	})
+})
+
+//GET all reports
+
+app.get('/report', (req, res) => {
+	const id = req.params.id
+
+	if (!ObjectID.isValid(id)) {
+		return res.status(404).send()
+	}
+
+	Report.find().then((reports) => {
+		res.send(reports)
+	}).catch((error) => {
+		res.status(500).send()
+	})
+})
+
+//GET certain report
+app.get('/report/:id', (req, res) => {
+	const id = req.params.id
+
+	if (!ObjectID.isValid(id)) {
+		return res.status(404).send()
+	}
+
+	Report.findById(id).then((report) => {
+		if (!report) {
+			res.status(404).send()
+		} else {
+			res.send({ report })
+		}
+		
+	}).catch((error) => {
+		res.status(500).send(error)
+	})
+})
+
+//DELETE certain report
+app.delete('/report/:id', (req, res) => {
+	const id = req.params.id
+
+	if (!ObjectID.isValid(id)) {
+		res.status(404).send()
+	}
+
+	Report.findByIdAndRemove(id).then((report) => {
+		if (!report) {
+			res.status(404).send()
+		} else {   
+			res.send(report)
+		}
+	}).catch((error) => {
+		res.status(500).send()
+	})
+
+})
 
 app.listen(port, () => {
 	log(`Listening on port ${port}...`)
