@@ -14,10 +14,12 @@
 	</div>
 	<div id="NavigationBar">
 		<ul>
-			<li><a href="/index">Home</a></li>
-			<li><a href="/AllAnime">All Anime List</a></li>	
-			<li><a href="/SuggestAnime">Request an Anime</a></li>
-			<li id = "userName"><a href="/login">Login/Register</a></li>
+			<li id = "left"><a href="/index">Home</a></li>
+			<li id = "left"><a href="/AllAnime">All Anime List</a></li>	
+			<li id = "left"><a href="/SuggestAnime">Request an Anime</a></li>
+			<li id = "logout"><a id = "l1" href="/users/logout">Log out</a></li>
+			<li id = "userName"><a id = "l2" href="/userprofile">Hello, {{userName}}</a></li>
+			
 		</ul>
 	</div>
  
@@ -33,6 +35,8 @@
 	</div>
 	
 	<script type="text/javascript" src="/js/Report.js"></script>
+	 <script type="text/javascript" src="/js/changeLogin.js"></script>
+ 	<script>var x = "{{userName}}"; update(x);</script>
 
  </body>
 
