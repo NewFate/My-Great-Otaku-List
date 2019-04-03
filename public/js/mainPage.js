@@ -129,15 +129,27 @@ function update_top_ten() {
 		log("here");
 		log(json);
 
-		const topAnime = json.sort(function(a,b){
-    		return a.averageScore/a.nReviews > b.averageScore/b.nReviews;
- 		 });
+		/*const topAnime = json.sort(function(a,b){
+    		return (a.averageScore/Math.max(a.nReviews, 1) > b.averageScore/Math.max(b.nReviews, 1));
+ 		 });*/
+
+		for(let i=0; i<json.length; i++){
+			for(let j=i+1; j<json.length; j++){
+				if(json[i].averageScore/Math.max(json[i].nReviews, 1) < json[j].averageScore/Math.max(json[j].nReviews, 1)){
+					let aux = json[i];
+					json[i] = json[j];
+					json[j] = aux;
+				}
+			}
+		}
+
+		//log(topAnime);
 
 		//log("Top: " + topAnime);
 
 		const animeList = top_10_anime.getElementsByTagName("ol")[0];
 
-		for(let key = 0; key<=Math.max(10, 0); key++){
+		for(let key = 0; key<=Math.max(10, json.length-1); key++){
 
 			const animeListElmt = document.createElement('li');
 

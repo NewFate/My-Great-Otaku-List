@@ -126,7 +126,8 @@ app.post('/register', (req, res) =>{
 
 	user.save().then((user) => {
 		log("SAVED USER");
-		res.send(user);
+		//res.send(user);
+		res.redirect('/login');
 	}, (error) =>{
 		log("COULDNT SEND ");
 		log(error);
@@ -137,32 +138,48 @@ app.post('/register', (req, res) =>{
 
 app.get('/userprofile', (req, res) => {
 	//res.sendFile(__dirname + '/public/dashboard.html')
+	console.log("Render")
 	res.render('User_Profile.hbs', {
 		userName: req.session.username
-		//userName: "TEOsadasdasddasds"
 	})
 })
 
 // Log in
 app.post('/login', (req, res) =>{
-	const userName = req.body.userName
+	const username = req.body.username
 	const password = req.body.password
-
-	User.findByUserNamePassword(userName, password).then((user) => {
+	log("THIS ");
+	User.findByUserNamePassword(username, password).then((user) => {
 		if(!user) {
 			res.redirect('/login')
 		} else {
 			// Add the user to the session cookie that we will
 			// send to the client
+			//res.redirect('/suggestanime');
+			
+			console.log('User Found');
+			console.log(user.userName)
 			req.session.user = user._id;
 			req.session.username = user.userName
-			res.redirect('/userprofile')
+
+			res.send(user);
 		}
 	}).catch((error) => {
-		res.status(400).redirect('/login')
+		res.status(400).send(error);
 	})
 
 });
+
+// Log out
+app.get('/logout', (req, res) => {
+	req.session.destroy((error) => {
+		if (error) {
+			res.status(500).send(error)
+		} else {
+			res.redirect('/login')
+		}
+	})
+})
 
 
 // POST one anime

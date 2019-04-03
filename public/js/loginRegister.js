@@ -16,36 +16,40 @@ register_button.addEventListener('click', register);
 function login(e) {
 	e.preventDefault();
 	
-	const username = loginRegister_form.querySelector('#username').value;
-	const password = loginRegister_form.querySelector('#password').value;
-	console.log(password);
-
-	//check if user is in the database
-	if (username in users)
-	{	
-		 if(users[username] == password)
-		 {
-		 	alert("Welcome back " + username + "!");
-		 	 if (username === "admin")
-			 {
-			 	window.location.href = "Admin.html";
-			 }
-
-			 else
-			 {
-			 	window.location.href = "User_Profile.html";
-			 }
-		 }
-		 else
-		 {
-		 	alert("Password incorrect!");
-		 }
-	}
-
-	else
-	{
-		 alert("Username not found!");
-	}
+	const url = '/login';
+    // The data we are going to send in our request
+    let data = {
+        username: loginRegister_form.querySelector('#username').value,
+        password: loginRegister_form.querySelector('#password').value
+    }
+    // Create our request constructor with all the parameters we need
+    const request = new Request(url, {
+        method: 'post', 
+        body: JSON.stringify(data),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+    fetch(request)
+    .then(function(res) {
+        // Handle response we get from the API
+        // Usually check the error codes to see what happened
+        const message = document.querySelector('#message')
+        if (res.status === 200) {
+            console.log('Logged In')
+            window.location.href = "/userprofile";
+           
+        } else {
+        	console.log('Username/Password Incorrect!')
+        	console.log(data.username)
+        	console.log(data.password)
+        }
+        //console.log(res)
+        
+    }).catch((error) => {
+        console.log(error)
+    })
 
 }
 

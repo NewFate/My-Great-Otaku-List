@@ -11,13 +11,13 @@
 .titleText{
   font-family: Bada;
   position: relative;
-  left: 30%;
+  text-align: center;
 }
 
 .descriptionText{
   font-family: Bada;
   position: relative;
-  left: 30%;
+  text-align: center;
 }
 
 #descriptionSuggested{
@@ -28,7 +28,7 @@
   display: block;
   font-family: Bada;
   font-size: 20px;
-  border-radius: 20px;
+  border-radius: 10px;
   position: relative;
   left: 30%;
 }
@@ -50,7 +50,7 @@
   background-color: #f4dfd3;
   left: 30%;
   top: 20%;
-  border-radius: 20%;
+  border-radius: 3%;
   padding: 20px;
 
 }
@@ -114,3 +114,26 @@ li a:hover {
   position: absolute;
   right: 10px;
 }
+
+.titleTextBox {
+  width: 100%;
+  height: 50px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #FBF4EE;
+  resize: none;
+}
+
+.DescTextBox {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #FBF4EE;
+  resize: none;
+}
+
