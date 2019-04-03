@@ -19,41 +19,41 @@ function register(e) {
 	const email = loginRegister_form.querySelector('#email').value;
 	const password = loginRegister_form.querySelector('#password').value;
 	const confPassword = loginRegister_form.querySelector('#confPassword').value;
+    const dateOfBirth = loginRegister_form.querySelector('#dateOfBirth').value;
 	
-
 	//check if user is in the database
 	// create account if not found
-	if (!(username in users))
-	{
-		 //we would need to send this updated list/user detail to the server
-		 //check if passwords match
-		 if(password === confPassword){
-			 //check if email/username is in database
-             createUser();
-			 // users[username] = password;
-			 // alert("Created Account!");
 
-			 // if (username === "admin")
-			 // {
-			 // 	window.location.href = "Admin.html";
-			 // }
+    //log("GOT HERE");
+	 
+    var pattern =/^([0-9]{2})-([0-9]{2})-([0-9]{4})$/;
+    if(pattern.test(dateOfBirth)){
+        
+    	//we would need to send this updated list/user detail to the server
+    	//check if passwords match
+    	if(password === confPassword ){
+    	   //check if email/username is in database
+            
+            if(password != "")	{
+                alert("Created Account!");
+                //createUser();
 
-			 // else
-			 // {
-			 // 	window.location.href = "User_Profile.html";
-			 // }
+            }
+
+            else{
+                alert("Please enter a password!");
+            }	
+    	}
+
+    	else{
+    		alert("Passwords don't match!");
 		}
 
-		else{
-			alert("Passwords don't match!");
-		}
+    }
 
-	}
-
-	else
-	{
-		 alert("Username is taken!");
-	}
+    else{
+        alert("Invalid date!");
+    }
 
 }
 
