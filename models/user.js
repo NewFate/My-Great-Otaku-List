@@ -12,7 +12,7 @@ const ReviewsSchema = new mongoose.Schema({
 
 // User model, reviews will be embedded in the user model
 const UserSchema = new mongoose.Schema({
-    name: {
+    userName: {
     	type: String,
     	required: true,
     	minlength: 1,

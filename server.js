@@ -49,6 +49,7 @@ app.route('/SuggestAnime').get((req, res) => {
 	res.sendFile(__dirname + '/public/SuggestAnime.html');
 })
 
+
 // Add express sesssion middleware
 app.use(session({
 	secret: 'oursecret',
