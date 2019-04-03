@@ -25,8 +25,10 @@ function update_top_three() {
 
 		const animeList = trending_3_anime.getElementsByTagName("ul")[0];
 
-		for (let key in json)
-		{
+		//for (let key in json)
+		//{
+		for(let key = json.length-1; key>=Math.max(json.length-3, 0); key--){
+
 			const animeListElmt = document.createElement('li');
 
 			const animeA = document.createElement('a');
@@ -77,8 +79,9 @@ function update_trending_reviews() {
 
 		//let trending3 = Object.keys(json).reverse();
 	
-		for (let key in json)
-		{
+		//for (let key in json)
+		//{
+		for(let key = json.length-1; key>=Math.max(json.length-10, 0); key--){
 			//We will be using the server data here to construct the elements dynamically
 			const animeReviewElmt = document.createElement('p');
 
@@ -126,8 +129,8 @@ function update_top_ten() {
 
 		const animeList = top_10_anime.getElementsByTagName("ol")[0];
 
-		for (let key in json)
-		{
+		for(let key = 0; key<json.length; key++){
+
 			const animeListElmt = document.createElement('li');
 
 			const animeA = document.createElement('a');
