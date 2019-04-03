@@ -143,7 +143,7 @@ function update_top_ten() {
 			}
 		}
 
-		log(topAnime);
+		//log(topAnime);
 
 		//log("Top: " + topAnime);
 
