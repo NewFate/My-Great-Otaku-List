@@ -96,8 +96,8 @@ li a:hover {
   border-radius: 15px;
   font-family: Delicious;
 	background-color: #333;
-	width: 50%;
-	float: left;
+	width: 100%;
+
 	text-align: center;
   align-content: center;
   color: white;
@@ -113,7 +113,7 @@ li a:hover {
   
   font-family: Delicious;
   background-color: #333;
-  width: 35%;
+  width: 100%;
   
   text-align: center;
   color: white;
