@@ -46,7 +46,7 @@ function update_all_anime_list() {
 			//get dummy data (we will be using the data structure fetched from the server here)
 			tdTitle.textContent = json[key].name;
 			tdDesc.textContent = json[key].description;
-			tdScore.textContent = (json[key].averageScore / json[key].nReviews).toFixed(2); // divide by number of reviews?
+			tdScore.textContent = (json[key].averageScore / Math.max(json[key].nReviews, 1)).toFixed(2); // divide by number of reviews?
 		
 			animeImg.className = "anime_tile";
 			animeImg.src = json[key].imageURL;
