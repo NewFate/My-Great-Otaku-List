@@ -10,6 +10,7 @@ const { ObjectID } = require('mongodb')
 const { mongoose } = require('./db/mongoose');
 const { Anime, Review, Suggested} = require('./models/anime')
 const { User } = require('./models/user')
+const { Report } = require('./models/admin')
 
 process.env.MONGO_URL
 // Express
@@ -107,6 +108,11 @@ const authenticate = (req, res, next) => {
 	}
 }
 
+
+app.get('/username', authenticate, (req, res) => {
+	res.send(req.session.username);
+});
+
 //Create a new user
 app.post('/register', (req, res) =>{
 	const user = new User({
@@ -127,8 +133,8 @@ app.post('/register', (req, res) =>{
 app.get('/userprofile', (req, res) => {
 	//res.sendFile(__dirname + '/public/dashboard.html')
 	res.render('User_Profile.hbs', {
-		//userName: req.session.username
-		userName: "TEOsadasdasddasds"
+		userName: req.session.username
+		//userName: "TEOsadasdasddasds"
 	})
 })
 
@@ -442,6 +448,78 @@ app.get('/animeinfo/:name/review', (req, res) => {
 	})
 })
 
+//POST new report
+app.post('/report', (req, res) =>{
+
+	const report = new Report({
+		reporter: req.body.reporter,
+		reportee: req.body.reportee,
+		anime: req.body.anime,
+		reason: req.body.reason,
+	});
+
+	report.save().then((reportData) => {
+		res.send(reportData);
+	}, (error) =>{
+		res.status(400).send(error); // Bad request
+	})
+})
+
+//GET all reports
+
+app.get('/report', (req, res) => {
+	/*const id = req.params.id
+
+	if (!ObjectID.isValid(id)) {
+		return res.status(404).send()
+	}*/
+
+	Report.find().then((reports) => {
+		res.send(reports)
+	}).catch((error) => {
+		res.status(500).send()
+	})
+})
+
+//GET certain report
+app.get('/report/:id', (req, res) => {
+	const id = req.params.id
+
+	if (!ObjectID.isValid(id)) {
+		return res.status(404).send()
+	}
+
+	Report.findById(id).then((report) => {
+		if (!report) {
+			res.status(404).send()
+		} else {
+			res.send({ report })
+		}
+		
+	}).catch((error) => {
+		res.status(500).send(error)
+	})
+})
+
+//DELETE certain report
+app.delete('/report/:id', (req, res) => {
+	const id = req.params.id
+
+	if (!ObjectID.isValid(id)) {
+		res.status(404).send()
+	}
+
+	Report.findByIdAndRemove(id).then((report) => {
+		if (!report) {
+			res.status(404).send()
+		} else {   
+			res.send(report)
+		}
+	}).catch((error) => {
+		res.status(500).send()
+	})
+
+})
 
 app.listen(port, () => {
 	log(`Listening on port ${port}...`)
