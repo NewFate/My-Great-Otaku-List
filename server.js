@@ -554,6 +554,7 @@ app.delete('/reportbyname/:name', (req, res) => {
 	log(name);
 	Report.find({ $text: { $search: name } }).then((reports) =>{
 		if(!reports){
+			log("Did not find reports");
 			res.status(404).send();
 		}else{
 			let ret = [];
@@ -563,6 +564,7 @@ app.delete('/reportbyname/:name', (req, res) => {
 					ret.add(removed);
 					//res.send(removed);
 				}).catch((error) => {
+					log(error)
 					res.status(404).send();
 				})
 			}
@@ -574,12 +576,14 @@ app.delete('/reportbyname/:name', (req, res) => {
 app.delete('/user/:username', (req, res) => {
 	User.findOne({ $text: { $search: req.params.username } }).then((user) =>{
 		if(!user){
+			log("Did not find user");
 			res.status(404).send();
 		}else{
 			user.remove().then((removed) => {
 				log("REMOVED user!!!");
 				res.send(removed);
 			}).catch((error) => {
+				log("remove error")
 				res.status(404).send();
 			})
 		}
