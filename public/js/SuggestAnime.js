@@ -103,6 +103,7 @@ function loadSuggested(){
 	title.setAttribute("id", "titleSuggested");
 	title.setAttribute("rows", 1);
 	title.setAttribute("cols", 80);
+	title.className = "titleTextBox";
 	tt.className = "titleText";
 	tt.appendChild(titleText);
 	document.getElementById("Anime").appendChild(tt);
@@ -116,6 +117,7 @@ function loadSuggested(){
 	description.setAttribute("id", "descriptionSuggested");
 	description.setAttribute("rows", 10);
 	description.setAttribute("cols", 80);
+	description.className = "DescTextBox";
 	document.getElementById("Anime").appendChild(dd);
 	document.getElementById("Anime").appendChild(description);
 
