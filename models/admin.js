@@ -7,14 +7,6 @@ const ReportSchema = new mongoose.Schema({
 	reason: String
 });
 
-// Reservations will be embedded in the Restaurant model
-const AnimeRequestSchema = new mongoose.Schema({
-    title: String,
-	user: String,
-	description: String
-});
-
-const AnimeRequest = mongoose.model('AnimeRequest', AnimeRequestSchema);
 const Report = mongoose.model('Report', ReportSchema);
 
-module.exports = { AnimeRequest, Report };
+module.exports = { Report };
