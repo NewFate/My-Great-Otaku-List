@@ -38,6 +38,10 @@ app.route('/anime').get((req, res) => {
 	res.sendFile(__dirname + '/public/Anime.html');
 })
 
+app.route('/login').get((req, res) => {
+	res.sendFile(__dirname + '/public/LoginRegister.html');
+})
+
 
 app.route('/SuggestAnime').get((req, res) => {
 	log("HERERERERERER");
