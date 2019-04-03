@@ -10,6 +10,7 @@ const { ObjectID } = require('mongodb')
 const { mongoose } = require('./db/mongoose');
 const { Anime, Review, Suggested} = require('./models/anime')
 const { User } = require('./models/user')
+const { Report } = require('./models/admin')
 
 process.env.MONGO_URL
 // Express
