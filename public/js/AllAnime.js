@@ -99,7 +99,7 @@ function go_to_anime_page(e) {
 		const animeTitle = e.target.parentNode.nextSibling.textContent;
 		
 	    //for now just go to a generic anime page, would need the data from the server 
-		window.location.href = "Anime.html";
+		window.location.href = "/anime";
 		//here we would send the anime title to the next page to load it
 		load(animeTitle);
 	}

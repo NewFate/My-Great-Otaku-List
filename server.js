@@ -46,6 +46,10 @@ app.route('/register').get((req, res) => {
 	res.sendFile(__dirname + '/public/register.html');
 })
 
+app.route('/allanime').get((req, res) => {
+	res.sendFile(__dirname + '/public/AllAnime.html');
+})
+
 
 app.route('/SuggestAnime').get((req, res) => {
 	log("HERERERERERER");
