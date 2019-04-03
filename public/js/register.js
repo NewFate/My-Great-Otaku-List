@@ -85,7 +85,7 @@ function createUser() {
             console.log('Created User')
             //message.innerText = 'Success: Added a student.'
             //message.setAttribute("style", "color: green")
-           
+            window.location.href = '/login';
         } else {
             console.log(res)
         	console.log('Username/email has been taken!')

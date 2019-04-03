@@ -151,7 +151,10 @@ app.post('/register', (req, res) =>{
 	user.save().then((user) => {
 		log("SAVED USER");
 		//res.send(user);
-		res.redirect('/login');
+		//res.redirect('/login');
+		res.render('LoginRegister.hbs', {
+			userName: req.session.username
+		})
 	}, (error) =>{
 		log("COULDNT SEND ");
 		log(error);
