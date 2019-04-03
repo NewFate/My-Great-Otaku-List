@@ -167,10 +167,13 @@ function submitReview(){
 	//alert("Thank you for your review.")
 }
 
-function reportReview(){	// Go to the report page.
+function reportReview(reviewer, animeReviewed){	// Go to the report page.
+	//log(a, b);
 	// This would send the information to the report page, but needs to be done with backend.
 	// For now, it just goest to the report page.
-	window.location.href = "report.html";
+	animeReviewed=animeReviewed.replace(/ /g, "_");
+
+	window.location.href = "/report/" + reviewer + "/" + animeReviewed;
 }
 
 function download(){
@@ -181,6 +184,7 @@ function download(){
 // Load selected anime to the page. It has to be on the animeList array.
 //module.exports.loadd = function loadd(title){
 function load(title){
+
 	currentAnime = title;
 	var elem = document.getElementById("Anime");
 	elem.parentNode.removeChild(elem);
@@ -298,8 +302,10 @@ function load(title){
 					const reportText = document.createTextNode("Report this review");
 					reportButton.appendChild(reportText);
 					reportButton.className = "reviewReport";
-					reportButton.setAttribute("onclick", "reportReview()");
-					reportButton.setAttribute("href", "./report.html");
+					const func = "reportReview('" + reviews[j].reviewer + "','" + json.name + "')";
+					log(func); 
+					reportButton.setAttribute("onclick", func);
+					reportButton.setAttribute("href", "/report");
 					report.appendChild(reportButton);
 				}
 				document.getElementById("Anime").appendChild(table);

@@ -7,6 +7,8 @@ const ReportSchema = new mongoose.Schema({
 	reason: String
 });
 
+ReportSchema.index({reportee: "text"});
+
 const Report = mongoose.model('Report', ReportSchema);
 
 module.exports = { Report };
