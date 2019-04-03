@@ -32,33 +32,64 @@ app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/img', express.static(__dirname + '/public/img'));
 app.use('/style', express.static(__dirname + '/public/style'));
 
+// Add express sesssion middleware
+app.use(session({
+	secret: 'oursecret',
+	resave: false,
+	saveUninitialized: false,
+	username: "",
+	cookie: {
+		expires: 600000,
+		httpOnly: true
+	}
+}))
+
+
 app.get('/', (req, res) => {
 	res.redirect('anime');
 })
 
 app.route('/anime').get((req, res) => {
-	res.sendFile(__dirname + '/public/Anime.html');
+	res.render('Anime.hbs', {
+		userName: req.session.username
+	})
+	//res.sendFile(__dirname + '/public/Anime.html');
 })
 
 app.route('/login').get((req, res) => {
-	res.sendFile(__dirname + '/public/LoginRegister.html');
+	res.render('LoginRegister.hbs', {
+		userName: req.session.username
+	})
+	//res.sendFile(__dirname + '/public/LoginRegister.html');
 })
 
 app.route('/register').get((req, res) => {
-	res.sendFile(__dirname + '/public/register.html');
+	res.render('register.hbs', {
+		userName: req.session.username
+	})
+	//res.sendFile(__dirname + '/public/register.html');
 })
 
 app.route('/allanime').get((req, res) => {
-	res.sendFile(__dirname + '/public/AllAnime.html');
+	res.render('AllAnime.hbs', {
+		userName: req.session.username
+	})
+	//res.sendFile(__dirname + '/public/AllAnime.html');
 })
 
 app.route('/index').get((req, res) => {
-	res.sendFile(__dirname + '/public/index.html');
+	res.render('index.hbs', {
+		userName: req.session.username
+	})
+	//res.sendFile(__dirname + '/public/index.html');
 })
 
 app.route('/admin').get((req, res) => {
 	/// CHECK IF ITS LOGGED IN
-	res.sendFile(__dirname + '/public/Admin.html');
+	res.render('Admin.hbs', {
+		userName: req.session.username
+	})
+	//res.sendFile(__dirname + '/public/Admin.html');
 })
 /*
 app.route('/report').get((req, res) => {
@@ -77,19 +108,11 @@ app.route('/report').get((req, res) => {
 app.route('/SuggestAnime').get((req, res) => {
 	log("HERERERERERER");
 	log(__dirname + '/public/SuggestAnime.html');
-	res.sendFile(__dirname + '/public/SuggestAnime.html');
+	res.render('SuggestAnime.hbs', {
+		userName: req.session.username
+	})
+	//res.sendFile(__dirname + '/public/SuggestAnime.html');
 })
-
-// Add express sesssion middleware
-app.use(session({
-	secret: 'oursecret',
-	resave: false,
-	saveUninitialized: false,
-	cookie: {
-		expires: 600000,
-		httpOnly: true
-	}
-}))
 
 
 // Middleware for authentication for resources
