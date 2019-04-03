@@ -107,6 +107,11 @@ const authenticate = (req, res, next) => {
 	}
 }
 
+
+app.get('/username', authenticate, (req, res) => {
+	res.send(req.session.username);
+});
+
 //Create a new user
 app.post('/register', (req, res) =>{
 	const user = new User({
@@ -127,8 +132,8 @@ app.post('/register', (req, res) =>{
 app.get('/userprofile', (req, res) => {
 	//res.sendFile(__dirname + '/public/dashboard.html')
 	res.render('User_Profile.hbs', {
-		//userName: req.session.username
-		userName: "TEOsadasdasddasds"
+		userName: req.session.username
+		//userName: "TEOsadasdasddasds"
 	})
 })
 
