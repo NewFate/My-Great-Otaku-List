@@ -1,0 +1,14 @@
+fix login/logout on the right corner
+put the persons name on the corner
+fix the username of the person that reported someone
+shift things on the request for new anime
+we need feedback when registering
+verify date of birth
+fix paths between all files (register in particular i think)
+
+change the name of the website from animelist to mygreatotakulist
+change layout of the admin
+take off the username field on the anime page
+turn the box of typing stuff to a nicer one
+make the review the same size always
+
