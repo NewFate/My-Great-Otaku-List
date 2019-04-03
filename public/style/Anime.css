@@ -83,7 +83,6 @@ body {
 }
 
 #NavigationBar ul li {
-  //float: left;
   border-right:1px solid #bbb;
 }
 
@@ -102,7 +101,7 @@ body {
 li a:hover {
   background-color: #111;
 }
-  // Add these
+
 #userName{
   float: right;
 }
