@@ -468,11 +468,11 @@ app.post('/report', (req, res) =>{
 //GET all reports
 
 app.get('/report', (req, res) => {
-	const id = req.params.id
+	/*const id = req.params.id
 
 	if (!ObjectID.isValid(id)) {
 		return res.status(404).send()
-	}
+	}*/
 
 	Report.find().then((reports) => {
 		res.send(reports)

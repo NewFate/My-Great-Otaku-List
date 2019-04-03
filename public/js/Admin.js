@@ -8,8 +8,8 @@ let animeChanged = false;
 reportIds = []
 
 //The event listeners for each section
-const passwordManager = document.querySelector('#PasswordResets');
-passwordManager.addEventListener('click', passwordChanges);
+//const passwordManager = document.querySelector('#PasswordResets');
+//passwordManager.addEventListener('click', passwordChanges);
 const reportManager = document.querySelector('#ReportInfo');
 reportManager.addEventListener('click', reportActions);
 const animeManager = document.querySelector('#AnimeApprovals');
@@ -22,7 +22,8 @@ fetch(reportUrl)
 .then((res) => {
 	//Gets all reports made in database
     if (res.status === 200) {
-        return res.json() 
+    	console.log(res);
+        return res.json();
     } else {
         alert('Reports were unattainable from the database.')
     }                
@@ -30,7 +31,7 @@ fetch(reportUrl)
 .then((json) => {
 	//Creates table rows for reports
     reportList = document.querySelector('#ReportTable')
-    json.reports.map((report) => {
+    json.map((report) => {
 		reportIds.push(report._id)
 		reportBody = document.createElement('tr')
 		reportee = document.createElement('td')
@@ -62,7 +63,7 @@ fetch(reportUrl)
         reportList.firstElementChild.appendChild(reportBody)
     })
 }).catch((error) => {
-    console.log(error)
+    console.log(error);	
 })
 
 const requestUrl = '/suggestInfo';
@@ -78,8 +79,11 @@ fetch(requestUrl)
 })
 .then((json) => {
 	//Creates table rows for anime requests
+	console.log(json);
     requestList = document.querySelector('#AnimeTable')
-    json.animes.map((request) => {
+    json.map((request) => {
+    	console.log("this is the request");
+    	console.log(request);
 		requestBody = document.createElement('tr')
 		title = document.createElement('td')
 		titleText = document.createTextNode(request.name)
@@ -186,7 +190,7 @@ function animeListActions (e) {
 	
 	const animeElement = document.createElement('p');
 	let animePhrase = null;
-	if (e.target.classList.contains('AddAnime')) 
+	if (e.target.classList.contains('AddAnime')){ 
 		//Adding new anime to database
 		const url = '/suggestInfo';
 		let data = {
