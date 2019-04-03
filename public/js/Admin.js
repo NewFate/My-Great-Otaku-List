@@ -96,6 +96,8 @@ fetch(requestUrl)
 		imageBlock = document.createElement('td')
 		imageFile = document.createElement('img')
 		imageFile.src = request.imageURL
+		console.log("THIS IMG IS");
+		console.log(imageFile.src);
 		imageBlock.appendChild(imageFile)
 		requestBody.appendChild(imageBlock)
 		addButton = document.createElement('button')
@@ -174,9 +176,11 @@ function animeListActions (e) {
 	e.preventDefault();
 	
 	//Removing request from database
-	const animeName = e.target.parentElement.parentElement.firstElementChild.innerText;
+	const animeName = e.target.parentElement.firstElementChild.innerText;
 	let modAnimeName = animeName.slice();
-	modAnimeName.replace(/ /g, "_");
+	modAnimeName = modAnimeName.replace(/ /g, "_");
+	console.log("ANIME NAME IS ");
+	console.log(modAnimeName);
 	const deleteRequestUrl = '/suggestInfo/' + modAnimeName;
 	const deleteRequest = new Request(deleteRequestUrl, {
         method: 'delete'
@@ -189,14 +193,14 @@ function animeListActions (e) {
 	})
 	
 	const animeElement = document.createElement('p');
-	let animePhrase = null;
+	let animePhrase = document.createTextNode('PLACEHOLDER');;
 	if (e.target.classList.contains('AddAnime')){ 
 		//Adding new anime to database
-		const url = '/suggestInfo';
+		const url = '/animeInfo';
 		let data = {
-			name: e.target.parentElement.parentElement.firstElementChild.innerText,
-			description: e.target.parentElement.parentElement.children[1].innerText,
-			imageURL: e.target.parentElement.parentElement.children[2].innerText,
+			name: e.target.parentElement.firstElementChild.innerText,
+			description: e.target.parentElement.children[1].innerText,
+			imageURL: e.target.parentElement.children[2].firstElementChild.src,
 			averageScore: 0,
 			nReviews: 0
 		};
@@ -224,12 +228,12 @@ function animeListActions (e) {
 		});
 		//HTML modifiers
 		animeElement.appendChild(animePhrase);
-		const animeDesc = e.target.parentElement.parentElement.children[2].innerText;
-		e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
+		const animeDesc = e.target.parentElement.children[2].innerText;
+		e.target.parentElement.parentElement.removeChild(e.target.parentElement);
 	} else if (e.target.classList.contains('IgnoreAnime')) {
 		animePhrase = document.createTextNode(animeName + " has not been added to the anime list.");
 		animeElement.appendChild(animePhrase);
-		e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
+		e.target.parentElement.parentElement.removeChild(e.target.parentElement);
 	}
 	if (animeChanged == false) {
 		animeChanged = true;

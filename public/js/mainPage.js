@@ -44,6 +44,9 @@ function update_top_three() {
 			animeA.textContent = json[key].name;
 			animeImg.className = "anime_tile";
 			animeImg.src = json[key].imageURL;
+			log("THE PICTURE IS ");
+			log(json[key].imageURL);
+			log("end here")
 
 			//construct the element
 			animeListElmt.appendChild(animeA);

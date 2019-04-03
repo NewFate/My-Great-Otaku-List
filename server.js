@@ -175,6 +175,10 @@ app.post('/animeinfo', (req, res) =>{
     	averageScore: 0,
     	nReviews: 0
 	});
+
+	log("IM gonna add an anime with picture");
+	log(anime.imageURL);
+	log("ENDING");
 	// CHECK IF THIS ANIME EXISTS ALREADY	////////////////////////
 	// Save anime to the database
 	anime.save().then((anime) => {
@@ -259,6 +263,7 @@ app.delete('/suggestinfo/:name', (req, res) => {
 			res.status(404).send();
 		}else{
 			anime.remove().then((removed) => {
+				log("REMOVED!!!");
 				res.send(removed);
 			}).catch((error) => {
 				res.status(404).send();
