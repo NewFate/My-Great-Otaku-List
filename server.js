@@ -50,6 +50,10 @@ app.route('/allanime').get((req, res) => {
 	res.sendFile(__dirname + '/public/AllAnime.html');
 })
 
+app.route('/index').get((req, res) => {
+	res.sendFile(__dirname + '/public/index.html');
+})
+
 
 app.route('/SuggestAnime').get((req, res) => {
 	log("HERERERERERER");
