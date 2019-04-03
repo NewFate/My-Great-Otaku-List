@@ -43,10 +43,10 @@ const UserSchema = new mongoose.Schema({
 //AnimeSchema.index({name: "text", averageScore: "Number"});
 //AnimeSchema.index({name: "text"});
 // Our own student finding function 
-UserSchema.statics.findByEmailPassword = function(email, password) {
+UserSchema.statics.findByUserNamePassword = function(username, password) {
 	const User = this
 
-	return User.findOne({email: email}).then((user) => {
+	return User.findOne({userName: username}).then((user) => {
 		if (!user) {
 			return Promise.reject()
 		}

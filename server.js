@@ -124,17 +124,33 @@ app.post('/register', (req, res) =>{
 
 });
 
-// // route for root; redirect to login
-// app.get('/', sessionChecker, (req, res) => {
-// 	res.redirect('LoginRegister')
-// })
+app.get('/userprofile', authenticate, (req, res) => {
+	//res.sendFile(__dirname + '/public/dashboard.html')
+	res.render('User_Profile.hbs', {
+		userName: req.session.username
+	})
+})
 
-// // route for login
-// app.route('/LoginRegister')
-// 	.get(sessionChecker, (req, res) => {
-// 		res.sendFile(__dirname + '/public/LoginRegister.html')
-// 	})
+// Log in
+app.post('/login', (req, res) =>{
+	const userName = req.body.userName
+	const password = req.body.password
 
+	User.findByUserNamePassword(userName, password).then((user) => {
+		if(!user) {
+			res.redirect('/login')
+		} else {
+			// Add the user to the session cookie that we will
+			// send to the client
+			req.session.user = user._id;
+			req.session.username = user.userName
+			res.redirect('/userprofile')
+		}
+	}).catch((error) => {
+		res.status(400).redirect('/login')
+	})
+
+});
 
 
 // POST one anime
