@@ -12,3 +12,6 @@ take off the username field on the anime page
 turn the box of typing stuff to a nicer one
 make the review the same size always
 
+registering with the same email
+
+fix pictures size

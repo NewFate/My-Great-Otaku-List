@@ -126,7 +126,7 @@ app.post('/register', (req, res) =>{
 
 	user.save().then((user) => {
 		log("SAVED USER");
-		res.send(user);
+		//res.send(user);
 		res.redirect('/login');
 	}, (error) =>{
 		log("COULDNT SEND ");
@@ -141,7 +141,6 @@ app.get('/userprofile', (req, res) => {
 	console.log("Render")
 	res.render('User_Profile.hbs', {
 		userName: req.session.username
-		//userName: "TEOsadasdasddasds"
 	})
 })
 
@@ -149,24 +148,38 @@ app.get('/userprofile', (req, res) => {
 app.post('/login', (req, res) =>{
 	const username = req.body.username
 	const password = req.body.password
-
+	log("THIS ");
 	User.findByUserNamePassword(username, password).then((user) => {
 		if(!user) {
 			res.redirect('/login')
 		} else {
 			// Add the user to the session cookie that we will
 			// send to the client
+			//res.redirect('/suggestanime');
+			
 			console.log('User Found');
 			console.log(user.userName)
 			req.session.user = user._id;
 			req.session.username = user.userName
-			res.redirect('/userprofile')
+
+			res.send(user);
 		}
 	}).catch((error) => {
-		res.status(400).redirect('/login')
+		res.status(400).send(error);
 	})
 
 });
+
+// Log out
+app.get('/logout', (req, res) => {
+	req.session.destroy((error) => {
+		if (error) {
+			res.status(500).send(error)
+		} else {
+			res.redirect('/login')
+		}
+	})
+})
 
 
 // POST one anime
@@ -558,6 +571,7 @@ app.delete('/reportbyname/:name', (req, res) => {
 	log(name);
 	Report.find({ $text: { $search: name } }).then((reports) =>{
 		if(!reports){
+			log("Did not find reports");
 			res.status(404).send();
 		}else{
 			let ret = [];
@@ -567,6 +581,7 @@ app.delete('/reportbyname/:name', (req, res) => {
 					ret.add(removed);
 					//res.send(removed);
 				}).catch((error) => {
+					log(error)
 					res.status(404).send();
 				})
 			}
@@ -578,12 +593,14 @@ app.delete('/reportbyname/:name', (req, res) => {
 app.delete('/user/:username', (req, res) => {
 	User.findOne({ $text: { $search: req.params.username } }).then((user) =>{
 		if(!user){
+			log("Did not find user");
 			res.status(404).send();
 		}else{
 			user.remove().then((removed) => {
 				log("REMOVED user!!!");
 				res.send(removed);
 			}).catch((error) => {
+				log("remove error")
 				res.status(404).send();
 			})
 		}

@@ -22,7 +22,6 @@ fetch(reportUrl)
 .then((res) => {
 	//Gets all reports made in database
     if (res.status === 200) {
-    	console.log(res);
         return res.json();
     } else {
         alert('Reports were unattainable from the database.')
@@ -50,16 +49,20 @@ fetch(reportUrl)
 		reasonText = document.createTextNode(report.reason)
 		reason.appendChild(reasonText)
 		reportBody.appendChild(reason)
+		banColumn = document.createElement('td')
 		banButton = document.createElement('button')
 		banButton.className = 'BanUser'
 		banButtonText = document.createTextNode('Ban User')
 		banButton.appendChild(banButtonText)
-		reportBody.appendChild(banButton)
+		banColumn.appendChild(banButton)
+		reportBody.appendChild(banColumn)
+		ignoreColumn = document.createElement('td')
 		ignoreButton = document.createElement('button')
 		ignoreButton.className = 'DoNotBan'
 		ignoreButtonText = document.createTextNode('Ignore')
 		ignoreButton.appendChild(ignoreButtonText)
-		reportBody.appendChild(ignoreButton)
+		ignoreColumn.appendChild(ignoreButton)
+		reportBody.appendChild(ignoreColumn)
         reportList.firstElementChild.appendChild(reportBody)
     })
 }).catch((error) => {
@@ -100,16 +103,20 @@ fetch(requestUrl)
 		//console.log(imageFile.src);
 		imageBlock.appendChild(imageFile)
 		requestBody.appendChild(imageBlock)
+		addColumn = document.createElement('td')
 		addButton = document.createElement('button')
 		addButton.className = 'AddAnime'
 		addButtonText = document.createTextNode('Add Anime')
 		addButton.appendChild(addButtonText)
-		requestBody.appendChild(addButton)
+		addColumn.appendChild(addButton)
+		requestBody.appendChild(addColumn)
+		ignoreColumn = document.createElement('td')
 		ignoreButton = document.createElement('button')
 		ignoreButton.className = 'IgnoreAnime'
 		ignoreButtonText = document.createTextNode('Do Not Add')
 		ignoreButton.appendChild(ignoreButtonText)
-		requestBody.appendChild(ignoreButton)
+		ignoreColumn.appendChild(ignoreButton)
+		requestBody.appendChild(ignoreColumn)
         requestList.firstElementChild.appendChild(requestBody)
     })
 }).catch((error) => {
@@ -144,7 +151,7 @@ function reportActions (e) {
 
 		//Removes user from database
 		let reportPhrase = null
-		const userUrl = '/user/' + e.target.parentElement.children[0].innerText;
+		const userUrl = '/user/' + e.target.parentElement.parentElement.children[0].innerText;
 		//console.log("BANING THIS GUY");
 		//console.log(userUrl);
 		const ban = new Request(userUrl, {
@@ -153,8 +160,18 @@ function reportActions (e) {
 		fetch(ban)
 		.then(function(res) {
 			if (res.status === 200) {
-				reportPhrase = document.createTextNode(e.target.parentElement.firstElementChild.innerText + " has been banned!")
-				e.target.parentElement.parentElement.removeChild(e.target.parentElement);
+				reportPhrase = document.createTextNode(e.target.parentElement.parentElement.firstElementChild.innerText + " has been banned!");
+				const tableElement = e.target.parentElement.parentElement.parentElement;
+				const reportNum = tableElement.children.length;
+				const reportObjects = []
+				for(let i = 1; i < reportNum; i++) {
+					if ((tableElement.children[i].firstElementChild.innerText === e.target.parentElement.parentElement.firstElementChild.innerText)) {
+						reportObjects.push(tableElement.children[i])
+					}
+				}
+				for(let j = 0; j < reportObjects.length; j++) {
+					tableElement.removeChild(reportObjects[j]);
+				}
 				reportElement.appendChild(reportPhrase);
 
 			} else {
@@ -199,7 +216,7 @@ function animeListActions (e) {
 	e.preventDefault();
 	
 	//Removing request from database
-	const animeName = e.target.parentElement.firstElementChild.innerText;
+	const animeName = e.target.parentElement.parentElement.firstElementChild.innerText;
 	let modAnimeName = animeName.slice();
 	modAnimeName = modAnimeName.replace(/ /g, "_");
 	console.log("ANIME NAME IS ");
@@ -221,9 +238,9 @@ function animeListActions (e) {
 		//Adding new anime to database
 		const url = '/animeInfo';
 		let data = {
-			name: e.target.parentElement.firstElementChild.innerText,
-			description: e.target.parentElement.children[1].innerText,
-			imageURL: e.target.parentElement.children[2].firstElementChild.src,
+			name: e.target.parentElement.parentElement.firstElementChild.innerText,
+			description: e.target.parentElement.parentElement.children[1].innerText,
+			imageURL: e.target.parentElement.parentElement.children[2].firstElementChild.src,
 			averageScore: 0,
 			nReviews: 0
 		};
@@ -254,12 +271,12 @@ function animeListActions (e) {
 		});
 		//HTML modifiers
 		
-		const animeDesc = e.target.parentElement.children[2].innerText;
-		e.target.parentElement.parentElement.removeChild(e.target.parentElement);
+		const animeDesc = e.target.parentElement.parentElement.children[2].innerText;
+		e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
 	} else if (e.target.classList.contains('IgnoreAnime')) {
 		animePhrase = document.createTextNode(animeName + " has not been added to the anime list.");
 		animeElement.appendChild(animePhrase);
-		e.target.parentElement.parentElement.removeChild(e.target.parentElement);
+		e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
 	}
 	if (animeChanged == false) {
 		animeChanged = true;

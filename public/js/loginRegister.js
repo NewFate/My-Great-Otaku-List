@@ -38,6 +38,7 @@ function login(e) {
         const message = document.querySelector('#message')
         if (res.status === 200) {
             console.log('Logged In')
+            window.location.href = "/userprofile";
            
         } else {
         	console.log('Username/Password Incorrect!')

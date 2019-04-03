@@ -85,8 +85,6 @@ UserSchema.index({userName: "text"});
 
 const User = mongoose.model('User', UserSchema);
 
-
-
 //const Review = mongoose.model('Review', ReviewsSchema);
 
 module.exports = { User };
