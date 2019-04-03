@@ -54,6 +54,21 @@ app.route('/index').get((req, res) => {
 	res.sendFile(__dirname + '/public/index.html');
 })
 
+app.route('/admin').get((req, res) => {
+	/// CHECK IF ITS LOGGED IN
+	res.sendFile(__dirname + '/public/Admin.html');
+})
+
+app.route('/report').get((req, res) => {
+	/// CHECK IF ITS LOGGED IN
+	res.sendFile(__dirname + '/public/Report.html');
+})
+
+app.route('/userprofile').get((req, res) => {
+	/// CHECK IF ITS LOGGED IN
+	res.sendFile(__dirname + '/public/User_Profile.html');
+})
+
 
 app.route('/SuggestAnime').get((req, res) => {
 	log("HERERERERERER");
