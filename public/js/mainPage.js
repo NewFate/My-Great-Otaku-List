@@ -6,19 +6,6 @@ const top_10_anime = document.querySelector('.top_ten');
 const trending_3_anime = document.querySelector('.trending_three');
 const top_3_reviews = document.querySelector('.trending_reviews');
 
-//global variables for updating (this is where we would call the server to dynamically create these data structures)
-let top_ten_anime = {
-	"Anime1": "/img/mob.gif", "Anime2": "/img/mob.gif", "Anime3": "/img/mob.gif",
-	"Anime4": "/img/mob.gif", "Anime5": "/img/mob.gif", "Anime6": "/img/mob.gif",
-	"Anime7": "/img/mob.gif", "Anime8": "/img/mob.gif", "Anime9": "/img/mob.gif",
-	"Anime10": "/img/mob.gif"
-};
-let top_three_reviews = {"[Anime4Lyfe] : Mob Psycho 100 S2": ["It rarely happens that second season of any anime tops the first season season but its not the case with the Mob Psycho 100, because its clearly improves over 1st season artistically and story-wise too.", 10],
-						"[coolAnime123] : Mob Psycho 100 S2": ["It rarely happens that second season of any anime tops the first season season but its not the case with the Mob Psycho 100, because its clearly improves over 1st season artistically and story-wise too.", 10],
-						"[iLoveAnime] : Mob Psycho 100 S2": ["It rarely happens that second season of any anime tops the first season season but its not the case with the Mob Psycho 100, because its clearly improves over 1st season artistically and story-wise too.", 10],
-};
-let trending_three_anime = {"Mob Psycho 100 II": "/img/mob.gif", "JoJo no Kimyou na Bouken: Ougon no Kaze": "/img/mob.gif", "Yakusoku no Neverland": "/img/mob.gif"};
-
 
 
 //updates the top three trending anime
@@ -87,6 +74,8 @@ function update_trending_reviews() {
 	}).then((json) => {
 		log("here");
 		log(json);
+
+		//let trending3 = Object.keys(json).reverse();
 	
 		for (let key in json)
 		{

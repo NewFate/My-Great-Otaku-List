@@ -4,16 +4,6 @@
 //HTML elements to be edited
 const all_anime_table = document.querySelector('.all_anime');
 
-//global variables for updating (we need to call the server to get the data for this)
-let all_anime_list = {
-	"Mob Psycho 100 II": ["mob.gif", "Mob Psycho 100 II", "A cool anime", "10/10"],
-	"Anime2": ["mob.gif", "Mob Psycho 100 II", "A cool anime", "10/10"],
-	"Anime3": ["mob.gif", "Mob Psycho 100 II", "A cool anime", "10/10"],
-	"Anime4": ["mob.gif", "Mob Psycho 100 II", "A cool anime", "10/10"],
-	"Anime5": ["mob.gif", "Mob Psycho 100 II", "A cool anime", "10/10"]
-};
-
-
 //updates the top ten anime list
 function update_all_anime_list() {
 
@@ -45,7 +35,7 @@ function update_all_anime_list() {
 			//get dummy data (we will be using the data structure fetched from the server here)
 			tdTitle.textContent = json[key].name;
 			tdDesc.textContent = json[key].description;
-			tdScore.textContent = json[key].averageScore; // divide by number of reviews?
+			tdScore.textContent = json[key].averageScore / json[key].nReviews; // divide by number of reviews?
 		
 			animeImg.className = "anime_tile";
 			animeImg.src = json[key].imageURL;
