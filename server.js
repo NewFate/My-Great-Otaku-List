@@ -141,7 +141,6 @@ app.get('/userprofile', (req, res) => {
 	console.log("Render")
 	res.render('User_Profile.hbs', {
 		userName: req.session.username
-		//userName: "TEOsadasdasddasds"
 	})
 })
 
@@ -160,18 +159,8 @@ app.post('/login', (req, res) =>{
 			
 			console.log('User Found');
 			console.log(user.userName)
-			//res.redirect('/suggestAnime');
 			req.session.user = user._id;
 			req.session.username = user.userName
-
-			//log("DO THIS SHIT");
-			//res.redirect('/SuggestAnime');
-			/*res.render('User_Profile.hbs', {
-				userName: req.session.username
-				//userName: "TEOsadasdasddasds"
-			})
-			res.redirect('/anime');
-			res.redirect('/userprofile')*/
 
 			res.send(user);
 		}
@@ -180,6 +169,17 @@ app.post('/login', (req, res) =>{
 	})
 
 });
+
+// Log out
+app.get('/logout', (req, res) => {
+	req.session.destroy((error) => {
+		if (error) {
+			res.status(500).send(error)
+		} else {
+			res.redirect('/login')
+		}
+	})
+})
 
 
 // POST one anime

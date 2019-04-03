@@ -36,7 +36,7 @@ function register(e) {
     	   //check if email/username is in database
             
             if(password != "")	{
-                alert("Created Account!");
+                //alert("Created Account!");
                 createUser();
 
             }
