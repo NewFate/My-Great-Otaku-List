@@ -27,7 +27,7 @@ function update_top_three() {
 
 		//for (let key in json)
 		//{
-		for(let key = json.length-1; key>=Math.max(json.length-3, 0); key--){
+		for(let key = json.length-1; key>=Math.max(json.length-4, 0); key--){
 
 			const animeListElmt = document.createElement('li');
 
@@ -149,7 +149,7 @@ function update_top_ten() {
 
 		const animeList = top_10_anime.getElementsByTagName("ol")[0];
 
-		for(let key = 0; key<=Math.max(10, json.length-1); key++){
+		for(let key = 0; key<=Math.min(10, json.length-1); key++){
 
 			const animeListElmt = document.createElement('li');
 

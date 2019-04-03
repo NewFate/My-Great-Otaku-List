@@ -45,8 +45,9 @@ app.use(session({
 }))
 
 
-app.get('/', (req, res) => {
-	res.redirect('anime');
+app.route('/', (req, res) => {
+	res.send(500);
+	//res.redirect('anime');
 })
 
 app.route('/anime').get((req, res) => {
