@@ -126,7 +126,7 @@ app.post('/register', (req, res) =>{
 
 	user.save().then((user) => {
 		log("SAVED USER");
-		res.send(user);
+		//res.send(user);
 		res.redirect('/login');
 	}, (error) =>{
 		log("COULDNT SEND ");
@@ -149,21 +149,34 @@ app.get('/userprofile', (req, res) => {
 app.post('/login', (req, res) =>{
 	const username = req.body.username
 	const password = req.body.password
-
+	log("THIS ");
 	User.findByUserNamePassword(username, password).then((user) => {
 		if(!user) {
 			res.redirect('/login')
 		} else {
 			// Add the user to the session cookie that we will
 			// send to the client
+			//res.redirect('/suggestanime');
+			
 			console.log('User Found');
 			console.log(user.userName)
+			//res.redirect('/suggestAnime');
 			req.session.user = user._id;
 			req.session.username = user.userName
-			res.redirect('/userprofile')
+
+			//log("DO THIS SHIT");
+			//res.redirect('/SuggestAnime');
+			/*res.render('User_Profile.hbs', {
+				userName: req.session.username
+				//userName: "TEOsadasdasddasds"
+			})
+			res.redirect('/anime');
+			res.redirect('/userprofile')*/
+
+			res.send(user);
 		}
 	}).catch((error) => {
-		res.status(400).redirect('/login')
+		res.status(400).send(error);
 	})
 
 });
