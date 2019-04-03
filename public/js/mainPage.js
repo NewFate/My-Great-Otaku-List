@@ -50,6 +50,7 @@ function update_top_three() {
 			let title_underscore = json[key].name;
 			title_underscore = title_underscore.replace(/\s+/g, "_");
 			animeA.href = "/anime/" + title_underscore;
+			log(animeA.href);
 			//log("/anime/" + title_underscore);
 			animeA.textContent = json[key].name;
 			animeImg.className = "anime_tile";
