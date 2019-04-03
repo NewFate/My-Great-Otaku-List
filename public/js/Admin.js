@@ -185,8 +185,8 @@ function animeListActions (e) {
 	})
 	
 	const animeElement = document.createElement('p');
+	let animePhrase = null;
 	if (e.target.classList.contains('AddAnime')) 
-		let animePhrase = null;
 		//Adding new anime to database
 		const url = '/suggestInfo';
 		let data = {
@@ -223,7 +223,7 @@ function animeListActions (e) {
 		const animeDesc = e.target.parentElement.parentElement.children[2].innerText;
 		e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
 	} else if (e.target.classList.contains('IgnoreAnime')) {
-		const animePhrase = document.createTextNode(animeName + " has not been added to the anime list.");
+		animePhrase = document.createTextNode(animeName + " has not been added to the anime list.");
 		animeElement.appendChild(animePhrase);
 		e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
 	}
