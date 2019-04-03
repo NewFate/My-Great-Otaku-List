@@ -62,7 +62,10 @@ function update_top_three() {
 
 		//fill with the dummy data from the global data structures (here is where the server data is used)
 		//to construct the DOM elements
-		animeA.href = "Anime.html";
+		let title_underscore = key;
+		title_underscore = title_underscore.replace(/\s+/g, "_");
+		animeA.href = "/anime/" + title_underscore;
+		//log("/anime/" + title_underscore);
 		animeA.textContent = key;
 		animeImg.className = "anime_tile";
 		animeImg.src = trending_three_anime[key];
@@ -115,7 +118,9 @@ function update_top_ten() {
 		const animeImg = document.createElement('img');
 
 		//We will be using the server data here to construct the elements dynamically
-		animeA.href = "Anime.html";
+		let title_underscore = key;
+		title_underscore = title_underscore.replace(/\s+/g, "_");
+		animeA.href = "/anime/"+ title_underscore;
 		animeA.textContent = key;
 		animeImg.className = "anime_tile_small";
 		animeImg.src = top_ten_anime[key];
@@ -150,7 +155,7 @@ function go_to_anime_page(e) {
 		//get the anime title that was clicked to send to the Anime page
 		let animeTitle = e.target.textContent;
 		
-		window.location.href = "Anime.html";
+		window.location.href = "/anime";
 		//here we would send the anime title to the next page to load it
 		load(animeTitle);
 	}
