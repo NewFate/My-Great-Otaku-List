@@ -42,13 +42,16 @@ app.route('/login').get((req, res) => {
 	res.sendFile(__dirname + '/public/LoginRegister.html');
 })
 
+app.route('/register').get((req, res) => {
+	res.sendFile(__dirname + '/public/register.html');
+})
+
 
 app.route('/SuggestAnime').get((req, res) => {
 	log("HERERERERERER");
 	log(__dirname + '/public/SuggestAnime.html');
 	res.sendFile(__dirname + '/public/SuggestAnime.html');
 })
-
 
 // Add express sesssion middleware
 app.use(session({
