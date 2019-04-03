@@ -26,7 +26,8 @@ function register(e) {
 
     //log("GOT HERE");
 	 
-    var pattern =/^([0-9]{2})-([0-9]{2})-([0-9]{4})$/;
+    var pattern =/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+
     if(pattern.test(dateOfBirth)){
         
     	//we would need to send this updated list/user detail to the server
@@ -36,7 +37,7 @@ function register(e) {
             
             if(password != "")	{
                 alert("Created Account!");
-                //createUser();
+                createUser();
 
             }
 
