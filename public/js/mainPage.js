@@ -76,7 +76,7 @@ function update_top_three() {
 //updates the top 3 trending reviews
 function update_trending_reviews() {
 
-	const url = '/animeinfo';
+	const url = '/animereviews';
 
 	fetch(url).then((res) => {
 		if(res.status == 200){
@@ -88,16 +88,16 @@ function update_trending_reviews() {
 		log("here");
 		log(json);
 	
-		for (let key in top_three_reviews)
+		for (let key in json)
 		{
 			//We will be using the server data here to construct the elements dynamically
 			const animeReviewElmt = document.createElement('p');
 
 			const animeKey = document.createElement('strong');
 			animeKey.className = "orange";
-			animeKey.textContent = key;
+			animeKey.textContent = "[" + json[key].reviewer + "]" + ": " + json[key].animeName ;
 
-			const txt = document.createTextNode( " - " + top_three_reviews[key][0] + " Rating " + top_three_reviews[key][1] + "/10 ");
+			const txt = document.createTextNode( " - " + json[key].review + ": Rating " + json[key].grade + "/10 ");
 			//construct the element
 			
 			animeReviewElmt.appendChild(animeKey);
@@ -105,6 +105,14 @@ function update_trending_reviews() {
 			
 			//append to top 3 reviews 
 			top_3_reviews.appendChild(animeReviewElmt);	
+			/*
+			const ReviewsSchema = new mongoose.Schema({
+				animeName: String,
+			    reviewer: String,
+			    review: String,
+			    grade: Number
+			});
+			*/
 
 		}
 	})
