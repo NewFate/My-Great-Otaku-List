@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+ 	<meta charset="utf-8">
+    <title>Admin Page</title>
+    <link rel="stylesheet" type="text/css" href="/style/Admin.css">
+ </head>
+
+
+ <body>
+ 	<div class="header">
+  		<h1>Great Anime List</h1>
+	</div>
+	<div id="NavigationBar">
+		<ul>
+			<li id = "left"><a href="/index">Home</a></li>
+			<li id = "left"><a href="/AllAnime">All Anime List</a></li>	
+			<li id = "left"><a href="/SuggestAnime">Request an Anime</a></li>
+			<li id = "logout"><a id = "l1" href="/users/logout">Log out</a></li>
+			<li id = "userName"><a id = "l2" href="/userprofile">Hello, {{userName}}</a></li>
+			
+		</ul>
+	</div>
+ 
+	<div id="ContentBlocks">
+		<div id="ReportInfo">
+			<h2>Report Log</h2>
+			<table id="ReportTable">
+				<tbody>
+					<tr>
+						<th>
+							Reported User
+						</th>
+						<th>
+							User who Issued Report
+						</th>
+						<th>
+							Anime
+						</th>
+						<th>
+							Reason
+						</th>
+						<th>
+							Accept
+						</th>
+						<th>
+							Decline
+						</th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="AnimeApprovals">
+			<h2>Anime Requests</h2>
+			<table id="AnimeTable">
+				<tbody>
+					<tr>
+						<th>
+							Anime Name
+						</th>
+						<th>
+							Description
+						</th>
+						<th>
+							Page Image
+						</th>
+						<th>
+							Accept
+						</th>
+						<th>
+							Decline
+						</th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="/js/Admin.js"></script>
+	<script type="text/javascript" src="/js/changeLogin.js"></script>
+ 	<script>var x = "{{userName}}"; update(x);</script>
+
+ </body>
+
+ </html>

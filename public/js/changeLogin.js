@@ -1,5 +1,4 @@
 
-
 function update(name){
 	//console.log("HERE?");
 	// check if im logged in or not

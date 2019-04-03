@@ -476,7 +476,7 @@ app.get('/animeinfo/:name/review', (req, res) => {
 })
 
 //POST new report
-app.post('/report', (req, res) =>{
+app.post('/report', authenticate, (req, res) =>{
 
 	const report = new Report({
 		reporter: req.body.reporter,
@@ -496,7 +496,7 @@ app.post('/report', (req, res) =>{
 
 //GET all reports
 
-app.get('/report/:reviewer/:anime', (req, res) => {
+app.get('/report/:reviewer/:anime', authenticate, (req, res) => {
 	const xname = req.params.anime;
 	const newname = xname.replace(/_/g, " ");
 	log("NEWNAME IS");
