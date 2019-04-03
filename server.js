@@ -216,6 +216,21 @@ app.get('/animeinfo', (req, res) =>{
 	})
 })
 
+
+// GET all reviews
+app.get('/animereviews', (req, res) =>{
+	log("HERERERER");
+	Review.find().then((animesrev) =>{
+		if(!animesrev){
+			res.status(404).send();
+		}else{
+			res.send(animesrev);
+		}
+	}).catch((error) => {
+		res.status(404).send();
+	})
+})
+
 // GET all suggestions
 app.get('/suggestinfo', (req, res) =>{
 	log("HERERERER");
