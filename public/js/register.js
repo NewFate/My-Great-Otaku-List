@@ -64,7 +64,7 @@ function createUser() {
         username: loginRegister_form.querySelector('#username').value,
         email: loginRegister_form.querySelector('#email').value,
         password: loginRegister_form.querySelector('#password').value,
-        dateOfBirth: loginRegister_form.querySelector('#valuedateOfBirth').value
+        dateOfBirth: loginRegister_form.querySelector('#dateOfBirth').value
     }
     // Create our request constructor with all the parameters we need
     const request = new Request(url, {
@@ -86,12 +86,13 @@ function createUser() {
             //message.setAttribute("style", "color: green")
            
         } else {
+            console.log(res)
         	console.log('Username/email has been taken!')
             //message.innerText = 'Could not add student'
             //message.setAttribute("style", "color: red")
      
         }
-        console.log(res)
+        //console.log(res)
         
     }).catch((error) => {
         console.log(error)

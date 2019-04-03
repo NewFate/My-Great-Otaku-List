@@ -53,35 +53,3 @@ function register(e) {
 	e.preventDefault();
 	window.location.href = "/register";
 }
-/*function register(e) {
-	e.preventDefault();
-	
-	const username = loginRegister_form.querySelector('#username').value;
-	const password = loginRegister_form.querySelector('#password').value;
-
-	//check if user is in the database
-	// create account if not found
-	if (!(username in users))
-	{
-		 //we would need to send this updated list/user detail to the server
-		 users[username] = password;
-		 alert("Created Account!");
-
-		 if (username === "admin")
-		 {
-		 	window.location.href = "Admin.html";
-		 }
-
-		 else
-		 {
-		 	window.location.href = "User_Profile.html";
-		 }
-
-	}
-
-	else
-	{
-		 alert("Username is taken!");
-	}
-
-}*/
