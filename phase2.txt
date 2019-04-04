@@ -1,0 +1,84 @@
+https://mygreatotakulist.herokuapp.com/
+
+My Great Otaku List
+
+The goal of the website is to provide a source for people to advertise and discover
+new anime and manga that are fan made. Websites such as myAnimeList are only for official animes, and there is a lack of a centered website that lets people add their own original content to be reviewed and rated by users.
+
+To log in as an admin use:
+Username: admin
+Password: admin
+
+Basic admin functions once logged in:
+
+View anime pages 
+view main page and anime
+view all anime page 
+ban/ignore reported users 
+add/do not add new (approval) animes requested by users 
+add reviews to anime
+report a review
+logout
+
+
+To log in as a user use:
+Username: user
+Password: user
+
+Basic user functions once logged in:
+
+View anime pages
+view main page and anime
+view all anime page 
+add reviews to anime
+report a review
+logout
+
+The first part of the website (default index page) has a few components:
+	It has a Newest Anime section, that shows up to 4 animes that were added the most recently. As soon as a new anime gets added, it goes to the top of that page. Note you can go to the anime by clicking in its name.
+	Under it there is the Newest Reviews section, where the same thing happens, but for reviews. As soon as any review is added on an anime/manga, it will appear on top there. It shows the user that commented, the anime it was commented on, the comment itself and the grade it was given. 
+	On the right side there is a Top Anime part, that shows up to 10 animes. This area is sorted by the anime with the highest rating. As soon as someone rates an anime, this will get updated.
+	You will be redirected to this page when clicking HOME on the top menu.
+
+All Anime List:
+	If you click on All anime list on the top menu, you will be redirected to the all anime page. It has a list of all animes in the website. Every element has the image of the anime, the title, the description and the average rating. (Note that an anime without ratings has an average rating of 0). In this page, elements are sorted in alphabetical order, and you can go to an anime page by clicking on the anime picture.
+
+Anime page:
+	When you click on an anime from the other pages, you will go to an anime page. On this page, the title of the anime/manga is on top, with an image on the left and a description and anime rating on the bottom. Under all that are the reviews. Since we have a scoring system for the anime/manga, it would be unfair to let someone give multiple reviews and improve (or worsen) the grades of their favorite (or not) anime/manga. So we decided that each user only gets one review per anime. But obviously people can change their minds about their reviews, so what he did is: If you havent submitted a review for this anime yet, we will create a new review for you, and if you already have one, we will simply overwrite your last review, substituting the review and the grade. Note that you need to be logged in to submit a review, and that if you try to submit a review without being logged in, you will be redirected to the login page.
+
+Login page:
+	To access this page you either try to do something that you wouldnt be able to do as an unregistered user (suggest anime, submit review...) or you can click on the upper right hand corner and will be routed there.
+	This page is very simple, you simply put your username and password and press login to enter. If there is something wrong, you will get a message saying that your username/password is incorrect. If you dont have an account you can click on register and go to the Register page.
+
+Register page:
+	This will prompt you with fields to fill an username, email, date of birth and password. All fields need to be completed, your email needs to be valid and not in use, your username also has to be not in use, and your password needs to be at least 4 digits long, and your date of birth needs to be in format MM/DD/YYYY (but since we are dealing with otakus, we dont know when they are born, maybe they are born in the future, or maybe they where born in the month 69, we dont know, so we dont check that).
+
+Once logged in:
+	You've created an account and has now logged in. Notice that what was the login button on the upper right corner is now saying "Welcome, <your name here>", and there is a logout button. If you click on the "Welcome ..." button you will be redirected to the userprofile page, and if you click on "logout" you will be redirected to the login page.
+
+User Profile:
+	The user profile is a page that only the user can see if they are logged in. Each user has their own. It has the profile information section, where you have the information that you used when registering, you have a lovely profile picture on the left (since only you can see your profile, there is not much reason to allow ppl to change their pictures, so instead everybody gets a lovely picture of Jake the Dog). 
+	There is also an statistics section on the right, that lets you know how many reviews you have submitted, and how many pending reports you have. These reports go away once an admin chooses to either ignore or act upon it.
+	On the bottom of the page there is a Reviews section, where you can see the latest few reviews that you wrote on the animes on the page.
+
+Report page:
+	Going back to the anime/manga page, since any user can comment on any anime, we are bound to have indecent comments, so we decided to give an user the option to report another. If you click on "report this review" next to the review you want to report, you will be taken to the report page ( as long as you are logged in, and if not then you will go to the login page).
+	In the report page, the fields for the name of the person being reported and the anime it refers to are already filled in for you. There is only the need to fill in the reason why you are reporting this person, and then you can click on submit report to finalize the report. This will go to the admin so they can decide what to do with it. 
+	Note: If you try to add a report with an anime/username that doesnt exist, you will get an error message. Also note that the admin can see who submitted a report.
+
+Suggest Anime page:
+	A big part of our website is suggesting animes. To access this page, you need to click on the menu on the top, and as long as you are logged in, you will go to the suggest anime page. In this page you have fields to write the title and description of your anime, and also to add a picture to it. 
+	IMPORTANT NOTE: The picture has to be small in size (less than 60kb), so I suggest using something like https://www.reduceimages.com/ to reduce a picture size before submitting. Once submitted, the suggestion will go to the Admin and they can choose to add the anime or not.
+
+Admin page:
+	If you log in as an admin (Using username and password = admin), you will have an extra option on your menu on the top besides the ones I've already described. Now you get the option to go to the Admin page. 
+	There, there are a few components. The first one is the report log.
+	Report log: here you can see all reports submitted by users, you can see who submitted, who was reported, the anime it references to, and the reason. You can choose to ignore or ban user. If you ignore, that entry will go away, if you choose to ban the user, all records about that user should be deleted, including all reviews that they made.
+	Anime requests: Here you can see all anime requests made by the users, you can see the anime name, description and picture. You can choose to accept it or decline it. If accepted, it will go to the list of all animes, and go to the top page as a recently added anime.
+
+
+On our server, we have routes for each of the pages described above. Since we needed to know the username for each page, in case they are logged in, we decided to have them as views, and give them the value of userName.
+We have an Authenticate middleware that will check if someone is logged in, and if their user id is valid or not. In case they are not logged in or its invalid, they will be redirected to the login. 
+Now, for each of our functionalities we have get, post and delete. Some there are multiple of those, so that we have options of get/delete by name or id or something else. 
+In our project we have a few Models. We have the Anime and SuggestAnime modules that are very similar, and they have the functions to change them around. They are called when you want to accept an anime for example, so this anime would leave the suggestAnime schema and go to the Anime schema. We also have a Reviews schema that has all the information pertinent to our reviews. Note all of these have indexes so we can do efficient searches. We have the Report Schema that is on the model admin.js, what deals with adding and removing reports. Lastly we have a User Schema, that contains the information pertinent to the user, and the requirements for it, such as minimum password length, checking email validity, required, etc.
+
