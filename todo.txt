@@ -6,7 +6,7 @@ change the name of the website from animelist to mygreatotakulist (done)
 
 change layout of the admin (just needs to center table)
 
-make the review the same size always on the anime page
+make the review the same size always on the anime page (done)
 
 registering with the same email
 
