@@ -240,13 +240,7 @@ function load(title){
 			let newGrade = newRow.insertCell(2);
 			let submit = newRow.insertCell(3);
 
-			const usernameT = document.createElement("textarea");
-			usernameT.setAttribute("id", "usernameR");
-			usernameT.setAttribute("rows", 1);
-			usernameT.setAttribute("cols", 15);
-			const usernameText = document.createTextNode("Username: ");
-			username.appendChild(usernameText);
-			username.appendChild(usernameT);
+			
 
 			const newReviewT = document.createElement("textarea");
 			newReviewT.setAttribute("id", "newReviewR");
