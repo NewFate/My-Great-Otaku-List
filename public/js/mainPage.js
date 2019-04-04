@@ -1,5 +1,5 @@
-//here are the functions that will be called on page load of the main page
-//we would make a call tothe server to get the data for the top three list, top ten, and the top trending review
+//functions  will be called on page load of the main page
+//we  make a calls to the server to get the data for the top three list, top ten, and the top trending review
 
 //HTML elements to be edited
 const top_10_anime = document.querySelector('.top_ten');
@@ -25,8 +25,7 @@ function update_top_three() {
 
 		const animeList = trending_3_anime.getElementsByTagName("ul")[0];
 
-		//for (let key in json)
-		//{
+	
 		for(let key = json.length-1; key>=Math.max(json.length-4, 0); key--){
 
 			const animeListElmt = document.createElement('li');
@@ -34,13 +33,13 @@ function update_top_three() {
 			const animeA = document.createElement('a');
 			const animeImg = document.createElement('img');
 
-			//fill with the dummy data from the global data structures (here is where the server data is used)
+			//fill with the data from the data (here is where the server data is used)
 			//to construct the DOM elements
 			let title_underscore = json[key].name;
 			title_underscore = title_underscore.replace(/\s+/g, "_");
 			animeA.href = "/anime/" + title_underscore;
 			log(animeA.href);
-			//log("/anime/" + title_underscore);
+			
 			animeA.textContent = json[key].name;
 			animeImg.className = "anime_tile";
 			animeImg.src = json[key].imageURL;
@@ -81,8 +80,7 @@ function update_trending_reviews() {
 		log(json);
 
 	
-		//for (let key in json)
-		//{
+		
 		for(let key = json.length-1; key>=Math.max(json.length-3, 0); key--){
 			//We will be using the server data here to construct the elements dynamically
 			const animeReviewElmt = document.createElement('p');
@@ -99,14 +97,7 @@ function update_trending_reviews() {
 			
 			//append to top 3 reviews 
 			top_3_reviews.appendChild(animeReviewElmt);	
-			/*
-			const ReviewsSchema = new mongoose.Schema({
-				animeName: String,
-			    reviewer: String,
-			    review: String,
-			    grade: Number
-			});
-			*/
+			
 
 		}
 	})
@@ -129,9 +120,7 @@ function update_top_ten() {
 		log("here");
 		log(json);
 
-		/*const topAnime = json.sort(function(a,b){
-    		return (a.averageScore/Math.max(a.nReviews, 1) > b.averageScore/Math.max(b.nReviews, 1));
- 		 });*/
+		
 
 		for(let i=0; i<json.length; i++){
 			for(let j=i+1; j<json.length; j++){
@@ -143,9 +132,7 @@ function update_top_ten() {
 			}
 		}
 
-		//log(topAnime);
-
-		//log("Top: " + topAnime);
+		
 
 		const animeList = top_10_anime.getElementsByTagName("ol")[0];
 		const tbl = document.createElement('table');

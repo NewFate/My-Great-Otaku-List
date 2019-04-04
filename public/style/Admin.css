@@ -71,7 +71,8 @@ table, td, th {
   align-items: center;
   align-content: center;
   align-self: center;
-
+  border-radius: 1%
+  margin-top:10%;
 }
 
 #ReportInfo {
@@ -84,6 +85,7 @@ table, td, th {
 	color: white;
 	text-align: center;
   align-self: center;
+  border-radius: 1%
 
 }
 
@@ -97,6 +99,7 @@ table, td, th {
 	color: white;
 	text-align: center;
   align-self: center;
+  border-radius: 1%
 }
 
 #userName{

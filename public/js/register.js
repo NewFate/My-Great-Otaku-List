@@ -4,13 +4,12 @@ const login_button = document.getElementById("login");
 const register_button = document.getElementById("register");
 
 const feedback = loginRegister_form.querySelector('#feedback');
-//the dummy data structures for username/passwords
+//data structures for username/passwords
 //we would make a call to the server to check the user list and match the password 
-// user:user and admin:admin credentials here
-let users = {user: "user", admin: "admin"};
+// user:user and admin:admin credentials are included in our db
+
 
 //added event listeners to the buttons
-//login_button.addEventListener('click', login);
 register_button.addEventListener('click', register);
 
 function register(e) {
@@ -26,8 +25,6 @@ function register(e) {
 	
 	//check if user is in the database
 	// create account if not found
-
-    //log("GOT HERE");
 	 
     var pattern =/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
 
@@ -47,7 +44,7 @@ function register(e) {
                //check if email/username is in database
                 
                 if(password != "" || confPassword != "")    {
-                    //alert("Created Account!");
+                   
                     feedback.innerText = 'Creating account...'
                     feedback.setAttribute("style", "color: green")
                     createUser();
@@ -57,7 +54,7 @@ function register(e) {
                 else{
                     feedback.innerText = 'Please enter a password!'
                     feedback.setAttribute("style", "color: red")
-                    //alert("Please enter a password!");
+                    
 
                 }   
             }
@@ -65,7 +62,7 @@ function register(e) {
             else{
                 feedback.innerText = 'Passwords need to match!'
                 feedback.setAttribute("style", "color: red")
-                //alert("Passwords don't match!");
+               
             }
 
         }
@@ -74,7 +71,7 @@ function register(e) {
 
             feedback.innerText = 'Invalid date!'
             feedback.setAttribute("style", "color: red")
-            //alert("Invalid date!");
+            
         }
 
     }
@@ -106,20 +103,18 @@ function createUser() {
         const message = document.querySelector('#message')
         if (res.status === 200) {
             console.log('Created User')
-            //message.innerText = 'Success: Added a student.'
-            //message.setAttribute("style", "color: green")
+            
             window.location.href = '/login';
         } else {
             console.log(res)
-        	//console.log('Username/email has been taken!')
+        	
 
             feedback.innerText = 'Username/email already taken/ is invalid!'
             feedback.setAttribute("style", "color: red")
-            //message.innerText = 'Could not add student'
-            //message.setAttribute("style", "color: red")
+          
      
         }
-        //console.log(res)
+      
         
     }).catch((error) => {
         console.log(error)

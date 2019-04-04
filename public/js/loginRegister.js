@@ -5,8 +5,8 @@ const register_button = document.getElementById("register");
 
 const feedback = loginRegister_form.querySelector('#feedback');
 
-//the dummy data structures for username/passwords
-//we would make a call to the server to check the user list and match the password 
+//the data structures for username/passwords
+//we make a call to the server to check the user list and match the password 
 // user:user and admin:admin credentials here
 let users = {user: "user", admin: "admin"};
 
@@ -39,7 +39,7 @@ function login(e) {
         // Usually check the error codes to see what happened
         const message = document.querySelector('#message')
         if (res.status === 200) {
-            //console.log('Logged In')
+           
             feedback.innerText = 'Logging in...'
             feedback.setAttribute("style", "color: green")
             
@@ -49,11 +49,11 @@ function login(e) {
         } else {
             feedback.innerText = 'Username/password incorrect!!'
             feedback.setAttribute("style", "color: red")
-        	//console.log('Username/Password Incorrect!')
+        	
         	console.log(data.username)
         	console.log(data.password)
         }
-        //console.log(res)
+       
         
     }).catch((error) => {
         console.log(error)

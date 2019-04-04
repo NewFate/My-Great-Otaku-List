@@ -1,4 +1,4 @@
-//here are the functions that will be called on page load of the all anime page
+//Functions that will be called on page load of the all anime page
 //we would make a call to the server to get the data 
 
 //HTML elements to be edited
@@ -19,8 +19,7 @@ function update_all_anime_list() {
 		
 
 		const animeTable = all_anime_table.getElementsByTagName("table")[0];
-		//we would need to get the anime list from the server
-		//a dummy object is used for now
+		//Anime list from the server
 
 		for(let i=0; i<json.length; i++){
 			for(let j=i+1; j<json.length; j++){
@@ -43,7 +42,7 @@ function update_all_anime_list() {
 
 			const animeImg = document.createElement('img');
 
-			//get dummy data (we will be using the data structure fetched from the server here)
+			//get data (we will be using the data structure fetched from the server here)
 			tdTitle.textContent = json[key].name;
 			tdDesc.textContent = json[key].description;
 			tdScore.textContent = (json[key].averageScore / Math.max(json[key].nReviews, 1)).toFixed(2); // divide by number of reviews?
