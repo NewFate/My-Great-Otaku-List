@@ -137,7 +137,7 @@ function reportActions (e) {
 	
 	const reportElement = document.createElement('p');
 	if (e.target.classList.contains('BanUser')) {
-		const deleteReportUrl = '/reportbyname/' + e.target.parentElement.firstElementChild.innerText;
+		const deleteReportUrl = '/reportbyname/' + e.target.parentElement.parentElement.firstElementChild.innerText;
 		//console.log("REMOVIN")
 		const deleteReport = new Request(deleteReportUrl, {
 	        method: 'delete'
