@@ -8,7 +8,7 @@ const all_anime_table = document.querySelector('.all_anime');
 function update_all_anime_list() {
 
 	const url = '/animeinfo';
-
+    // request the anime list
 	fetch(url).then((res) => {
 		if(res.status == 200){
 			return res.json();
@@ -19,7 +19,7 @@ function update_all_anime_list() {
 		
 
 		const animeTable = all_anime_table.getElementsByTagName("table")[0];
-		//Anime list from the server
+		//Anime list from the server sorted
 
 		for(let i=0; i<json.length; i++){
 			for(let j=i+1; j<json.length; j++){
@@ -33,6 +33,7 @@ function update_all_anime_list() {
 
 		for (let key in json)
 		{
+			//create the elements
 			const tr = document.createElement('tr');
 
 			const tdImg = document.createElement('td');
@@ -81,7 +82,7 @@ function go_to_anime_page(e) {
 	if(e.target.tagName.toLowerCase() === 'img')
 	{
 		
-	    //for now just go to a generic anime page, would need the data from the server 
+	    //go to an anime page, with the data from the server 
 		let animeTitle = e.target.parentNode.nextSibling.textContent;
 		animeTitle = animeTitle.replace(/\s+/g, "_");
 		

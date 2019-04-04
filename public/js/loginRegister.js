@@ -50,16 +50,14 @@ function login(e) {
             feedback.innerText = 'Username/password incorrect!!'
             feedback.setAttribute("style", "color: red")
         	
-        	console.log(data.username)
-        	console.log(data.password)
+
         }
        
         
     }).catch((error) => {
-        console.log(error)
+        
     }).then((json) => {
-        console.log("USERNAME IS");
-        console.log(json.userName);
+        
         if(json.userName == "admin"){
             window.location.href = "/admin";
         }else{
