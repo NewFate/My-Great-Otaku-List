@@ -409,7 +409,7 @@ app.post('/animeinfo/:name/review', (req, res) => {
 		authenticate();
 	}else{
 		return res.render('LoginRegister.hbs', {
-			userName: "";
+			userName: ""
 		})
 	}
 	const xname = req.params.name;
