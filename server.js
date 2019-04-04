@@ -108,6 +108,7 @@ app.route('/report').get((req, res) => {
 
 // Middleware for authentication for resources
 const authenticate = (req, res, next) => {
+	//res.status(404).send();
 	if (req.session.user) {
 		User.findById(req.session.user).then((user) => {
 			if (!user) {
@@ -117,10 +118,12 @@ const authenticate = (req, res, next) => {
 				next()
 			}
 		}).catch((error) => {
-			res.redirect('/login')
+			res.redirect('/login');
 		})
 	} else {
-		res.redirect('/login')
+		//res.status(404).send();
+		log("GO LOG IN HOE");
+		res.redirect('/login');
 	}
 }
 
@@ -402,12 +405,20 @@ app.get('/animeinfo/:name', (req, res) => {
 // Not ready yet!
 
 app.post('/animeinfo/:name/review', (req, res) => {
+	if (req.session.user){
+		authenticate();
+	}else{
+		return res.render('LoginRegister.hbs', {
+			userName: "";
+		})
+	}
 	const xname = req.params.name;
 	const newname = xname.replace(/_/g, " ");
+	log("HERE???");
 
 	const review = new Review({
 		animeName: newname.toLowerCase(),
-		reviewer: req.body.reviewer,
+		reviewer: req.session.username,
     	review: req.body.review,
    		grade: req.body.grade
 	})

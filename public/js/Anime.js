@@ -181,6 +181,8 @@ function download(){
 	// Put it in the animeList array.
 }
 
+
+
 // Load selected anime to the page. It has to be on the animeList array.
 //module.exports.loadd = function loadd(title){
 function load(title){
