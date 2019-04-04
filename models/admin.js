@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//Only model in the admin is the report schema
 const ReportSchema = new mongoose.Schema({
 	reporter: String,
 	reportee: String,
@@ -7,6 +8,7 @@ const ReportSchema = new mongoose.Schema({
 	reason: String
 });
 
+//Index to allow searching for specific reportees
 ReportSchema.index({reportee: "text"});
 
 const Report = mongoose.model('Report', ReportSchema);

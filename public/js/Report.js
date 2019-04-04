@@ -7,6 +7,7 @@ let message_in = false;
 function report_user(e) {
 	e.preventDefault();
 	
+	//These acquire the field values needed for the report model
 	const report_block = document.querySelector("#report_block");
 	const reviewer_name = document.querySelector('#name').value;
 	const anime_reviewed = document.querySelector('#anime').value;
@@ -17,7 +18,7 @@ function report_user(e) {
 	
 	//Phase 2
 	
-	//Checks if reportee is valid
+	//Checks if reportee is valid using a basic map and boolean
 	let user_found = false;
 	fetch('/users')
 	.then((res) => {
@@ -34,9 +35,9 @@ function report_user(e) {
 			}
 		})
 		if (user_found === false) {
-			console.log("in here for some reason")
 			messageText = document.createTextNode('No user with this name exists!');
 			message.style.color = 'red';
+			//The message_in is used to check if a status mesage is already on display and removes the old one if it is
 			message.appendChild(messageText);
 			if (message_in === false) {
 				message_in = true;
@@ -46,7 +47,7 @@ function report_user(e) {
 			report_block.appendChild(message);
 			return;
 		};
-		//Checks if anime field is valid
+		//Checks if anime field is valid nested within to avoid asynchronous execution
 		let anime_found = false;
 		fetch('/animeinfo')
 		.then((res) => {
@@ -59,12 +60,10 @@ function report_user(e) {
 		.then((json_b) => {
 			json_b.map((anime) => {
 				if (anime_reviewed === anime.name) {
-					console.log("found");
 					anime_found = true;
 				}
 			});
 			if (anime_found === false) {
-				console.log("in here for some reason")
 				messageText = document.createTextNode('No anime with this name exists!');
 				message.style.color = 'red';
 				message.appendChild(messageText);
@@ -77,6 +76,7 @@ function report_user(e) {
 				return;
 			};
 			
+			//Creates a post for a report model (the reporter is taken from the session field in the server)
 			const url = '/report';
 			let data = {
 				reportee: reviewer_name,
@@ -93,6 +93,7 @@ function report_user(e) {
 				},
 			});
 			
+			//Gives white text for sucesses, red for failures
 			fetch(report)
 			.then(function(res) {
 				if (res.status === 200) {
@@ -113,7 +114,6 @@ function report_user(e) {
 			}).catch((error) => {
 				console.log(error);
 			});
-			console.log("at end");
 		}).catch((error) => {
 			console.log(error);
 		});

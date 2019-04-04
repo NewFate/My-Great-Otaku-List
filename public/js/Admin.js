@@ -8,8 +8,6 @@ let animeChanged = false;
 reportIds = []
 
 //The event listeners for each section
-//const passwordManager = document.querySelector('#PasswordResets');
-//passwordManager.addEventListener('click', passwordChanges);
 const reportManager = document.querySelector('#ReportInfo');
 reportManager.addEventListener('click', reportActions);
 const animeManager = document.querySelector('#AnimeApprovals');
@@ -28,7 +26,7 @@ fetch(reportUrl)
     }                
 })
 .then((json) => {
-	//Creates table rows for reports
+	//Creates table rows for reports in order of reportee, reporter, anime, reason, and buttons to either pass or ignore the ban
     reportList = document.querySelector('#ReportTable')
     json.map((report) => {
 		reportIds.push(report._id)
@@ -69,6 +67,7 @@ fetch(reportUrl)
     console.log(error);	
 })
 
+//This is to create the anime suggestions field
 const requestUrl = '/suggestInfo';
 
 fetch(requestUrl)
@@ -81,12 +80,9 @@ fetch(requestUrl)
     }
 })
 .then((json) => {
-	//Creates table rows for anime requests
-	//console.log(json);
+	//Creates table rows for anime requests in order of title, description, page image, and buttons to add or ignore it
     requestList = document.querySelector('#AnimeTable')
     json.map((request) => {
-    //	console.log("this is the request");
-    //	console.log(request);
 		requestBody = document.createElement('tr')
 		title = document.createElement('td')
 		titleText = document.createTextNode(request.name)
@@ -99,8 +95,6 @@ fetch(requestUrl)
 		imageBlock = document.createElement('td')
 		imageFile = document.createElement('img')
 		imageFile.src = request.imageURL
-		//console.log("THIS IMG IS");
-		//console.log(imageFile.src);
 		imageBlock.appendChild(imageFile)
 		requestBody.appendChild(imageBlock)
 		addColumn = document.createElement('td')
@@ -128,18 +122,14 @@ function reportActions (e) {
 	e.preventDefault();
 	
 	//Removes report from database
-	//console.log("HERER");
-	//console.log(e.target.parentElement.parentElement.children);
-	//console.log(e.target.parentElement.rowIndex);
-	//const idIndex = e.target.parentElement.parentElement.children.indexOf(e.target.parentElement);
 	const idIndex = e.target.parentElement.rowIndex - 1;
 	
 	
 	const reportElement = document.createElement('p');
 	if (e.target.classList.contains('BanUser')) {
+		//Calls specific delete functions to delete all reports about the same user and their reviews from the database
 		const deleteReportUrl = '/reportbyname/' + e.target.parentElement.parentElement.firstElementChild.innerText;
 		const deleteReviewUrl = '/review/' + e.target.parentElement.parentElement.firstElementChild.innerText;
-		//console.log("REMOVIN")
 		const deleteReport = new Request(deleteReportUrl, {
 	        method: 'delete'
 	    });
@@ -162,8 +152,6 @@ function reportActions (e) {
 		//Removes user from database
 		let reportPhrase = null
 		const userUrl = '/user/' + e.target.parentElement.parentElement.children[0].innerText;
-		//console.log("BANING THIS GUY");
-		//console.log(userUrl);
 		const ban = new Request(userUrl, {
 			method: 'delete'
 		});
@@ -191,12 +179,12 @@ function reportActions (e) {
 			}
         	
 		}).catch((error) => {
-			console.log("THIS is the error");
 			console.log(error);
 			reportPhrase = document.createTextNode("There has been an issue with the banning process.")
 			reportElement.appendChild(reportPhrase);
 		});
 	} else if (e.target.classList.contains('DoNotBan')) {
+		//Just removes the entry from the list
 		const deleteReportUrl = '/report/' + reportIds[idIndex];
 		const deleteReport = new Request(deleteReportUrl, {
 	        method: 'delete'
@@ -229,8 +217,6 @@ function animeListActions (e) {
 	const animeName = e.target.parentElement.parentElement.firstElementChild.innerText;
 	let modAnimeName = animeName.slice();
 	modAnimeName = modAnimeName.replace(/ /g, "_");
-	console.log("ANIME NAME IS ");
-	console.log(modAnimeName);
 	const deleteRequestUrl = '/suggestInfo/' + modAnimeName;
 	const deleteRequest = new Request(deleteRequestUrl, {
         method: 'delete'
