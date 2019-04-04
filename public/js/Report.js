@@ -79,7 +79,6 @@ function report_user(e) {
 			
 			const url = '/report';
 			let data = {
-				reporter: "Placeholder_reporter",
 				reportee: reviewer_name,
 				anime: anime_reviewed,
 				reason: reason

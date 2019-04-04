@@ -526,7 +526,7 @@ app.get('/animeinfo/:name/review', (req, res) => {
 app.post('/report', authenticate, (req, res) =>{
 
 	const report = new Report({
-		reporter: req.body.reporter,
+		reporter: req.session.username,
 		reportee: req.body.reportee,
 		anime: req.body.anime,
 		reason: req.body.reason,
