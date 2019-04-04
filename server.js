@@ -402,16 +402,19 @@ app.post('/animeinfo/:name/review', authenticate, (req, res) => {
 			// This is the first review by this person on this anime,
 			// create a new one!
 
-			Anime.findOne({ $text: { $search: newname } }).then((animes) =>{
-				if(!animes){
+			Anime.find({ $text: { $search: newname } }).then((animes) =>{
+				if(animes.length == 0){
 					res.status(404).send();
-				}else{
-					// Update the anime information.
-					animes.nReviews = animes.nReviews + 1;
-					animes.averageScore = animes.averageScore + review.grade;
-					animes.save().then((anime) => {}, (error) => {
-						res.status(400).send(error);
-					})
+				}
+				for(let i=0; i<animes.length; i++){
+					if(animes[i].name.toLowerCase() == newname.toLowerCase()){
+						// Update the anime information.
+						animes[i].nReviews = animes[i].nReviews + 1;
+						animes[i].averageScore = animes[i].averageScore + review.grade;
+						animes[i].save().then((anime) => {}, (error) => {
+							res.status(400).send(error);
+						})
+					}
 				}
 			}).catch((error) => {
 				res.status(404).send();
@@ -428,14 +431,19 @@ app.post('/animeinfo/:name/review', authenticate, (req, res) => {
 			let prevGrade = rev.grade;
 
 			// Update anime information
-			Anime.findOne({ $text: { $search: newname } }).then((animes) =>{
-				if(!animes){
+			Anime.find({ $text: { $search: newname } }).then((animes) =>{
+				if(animes.length == 0){
 					res.status(404).send();
-				}else{
-					animes.averageScore = animes.averageScore + review.grade - prevGrade;
-					animes.save().then((anime) => {}, (error) => {
-						res.status(400).send(error);
-					})
+				}
+				for(let i=0; i<animes.length; i++){
+					if(animes[i].name.toLowerCase() == newname.toLowerCase()){
+						// Update the anime information.
+						animes.averageScore = animes.averageScore + review.grade - prevGrade;
+						
+						animes[i].save().then((anime) => {}, (error) => {
+							res.status(400).send(error);
+						})
+					}
 				}
 			}).catch((error) => {
 				res.status(404).send();
@@ -461,6 +469,7 @@ app.get('/animeinfo/:name/review', (req, res) => {
 	const newname = xname.replace(/_/g, " ");
 	
 	Review.find({animeName: newname.toLowerCase()}).then((rev) =>{
+		log(rev);
 		if(rev.length == 0){
 			// If no reviews.
 			res.send([]);
