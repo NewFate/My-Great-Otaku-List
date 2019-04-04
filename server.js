@@ -438,8 +438,7 @@ app.post('/animeinfo/:name/review', authenticate, (req, res) => {
 				for(let i=0; i<animes.length; i++){
 					if(animes[i].name.toLowerCase() == newname.toLowerCase()){
 						// Update the anime information.
-						animes.averageScore = animes.averageScore + review.grade - prevGrade;
-						
+						animes[i].averageScore = animes[i].averageScore + review.grade - prevGrade;
 						animes[i].save().then((anime) => {}, (error) => {
 							res.status(400).send(error);
 						})
@@ -619,13 +618,16 @@ app.delete('/review/:reviewer', authenticate, (req, res) => {
 				const new2name = yname.replace(/_/g, " ");
 
 				// Find this anime, and render it.
-				Anime.findOne({ $text: { $search: new2name } }).then((anime) =>{
-					if(!anime){
+				Anime.find({ $text: { $search: new2name } }).then((animes) =>{
+					if(anime.length == 0){
 						res.status(404).send();
-					}else{
-						anime.nReviews = anime.nReviews - 1;
-						anime.averageScore = anime.averageScore - rev[i].grade;
-						anime.save();
+					}
+					for(let i = 0; i<animes.length; i++){
+						if(animes[i].name.toLowerCase() == new2name.toLowerCase()){
+							anime.nReviews = anime.nReviews - 1;
+							anime.averageScore = anime.averageScore - rev[i].grade;
+							anime.save();
+						}
 					}
 				}).catch((error) => {
 					res.status(404).send();
