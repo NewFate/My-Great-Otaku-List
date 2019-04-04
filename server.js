@@ -32,6 +32,7 @@ app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/img', express.static(__dirname + '/public/img'));
 app.use('/style', express.static(__dirname + '/public/style'));
 
+
 // Add express sesssion middleware
 app.use(session({
 	secret: 'oursecret',
@@ -166,13 +167,15 @@ app.post('/register', (req, res) =>{
 
 });
 
+// Create view of user profile
 app.get('/userprofile', (req, res) => {
 	//res.sendFile(__dirname + '/public/dashboard.html')
 	console.log("Render")
 	res.render('User_Profile.hbs', {
 		userName: req.session.username,
 		email: req.session.email,
-		dob: req.session.dob
+		dob: req.session.dob,
+		reviewCount: req.session.reviewCount
 	})
 })
 
@@ -191,7 +194,7 @@ app.post('/login', (req, res) =>{
 			req.session.username = user.userName;
 			req.session.email = user.email;
 			req.session.dob = user.dateOfBirth;
-			req.session.reviews = user.reviews;
+
 
 			res.send(user);
 		}
@@ -546,8 +549,9 @@ app.post('/report', authenticate, (req, res) =>{
 app.get('/report/:reviewer/:anime', authenticate, (req, res) => {
 	const xname = req.params.anime;
 	const newname = xname.replace(/_/g, " ");
-	log("NEWNAME IS");
-	log(newname);
+	//log("NEWNAME IS");
+	//log(newname);
+	log(req.session.username)
 	res.render('Report.hbs', {
 		reviewer: req.params.reviewer,
 		animeName: newname,

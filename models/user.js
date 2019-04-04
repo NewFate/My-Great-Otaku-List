@@ -37,7 +37,7 @@ const UserSchema = new mongoose.Schema({
 	},
     dateOfBirth: String,
     //imageURL: String,
-    reviews: [ReviewsSchema]
+
 });
 
 //AnimeSchema.index({name: "text", averageScore: "Number"});
