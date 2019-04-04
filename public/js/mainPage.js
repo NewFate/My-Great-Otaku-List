@@ -12,7 +12,7 @@ const top_3_reviews = document.querySelector('.trending_reviews');
 function update_top_three() {
 
 	const url = '/animeinfo';
-
+	//request the data from the server (anime list)
 	fetch(url).then((res) => {
 		if(res.status == 200){
 			return res.json();
@@ -20,12 +20,10 @@ function update_top_three() {
 			alert('Could not get Anime');
 		}
 	}).then((json) => {
-		log("here");
-		log(json);
 
 		const animeList = trending_3_anime.getElementsByTagName("ul")[0];
 
-	
+		//display only four animes
 		for(let key = json.length-1; key>=Math.max(json.length-4, 0); key--){
 
 			const animeListElmt = document.createElement('li');
@@ -38,14 +36,12 @@ function update_top_three() {
 			let title_underscore = json[key].name;
 			title_underscore = title_underscore.replace(/\s+/g, "_");
 			animeA.href = "/anime/" + title_underscore;
-			log(animeA.href);
+		
 			
 			animeA.textContent = json[key].name;
 			animeImg.className = "anime_tile";
 			animeImg.src = json[key].imageURL;
-			log("THE PICTURE IS ");
-			log(json[key].imageURL);
-			log("end here")
+			
 
 			//construct the element
 			animeListElmt.appendChild(animeA);
@@ -69,6 +65,7 @@ function update_trending_reviews() {
 
 	const url = '/animereviews';
 
+	//request the data from the server (anime list)
 	fetch(url).then((res) => {
 		if(res.status == 200){
 			return res.json();
@@ -76,11 +73,10 @@ function update_trending_reviews() {
 			alert('Could not get Anime');
 		}
 	}).then((json) => {
-		log("here");
-		log(json);
+	
 
 	
-		
+		// display only 3 reviews
 		for(let key = json.length-1; key>=Math.max(json.length-3, 0); key--){
 			//We will be using the server data here to construct the elements dynamically
 			const animeReviewElmt = document.createElement('p');
@@ -109,7 +105,7 @@ function update_trending_reviews() {
 function update_top_ten() {
 
 	const url = '/animeinfo';
-
+	//get the anime list
 	fetch(url).then((res) => {
 		if(res.status == 200){
 			return res.json();
@@ -117,11 +113,10 @@ function update_top_ten() {
 			alert('Could not get Anime');
 		}
 	}).then((json) => {
-		log("here");
-		log(json);
+	
 
 		
-
+		//sort them by avg score
 		for(let i=0; i<json.length; i++){
 			for(let j=i+1; j<json.length; j++){
 				if(json[i].averageScore/Math.max(json[i].nReviews, 1) < json[j].averageScore/Math.max(json[j].nReviews, 1)){
@@ -133,7 +128,7 @@ function update_top_ten() {
 		}
 
 		
-
+		//create the dom elements
 		const animeList = top_10_anime.getElementsByTagName("ol")[0];
 		const tbl = document.createElement('table');
 		animeList.appendChild(tbl);

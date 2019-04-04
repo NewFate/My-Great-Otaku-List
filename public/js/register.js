@@ -28,6 +28,7 @@ function register(e) {
 	 
     var pattern =/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
 
+    //check if fields are empty in form
     if(dateOfBirth === "" || username === "" || email === ""){
         feedback.innerText = 'Please fill in the fields!'
         feedback.setAttribute("style", "color: red")
@@ -102,11 +103,10 @@ function createUser() {
         // Usually check the error codes to see what happened
         const message = document.querySelector('#message')
         if (res.status === 200) {
-            console.log('Created User')
+            
             
             window.location.href = '/login';
         } else {
-            console.log(res)
         	
 
             feedback.innerText = 'Username/email already taken/ is invalid!'
@@ -117,6 +117,6 @@ function createUser() {
       
         
     }).catch((error) => {
-        console.log(error)
+        feedback.innerText = 'Server error!'
     })
 }
