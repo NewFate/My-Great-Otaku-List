@@ -17,3 +17,5 @@ registering with the same email
 fix pictures size
 
 add authenticate to wherever
+
+change color of report and admin

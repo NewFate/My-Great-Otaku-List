@@ -549,7 +549,8 @@ app.get('/report/:reviewer/:anime', authenticate, (req, res) => {
 	log(newname);
 	res.render('Report.hbs', {
 		reviewer: req.params.reviewer,
-		animeName: newname
+		animeName: newname,
+		userName: req.session.username
 		//userName: "TEOsadasdasddasds"
 	})
 })
