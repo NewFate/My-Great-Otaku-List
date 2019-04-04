@@ -158,7 +158,7 @@ function reportActions (e) {
 		fetch(ban)
 		.then(function(res) {
 			if (res.status === 200) {
-				reportPhrase = document.createTextNode(e.target.parentElement.parentElement.firstElementChild.innerText + " has been banned!");
+				reportPhrase = document.createTextNode(e.target.parentElement.parentElement.firstElementChild.innerText + " is being banned. Please wait.");
 				const tableElement = e.target.parentElement.parentElement.parentElement;
 				const reportNum = tableElement.children.length;
 				const reportObjects = []
@@ -171,6 +171,7 @@ function reportActions (e) {
 					tableElement.removeChild(reportObjects[j]);
 				}
 				reportElement.appendChild(reportPhrase);
+				setTimeout(pageRefresh, 2000);
 
 			} else {
 				reportPhrase = document.createTextNode("There has been an issue with the banning process.")
@@ -195,9 +196,10 @@ function reportActions (e) {
 				alert("There was an issue in removing the report from the database")
 			}
 		})
-		const reportPhrase = document.createTextNode(e.target.parentElement.parentElement.firstElementChild.innerText + " has not been banned.");
+		const reportPhrase = document.createTextNode(e.target.parentElement.parentElement.firstElementChild.innerText + " has not been banned. Please wait.");
 		reportElement.appendChild(reportPhrase);
 		e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
+		setTimeout(pageRefresh, 2000);
 	}
 	if (reportChanged == false) {
 		reportChanged = true;
@@ -253,8 +255,9 @@ function animeListActions (e) {
 		fetch(suggestion)
 		.then(function(res) {
 			if (res.status === 200) {
-				animePhrase = document.createTextNode(animeName + " has been added to the anime list!");
+				animePhrase = document.createTextNode(animeName + " is being added to the anime list. Please wait.");
 				animeElement.appendChild(animePhrase);
+				setTimeout(pageRefresh, 2000);
            
 			} else {
 				animePhrase = document.createTextNode('The suggestion has failed to upload.');
@@ -270,9 +273,10 @@ function animeListActions (e) {
 		const animeDesc = e.target.parentElement.parentElement.children[2].innerText;
 		e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
 	} else if (e.target.classList.contains('IgnoreAnime')) {
-		animePhrase = document.createTextNode(animeName + " has not been added to the anime list.");
+		animePhrase = document.createTextNode(animeName + " has not been added to the anime list. Please wait");
 		animeElement.appendChild(animePhrase);
 		e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
+		setTimeout(pageRefresh, 2000);
 	}
 	if (animeChanged == false) {
 		animeChanged = true;
@@ -281,4 +285,10 @@ function animeListActions (e) {
 		animeManager.removeChild(animeManager.children[2])
 		animeManager.appendChild(animeElement);
 	}
+}
+
+//This function is to refresh the page after 2 seconds to properly reset the report id array
+//A message has been given to all sucessful actions to wait.
+function pageRefresh() {
+	location.reload();
 }
