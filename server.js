@@ -42,13 +42,15 @@ app.use(session({
 		expires: 600000,
 		httpOnly: true
 	}
-}))
+}));
 
 
-app.route('/', (req, res) => {
-	res.send(500);
-	//res.redirect('anime');
-})
+app.get('/', (req, res) => {
+	//log("LOAD THIS");
+	//res.redirect("login");
+	//res.send(500);
+	res.redirect('index');
+});
 
 app.route('/anime').get((req, res) => {
 	res.render('Anime.hbs', {
