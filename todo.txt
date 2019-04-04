@@ -15,3 +15,5 @@ make the review the same size always
 registering with the same email
 
 fix pictures size
+
+add authenticate to wherever

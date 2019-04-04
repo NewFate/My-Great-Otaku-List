@@ -105,19 +105,6 @@ app.route('/report').get((req, res) => {
 	res.sendFile(__dirname + '/public/User_Profile.html');
 })*/
 
-
-
-
-app.route('/SuggestAnime').get((req, res) => {
-	log("HERERERERERER");
-	log(__dirname + '/public/SuggestAnime.html');
-	res.render('SuggestAnime.hbs', {
-		userName: req.session.username
-	})
-	//res.sendFile(__dirname + '/public/SuggestAnime.html');
-})
-
-
 // Middleware for authentication for resources
 const authenticate = (req, res, next) => {
 	if (req.session.user) {
@@ -135,6 +122,20 @@ const authenticate = (req, res, next) => {
 		res.redirect('/login')
 	}
 }
+
+
+
+
+app.route('/SuggestAnime').get(authenticate, (req, res) => {
+	log("HERERERERERER");
+	log(__dirname + '/public/SuggestAnime.html');
+	res.render('SuggestAnime.hbs', {
+		userName: req.session.username
+	})
+	//res.sendFile(__dirname + '/public/SuggestAnime.html');
+})
+
+
 
 
 app.get('/username', authenticate, (req, res) => {
