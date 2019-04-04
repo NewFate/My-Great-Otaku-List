@@ -80,11 +80,19 @@ animeList[1].createReview(new Review("Mitsuha", "Very good movie, made me cry of
 animeList[0].createReview(new Review("User23123", "Very good, but its not all its hyped to be...", 7));
 
 */
+let guy = "";
 
 let currentAnime = "";
 
 // When someone clicks on submit review, grab the information, check if its valid and put in the right place.
 function submitReview(){
+	log("THIS GUY");
+	log(guy);
+	if(guy.length == 0){
+		window.location.href = "/login"
+		return;
+	}
+	
 	//let username = document.getElementById("usernameR").value;
 	let review = document.getElementById("newReviewR").value;
 	let grade = document.getElementById("newGradeR").value;
