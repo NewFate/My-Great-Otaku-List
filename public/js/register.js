@@ -20,6 +20,8 @@ function register(e) {
 	const password = loginRegister_form.querySelector('#password').value;
 	const confPassword = loginRegister_form.querySelector('#confPassword').value;
     const dateOfBirth = loginRegister_form.querySelector('#dateOfBirth').value;
+
+    const feedback = loginRegister_form.querySelector('#feedback');
 	
 	//check if user is in the database
 	// create account if not found
@@ -42,18 +44,26 @@ function register(e) {
             }
 
             else{
-                alert("Please enter a password!");
+                feedback.innerText = 'Please enter a password!'
+                feedback.setAttribute("style", "color: red")
+                //alert("Please enter a password!");
+
             }	
     	}
 
     	else{
-    		alert("Passwords don't match!");
+            feedback.innerText = 'Passwords need to match!'
+            feedback.setAttribute("style", "color: red")
+    		//alert("Passwords don't match!");
 		}
 
     }
 
     else{
-        alert("Invalid date!");
+
+        feedback.innerText = 'Invalid date!'
+        feedback.setAttribute("style", "color: red")
+        //alert("Invalid date!");
     }
 
 }
