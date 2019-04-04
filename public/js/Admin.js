@@ -122,7 +122,7 @@ function reportActions (e) {
 	e.preventDefault();
 	
 	//Removes report from database
-	const idIndex = e.target.parentElement.rowIndex - 1;
+	const idIndex = e.target.parentElement.parentElement.rowIndex - 1;
 	
 	
 	const reportElement = document.createElement('p');
@@ -195,9 +195,9 @@ function reportActions (e) {
 				alert("There was an issue in removing the report from the database")
 			}
 		})
-		const reportPhrase = document.createTextNode(e.target.parentElement.firstElementChild.innerText + " has not been banned.");
+		const reportPhrase = document.createTextNode(e.target.parentElement.parentElement.firstElementChild.innerText + " has not been banned.");
 		reportElement.appendChild(reportPhrase);
-		e.target.parentElement.parentElement.removeChild(e.target.parentElement);
+		e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
 	}
 	if (reportChanged == false) {
 		reportChanged = true;

@@ -549,7 +549,7 @@ app.delete('/report/:id', authenticate, (req, res) => {
 	Report.findByIdAndRemove(id).then((report) => {
 		if (!report) {
 			res.status(404).send()
-		} else {   
+		} else {
 			res.send(report)
 		}
 	}).catch((error) => {
