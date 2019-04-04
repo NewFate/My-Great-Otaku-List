@@ -27,9 +27,8 @@ function update(name){
 	if(name.length == 0){
 		elem.parentNode.removeChild(elem);
 	}
-
+	// Create a new button if you are admin.
 	if(name == "admin"){
-		console.log(ul);
 		var admin = document.createElement("li");
 		admin.setAttribute("id", "left");
 		var texxt = document.createElement("a");
