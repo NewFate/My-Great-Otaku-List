@@ -352,6 +352,7 @@ app.get('/anime/:name', (req, res) => {
 			//res.send(animes)
 			//res.sendFile(__dirname + '/public/Anime.html');
 			res.render("Anime.hbs", {
+				userName: req.session.username,
 				animeName: xname
 			})
 		}
