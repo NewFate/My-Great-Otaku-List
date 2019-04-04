@@ -45,6 +45,26 @@ app.use(session({
 	}
 }));
 
+const authenticate = (req, res, next) => {
+	//res.status(404).send();
+	if (req.session.user) {
+		User.findById(req.session.user).then((user) => {
+			if (!user) {
+				return Promise.reject()
+			} else {
+				req.user = user
+				next()
+			}
+		}).catch((error) => {
+			res.redirect('/login');
+		})
+	} else {
+		//res.status(404).send();
+		log("GO LOG IN HOE");
+		res.redirect('/login');
+	}
+}
+
 
 app.get('/', (req, res) => {
 	//log("LOAD THIS");
@@ -61,11 +81,15 @@ app.route('/anime').get((req, res) => {
 })
 
 app.route('/login').get((req, res) => {
+	
 	res.render('LoginRegister.hbs', {
 		userName: req.session.username
 	})
+	
 	//res.sendFile(__dirname + '/public/LoginRegister.html');
 })
+
+
 
 app.route('/register').get((req, res) => {
 	res.render('register.hbs', {
@@ -88,8 +112,12 @@ app.route('/index').get((req, res) => {
 	//res.sendFile(__dirname + '/public/index.html');
 })
 
-app.route('/admin').get((req, res) => {
+app.route('/admin').get(authenticate, (req, res) => {
 	/// CHECK IF ITS LOGGED IN
+	if(req.session.username != "admin"){
+		res.route('/login');
+		return;
+	}
 	res.render('Admin.hbs', {
 		userName: req.session.username
 	})
@@ -107,25 +135,7 @@ app.route('/report').get((req, res) => {
 })*/
 
 // Middleware for authentication for resources
-const authenticate = (req, res, next) => {
-	//res.status(404).send();
-	if (req.session.user) {
-		User.findById(req.session.user).then((user) => {
-			if (!user) {
-				return Promise.reject()
-			} else {
-				req.user = user
-				next()
-			}
-		}).catch((error) => {
-			res.redirect('/login');
-		})
-	} else {
-		//res.status(404).send();
-		log("GO LOG IN HOE");
-		res.redirect('/login');
-	}
-}
+
 
 
 

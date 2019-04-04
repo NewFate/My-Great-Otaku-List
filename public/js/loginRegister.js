@@ -42,7 +42,9 @@ function login(e) {
             //console.log('Logged In')
             feedback.innerText = 'Logging in...'
             feedback.setAttribute("style", "color: green")
-            window.location.href = "/userprofile";
+            
+            return res.json();
+            
            
         } else {
             feedback.innerText = 'Username/password incorrect!!'
@@ -55,7 +57,16 @@ function login(e) {
         
     }).catch((error) => {
         console.log(error)
-    })
+    }).then((json) => {
+        console.log("USERNAME IS");
+        console.log(json.userName);
+        if(json.userName == "admin"){
+            window.location.href = "/admin";
+        }else{
+            window.location.href = "/userprofile";
+        }
+       
+    });
 
 }
 
