@@ -66,6 +66,7 @@ li a:hover {
   overflow: hidden;
   align-content: center;
   background-color: #333;
+  align-content: center;
 }
 
 .trending_three ul li {
@@ -79,6 +80,7 @@ li a:hover {
   text-align: center;
   padding: 20px 20px;
   text-decoration: none;
+
 }
 
 .anime_info {
@@ -169,7 +171,8 @@ input[type=submit]:hover {
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 5px;
-  width: 100px;
+  width: 100%;
+  align-content: center;
 }
 
 .trending_reviews {
@@ -197,7 +200,9 @@ input[type=submit]:hover {
   padding: 5px;
   width: 50px;
   margin: 10px;
+  margin-top: 30%;
   vertical-align: middle
+
 
 }
 
@@ -236,4 +241,10 @@ img{
   background-repeat:   no-repeat;
   background-size:     cover;
   object-fit: contain;
+  align-self: center;
+}
+
+.box{
+  align-content: center;
+  text-align: center;
 }

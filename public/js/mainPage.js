@@ -28,6 +28,10 @@ function update_top_three() {
 
 			const animeListElmt = document.createElement('li');
 
+			const div = document.createElement('div');
+			const div2 = document.createElement('div');
+			animeListElmt.className = "box";
+
 			const animeA = document.createElement('a');
 			const animeImg = document.createElement('img');
 
@@ -44,8 +48,10 @@ function update_top_three() {
 			
 
 			//construct the element
-			animeListElmt.appendChild(animeA);
-			animeListElmt.appendChild(animeImg);
+			div.appendChild(animeA);
+			div2.appendChild(animeImg);
+			animeListElmt.appendChild(div);
+			animeListElmt.appendChild(div2);
 			animeList.appendChild(animeListElmt);
 				
 
