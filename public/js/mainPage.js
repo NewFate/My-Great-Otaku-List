@@ -148,6 +148,8 @@ function update_top_ten() {
 		//log("Top: " + topAnime);
 
 		const animeList = top_10_anime.getElementsByTagName("ol")[0];
+		const tbl = document.createElement('table');
+		animeList.appendChild(tbl);
 
 		for(let key = 0; key<=Math.min(10, json.length-1); key++){
 
@@ -155,6 +157,7 @@ function update_top_ten() {
 
 			const animeA = document.createElement('a');
 			const animeImg = document.createElement('img');
+			const tr = document.createElement('tr');
 
 			//We will be using the server data here to construct the elements dynamically
 			let title_underscore = json[key].name;
@@ -163,11 +166,12 @@ function update_top_ten() {
 			animeA.textContent = json[key].name;
 			animeImg.className = "anime_tile_small";
 			animeImg.src = json[key].imageURL;
-
+			
 			//construct the element and add it to the webpage
-			animeListElmt.appendChild(animeImg);
-			animeListElmt.appendChild(animeA);
-			animeList.appendChild(animeListElmt);
+			tr.appendChild(animeImg);
+			tr.appendChild(animeA);
+			animeListElmt.appendChild(tr);
+			tbl.appendChild(animeListElmt);
 				
 
 		}

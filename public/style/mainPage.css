@@ -52,7 +52,9 @@ body {
 }
 
 li a:hover {
-  background-color: #111;
+  
+  background: rgba(17, 17, 17, 0.2); 
+  
 }
 
 .trending_three ul {
@@ -222,3 +224,14 @@ input[type=submit]:hover {
   float: right;
 }
 
+img{
+  
+  position: relative;
+  float: left;
+  width:  100px;
+  height: 100px;
+  background-position: 50% 50%;
+  background-repeat:   no-repeat;
+  background-size:     cover;
+  object-fit: contain;
+}
