@@ -4,7 +4,7 @@ fix paths between all files (register in particular i think)
 
 change the name of the website from animelist to mygreatotakulist (done)
 
-change layout of the admin (just needs to center table)
+change layout of the admin (done)
 
 make the review the same size always on the anime page (done)
 
