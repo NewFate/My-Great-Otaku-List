@@ -85,10 +85,10 @@ let currentAnime = "";
 
 // When someone clicks on submit review, grab the information, check if its valid and put in the right place.
 function submitReview(){
-	let username = document.getElementById("usernameR").value;
+	//let username = document.getElementById("usernameR").value;
 	let review = document.getElementById("newReviewR").value;
 	let grade = document.getElementById("newGradeR").value;
-	if(username == "" || review == "" || grade == ""){
+	if(review == "" || grade == ""){
 		alert("Please fill all required information.");
 		return;
 	}
@@ -107,7 +107,7 @@ function submitReview(){
 
 	let data = {
 		animeName: currentAnime.toLowerCase(),
-		reviewer: username,
+		reviewer: "",
 		review: review,
 		grade: grade
 	}
@@ -139,7 +139,7 @@ function submitReview(){
 		}
 	}*/
 
-	document.getElementById("usernameR").value = "";
+	//document.getElementById("usernameR").value = "";
 	document.getElementById("newReviewR").value = "";
 	document.getElementById("newGradeR").value = "";
 
