@@ -8,8 +8,8 @@ const top_3_reviews = document.querySelector('.trending_reviews');
 
 
 
-//updates the top three new anime
-function update_top_three() {
+//updates the top four new anime
+function update_top_four() {
 
 	const url = '/animeinfo';
 	//request the data from the server (anime list)
