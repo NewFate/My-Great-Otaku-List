@@ -88,7 +88,7 @@ function submitReview(){
 	//let username = document.getElementById("usernameR").value;
 	let review = document.getElementById("newReviewR").value;
 	let grade = document.getElementById("newGradeR").value;
-	if(review == "" || grade == ""){
+	if( review == "" || grade == ""){
 		alert("Please fill all required information.");
 		return;
 	}

@@ -173,30 +173,83 @@ app.post('/register', (req, res) =>{
 // Create view of user profile
 app.get('/userprofile', (req, res) => {
 	//res.sendFile(__dirname + '/public/dashboard.html')
+	let report_count = 0;
 	console.log("Render")
-	res.render('User_Profile.hbs', {
-		userName: req.session.username,
-		email: req.session.email,
-		dob: req.session.dob,
-		reviewCount: req.session.reviewCount
+	Report.find().then((reports) => {
+			for(let i = 0; i < reports.length; i++){
+				log(reports[i].reporter);
+				log(req.session.username)
+				if(reports[i].reporter === req.session.username){
+					report_count++;
+				}
+			}
+				let review_count = 0;
+				let reviews_list = 0;
+		//console.log("Render")
+		Review.find().then((reviews) => {
+				for(let i = 0; i < reviews.length; i++){
+					if(reviews[i].reporter === req.session.username){
+						reviews_list.push(reviews[i].review)
+						review_count++;
+					}
+				}
+				res.render('User_Profile.hbs', {
+					userName: req.session.username,
+					email: req.session.email,
+					dob: req.session.dob,
+					reviewCount: review_count,
+					reportCount: report_count,
+					reviewList: reviews_list
+				})
+			}).catch((error) => {
+				res.status(500).send()
+		})
+		log(report_count, review_count);
+
+		
+		}).catch((error) => {
+			res.status(500).send()
 	})
+
+
+
 })
 
 // Log in
 app.post('/login', (req, res) =>{
 	const username = req.body.username
 	const password = req.body.password
-	log("THIS ");
+	//log("THIS ");
 	User.findByUserNamePassword(username, password).then((user) => {
 		if(!user) {
 			res.redirect('/login')
 		} else {			
-			console.log('User Found');
-			console.log(user.userName)
+			//console.log('User Found');
+			//console.log(user.userName)
 			req.session.user = user._id;
 			req.session.username = user.userName;
 			req.session.email = user.email;
 			req.session.dob = user.dateOfBirth;
+
+			Report.find().then((reports) => {
+					log(reports.length)
+				}).catch((error) => {
+					res.status(500).send()
+			})
+
+	// 			Review.find({animeName: newname.toLowerCase()}).then((rev) =>{
+	// 	if(rev.length == 0){ // This is the first one, create a new one!
+	// 		log("Cant find you dwag!");
+	// 		res.send([]);
+	// 		//res.status(404).send();
+	// 	}else{ // Already there!
+	// 		res.send(rev);
+
+	// 	}
+	// }).catch((error) => {
+	// 	log(error);
+	// 	res.status(404).send();
+	// })
 
 
 			res.send(user);
