@@ -29,6 +29,8 @@ body {
   padding: 0;
   overflow: hidden;
   background-color: #333;
+  font-family: Delicious;
+
 }
 
 #NavigationBar ul li {
