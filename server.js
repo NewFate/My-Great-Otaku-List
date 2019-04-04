@@ -750,6 +750,23 @@ app.delete('/review/:reviewer', (req, res) => {
 	})
 })
 
+app.get('/review/:reviewer', (req, res) => {
+	const xname = req.params.reviewer;
+	const newname = xname.replace(/_/g, " ");
+	
+	Review.find({reviewer: xname}).then((rev) =>{
+		if(!rev){
+			log("Did not find reviews");
+			res.status(404).send();
+		}else{
+			res.send(rev);
+		};
+	}).catch((error) => {
+		log(error);
+		res.status(404).send();
+	})
+})
+
 app.listen(port, () => {
 	log(`Listening on port ${port}...`)
 });

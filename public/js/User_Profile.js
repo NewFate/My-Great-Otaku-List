@@ -96,8 +96,28 @@ function editProfileBackEnd(){
 	//This function will edit the details of the profile in the backend
 }
 
-function updateReviews(){
+function updateReviews(name){
+	const doc = document.getElementById("reviewlist");
+	const url = '/review/' + name;
+	console.log(url);	
 
+	fetch(url).then((res) => {
+		if(res.status == 200){
+			return res.json();
+		}else {
+			alert('Could not get Anime');
+		}
+	}).then((json) => {
+		console.log("here");
+		console.log(json.description);
+		for(let i=json.length - 1; i>=Math.max(json.length-5, 0); i--){
+			const elm = document.createElement("li");
+			const p = document.createElement("p");
+			p.innerText = json[i].review;
+			elm.appendChild(p);
+			doc.appendChild(elm);
+		}
+	});
 	//This function will update the user review list by checking the reviews in the backend
 }
 

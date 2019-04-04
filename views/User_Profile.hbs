@@ -46,9 +46,7 @@
 
  <div id="Reviews">
  	<h1>Reviews</h1>
- 	<ul>
- 		<li><p>Mob Psycho 100 S2 - It rarely happens that second season of any anime tops the first season season but its not the case with the Mob Psycho 100, because its clearly improves over 1st season artistically and story-wise too. Rating 10/10</p></li>
- 		<li><p>It rarely happens that second season of any anime tops the first season season but its not the case with the Mob Psycho 100, because its clearly improves over 1st season artistically and story-wise too. Rating 10/10</p></li>
+ 	<ul id = "reviewlist">
  	</ul>
  </div>
 <form id="editProfile">
@@ -57,7 +55,7 @@
 
  <script type="text/javascript" src="/js/User_Profile.js"></script>
  <script type="text/javascript" src="/js/changeLogin.js"></script>
- <script>var x = "{{userName}}"; update(x);</script>
+ <script>var x = "{{userName}}"; update(x); updateReviews(x);</script>
  </body>
 
  </html>
