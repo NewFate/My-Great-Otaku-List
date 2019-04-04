@@ -404,14 +404,8 @@ app.get('/animeinfo/:name', (req, res) => {
 
 // Not ready yet!
 
-app.post('/animeinfo/:name/review', (req, res) => {
-	if (req.session.user){
-		authenticate();
-	}else{
-		return res.render('LoginRegister.hbs', {
-			userName: ""
-		})
-	}
+app.post('/animeinfo/:name/review', authenticate, (req, res) => {
+	
 	const xname = req.params.name;
 	const newname = xname.replace(/_/g, " ");
 	log("HERE???");
