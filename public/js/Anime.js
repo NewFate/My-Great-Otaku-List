@@ -124,7 +124,6 @@ function load(title){
 		document.getElementById("Anime").appendChild(description);
 
 		const grade = document.createElement("div");
-		log(json.averageScore, json.nReviews);
 		const gradeText = document.createTextNode("Anime rating: " + (json.averageScore/Math.max(1, json.nReviews)).toFixed(2) + "/10");
 		grade.className = "animeGrade";
 		grade.appendChild(gradeText);
