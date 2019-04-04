@@ -1,13 +1,14 @@
 
+// This function is to be called from all the views.
+// It will make sure that the right upper corner
+// Has the correct info on if someone is logged in or not.
+// And give login/logout options.
+
 function update(name){
-	//console.log("HERE?");
-	// check if im logged in or not
 	var elem = document.getElementById("l1");
 	var parent = elem.parentNode;
 	elem.parentNode.removeChild(elem);
 	const anime = document.createElement("a");
-	//console.log("LENGHT");
-	//console.log(name.length);
 	if(name.length == 0){
 		anime.setAttribute("href", "/login");
 		anime.innerText = 'Login';

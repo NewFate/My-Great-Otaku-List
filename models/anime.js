@@ -1,6 +1,7 @@
 
 const mongoose = require('mongoose');
 
+// Schema for the reviews
 const ReviewsSchema = new mongoose.Schema({
 	animeName: String,
     reviewer: String,
@@ -8,16 +9,16 @@ const ReviewsSchema = new mongoose.Schema({
     grade: Number
 });
 
-// Reservations will be embedded in the Restaurant model
+// Schema for the Animes
 const AnimeSchema = new mongoose.Schema({
     name: String,
     description: String,
     imageURL: String,
     averageScore: Number,
     nReviews: Number
-    //reviews: [ReviewsSchema]
 });
 
+// Schema for suggested animes
 const SuggestedSchema = new mongoose.Schema({
 	name: String,
     description: String,
@@ -26,7 +27,8 @@ const SuggestedSchema = new mongoose.Schema({
     nReviews: Number
 });
 
-//AnimeSchema.index({name: "text", averageScore: "Number"});
+// Indexes to find items using their names:
+
 AnimeSchema.index({name: "text"});
 SuggestedSchema.index({name: "text"});
 ReviewsSchema.index({animeName: "text", reviewer: "text"});

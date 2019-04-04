@@ -13,6 +13,7 @@ const { User } = require('./models/user')
 const { Report } = require('./models/admin')
 
 process.env.MONGO_URL
+
 // Express
 const port = process.env.PORT || 3000
 const app = express();
@@ -20,8 +21,9 @@ const app = express();
 const session = require('express-session')
 
 app.use(bodyParser.json());
-// Limit pics to 10MB
 
+
+// This is an attempt to limit pics to 10MB, unsuccessful I believe
 app.use(bodyParser.json({limit: '10mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 
@@ -33,7 +35,7 @@ app.use('/img', express.static(__dirname + '/public/img'));
 app.use('/style', express.static(__dirname + '/public/style'));
 
 
-// Add express sesssion middleware
+// Our session
 app.use(session({
 	secret: 'oursecret',
 	resave: false,
@@ -45,8 +47,9 @@ app.use(session({
 	}
 }));
 
+// Middleware to:
+// Check if the user is really logged in and if it exists.
 const authenticate = (req, res, next) => {
-	//res.status(404).send();
 	if (req.session.user) {
 		User.findById(req.session.user).then((user) => {
 			if (!user) {
@@ -59,60 +62,56 @@ const authenticate = (req, res, next) => {
 			res.redirect('/login');
 		})
 	} else {
-		//res.status(404).send();
-		log("GO LOG IN HOE");
+		// If not, go login!
 		res.redirect('/login');
 	}
 }
 
-
+// Default behaviour.
 app.get('/', (req, res) => {
-	//log("LOAD THIS");
-	//res.redirect("login");
-	//res.send(500);
 	res.redirect('index');
 });
 
+// Route for the anime page.
 app.route('/anime').get((req, res) => {
 	res.render('Anime.hbs', {
 		userName: req.session.username
 	})
-	//res.sendFile(__dirname + '/public/Anime.html');
 })
 
+// Route for the login page.
 app.route('/login').get((req, res) => {
 	res.render('LoginRegister.hbs', {
 		userName: req.session.username
 	})
-	
-	//res.sendFile(__dirname + '/public/LoginRegister.html');
 })
 
-
-
+// Route for the register page.
 app.route('/register').get((req, res) => {
 	res.render('register.hbs', {
 		userName: req.session.username
 	})
-	//res.sendFile(__dirname + '/public/register.html');
 })
 
+// Route for the allAnime page.
 app.route('/allanime').get((req, res) => {
 	res.render('AllAnime.hbs', {
 		userName: req.session.username
 	})
-	//res.sendFile(__dirname + '/public/AllAnime.html');
 })
 
+// Route for the index (main page).
 app.route('/index').get((req, res) => {
 	res.render('index.hbs', {
 		userName: req.session.username
 	})
-	//res.sendFile(__dirname + '/public/index.html');
 })
 
+// Route for the admin page.
 app.route('/admin').get(authenticate, (req, res) => {
-	/// CHECK IF ITS LOGGED IN
+	// Since it arrived here, and we are using  the authenticate
+	// middleware, then we are sure that the person is logged in,
+	// now we just need to check if its admin or not.
 	if(req.session.username != "admin"){
 		res.route('/login');
 		return;
@@ -120,42 +119,21 @@ app.route('/admin').get(authenticate, (req, res) => {
 	res.render('Admin.hbs', {
 		userName: req.session.username
 	})
-	//res.sendFile(__dirname + '/public/Admin.html');
 })
-/*
-app.route('/report').get((req, res) => {
-	/// CHECK IF ITS LOGGED IN
-	res.sendFile(__dirname + '/public/Report.html');
-})*/
 
-/*app.route('/userprofile').get((req, res) => {
-	/// CHECK IF ITS LOGGED IN
-	res.sendFile(__dirname + '/public/User_Profile.html');
-})*/
-
-// Middleware for authentication for resources
-
-
-
-
-
+// Route for the suggest anime page, needs to be authenticated.
 app.route('/SuggestAnime').get(authenticate, (req, res) => {
-	log("HERERERERERER");
-	log(__dirname + '/public/SuggestAnime.html');
 	res.render('SuggestAnime.hbs', {
 		userName: req.session.username
 	})
-	//res.sendFile(__dirname + '/public/SuggestAnime.html');
 })
 
-
-
-
+// Get to get the username of the person logged in.
 app.get('/username', authenticate, (req, res) => {
 	res.send(req.session.username);
 });
 
-//Create a new user
+// Register a new user.
 app.post('/register', (req, res) =>{
 	const user = new User({
 		userName: req.body.username,
@@ -165,107 +143,69 @@ app.post('/register', (req, res) =>{
 	})
 
 	user.save().then((user) => {
-		log("SAVED USER");
-		//res.send(user);
-		//res.redirect('/login');
+		// Send them to the Login page so they can now login.
 		res.render('LoginRegister.hbs', {
 			userName: req.session.username
 		})
 	}, (error) =>{
-		log("COULDNT SEND ");
-		log(error);
 		res.status(400).send(error);
 	})
 
 });
 
-// Create view of user profile
+// Get a user profile, will also keep count of information.
 app.get('/userprofile', authenticate, (req, res) => {
-	//res.sendFile(__dirname + '/public/dashboard.html')
 	let report_count = 0;
-	console.log("Render")
-	Report.find().then((reports) => {
-			let review_count = 0;
-			log("REPORT");
-			for(let i = 0; i < reports.length; i++){
-				log(reports[i].reporter);
-				log(req.session.username)
 
-				if(reports[i].reporter === req.session.username){
-					report_count++;
+	// Count how many reports this user has sent.
+	Report.find().then((reports) => {
+		let review_count = 0;
+		for(let i = 0; i < reports.length; i++){
+			if(reports[i].reporter === req.session.username){
+				report_count++;
+			}
+		}
+		// Count how many reviews this user has sent.
+		Review.find().then((reviews) => {
+			for(let i = 0; i < reviews.length; i++){
+				if(reviews[i].reviewer === req.session.username){
+					review_count++;
 				}
 			}
-			
-		//console.log("Render")
-			Review.find().then((reviews) => {
-				log("REVIEWS")
-				for(let i = 0; i < reviews.length; i++){
-					log(reviews[i].reviewer);
-					log(req.session.username)
-					if(reviews[i].reviewer === req.session.username){
-						//reviews_list.push(reviews[i].review)
-						review_count++;
-					}
-				}
-				res.render('User_Profile.hbs', {
-					userName: req.session.username,
-					email: req.session.email,
-					dob: req.session.dob,
-					reviewCount: review_count,
-					reportCount: report_count
-					//reviewList: reviews_list
-				})
-			}).catch((error) => {
-				res.status(500).send()
-		})
-		log(report_count, review_count);
-
-		
+			// Render the profile with the information acquired.
+			res.render('User_Profile.hbs', {
+				userName: req.session.username,
+				email: req.session.email,
+				dob: req.session.dob,
+				reviewCount: review_count,
+				reportCount: report_count
+			})
 		}).catch((error) => {
 			res.status(500).send()
+		})
+	}).catch((error) => {
+		res.status(500).send()
 	})
-
-
-
 })
 
 // Log in
 app.post('/login', (req, res) =>{
 	const username = req.body.username
 	const password = req.body.password
-	//log("THIS ");
+
+	// Find this user by its name and password.
 	User.findByUserNamePassword(username, password).then((user) => {
 		if(!user) {
+			// If not found, go login
 			res.redirect('/login')
 		} else {			
-			//console.log('User Found');
-			//console.log(user.userName)
+			// If found, load his info on our cookie
 			req.session.user = user._id;
 			req.session.username = user.userName;
 			req.session.email = user.email;
 			req.session.dob = user.dateOfBirth;
 
-			Report.find().then((reports) => {
-					log(reports.length)
-				}).catch((error) => {
-					res.status(500).send()
-			})
-
-	// 			Review.find({animeName: newname.toLowerCase()}).then((rev) =>{
-	// 	if(rev.length == 0){ // This is the first one, create a new one!
-	// 		log("Cant find you dwag!");
-	// 		res.send([]);
-	// 		//res.status(404).send();
-	// 	}else{ // Already there!
-	// 		res.send(rev);
-
-	// 	}
-	// }).catch((error) => {
-	// 	log(error);
-	// 	res.status(404).send();
-	// })
-
-
+			// Send the user back.
 			res.send(user);
 		}
 	}).catch((error) => {
@@ -276,10 +216,12 @@ app.post('/login', (req, res) =>{
 
 // Log out
 app.get('/logout', (req, res) => {
+	// Remove the cookie.
 	req.session.destroy((error) => {
 		if (error) {
 			res.status(500).send(error)
 		} else {
+			// Go login now.
 			res.redirect('/login')
 		}
 	})
@@ -287,26 +229,22 @@ app.get('/logout', (req, res) => {
 
 // Get all users
 app.get('/users', (req, res) => {
-	// Add code here
+
+	// Simply return all users.
 	User.find().then((user) => {
 		if (!user) {
 			res.status(404).send()
 		} else {
 			res.send(user)}
 		
-		}).catch((error) => {
-			res.status(500).send()
-		})
+	}).catch((error) => {
+		res.status(500).send()
+	})
 
 })
 
 
-// POST one anime
-//app.post('/anime', (req, res) =>{
-	// Creating a new anime to be inserted
-
-//}
-// POST one anime
+// POST one anime, needs to be authenticated.
 app.post('/animeinfo', authenticate, (req, res) =>{
 	// Creating a new anime to be inserted
 	const anime = new Anime({
@@ -317,22 +255,17 @@ app.post('/animeinfo', authenticate, (req, res) =>{
     	nReviews: 0
 	});
 
-	log("IM gonna add an anime with picture");
-	log(anime.imageURL);
-	log("ENDING");
-	// CHECK IF THIS ANIME EXISTS ALREADY	////////////////////////
-	// Save anime to the database
+	// Saving this anime to the database.
 	anime.save().then((anime) => {
 		res.send(anime);
 	}, (error) =>{
-		res.status(400).send(error); // Bad request
+		res.status(400).send(error);
 	})
 })
 
-// POST anime suggestion
+// POST an anime suggestion, needs to be authenticated.
 app.post('/suggestinfo', authenticate, (req, res) =>{
-	// Creating a new anime to be inserted
-	log("POSTING...");
+	// Create a new suggestion.
 	const suggested = new Suggested({
 		name: req.body.name,
 		description: req.body.description,
@@ -340,22 +273,17 @@ app.post('/suggestinfo', authenticate, (req, res) =>{
     	averageScore: 0,
     	nReviews: 0
 	});
-	// CHECK IF THIS Suggested EXISTS ALREADY	////////////////////////
 	// Save Suggested to the database
 	suggested.save().then((suggested) => {
-		log("POSTEd");
 		res.send(suggested);
 	}, (error) =>{
-		log("ERRORR??");
-		res.status(400).send(error); // Bad request
+		res.status(400).send(error);
 	})
-	log("WHAT");
 })
 
 
 // GET all animes
 app.get('/animeinfo', (req, res) =>{
-	log("HERERERER");
 	Anime.find().then((animes) =>{
 		if(!animes){
 			res.status(404).send();
@@ -370,7 +298,6 @@ app.get('/animeinfo', (req, res) =>{
 
 // GET all reviews
 app.get('/animereviews', (req, res) =>{
-	log("HERERERER");
 	Review.find().then((animesrev) =>{
 		if(!animesrev){
 			res.status(404).send();
@@ -384,7 +311,6 @@ app.get('/animereviews', (req, res) =>{
 
 // GET all suggestions
 app.get('/suggestinfo', (req, res) =>{
-	log("HERERERER");
 	Suggested.find().then((animes) =>{
 		if(!animes){
 			res.status(404).send();
@@ -396,15 +322,16 @@ app.get('/suggestinfo', (req, res) =>{
 	})
 })
 
+// Delete a suggestion by the anime name.
 app.delete('/suggestinfo/:name', authenticate, (req, res) => {
 	const xname = req.params.name;
 	const newname = xname.replace(/_/g, " ");
+	// Find, and remove it.
 	Suggested.findOne({ $text: { $search: newname } }).then((anime) =>{
 		if(!anime){
 			res.status(404).send();
 		}else{
 			anime.remove().then((removed) => {
-				log("REMOVED!!!");
 				res.send(removed);
 			}).catch((error) => {
 				res.status(404).send();
@@ -415,68 +342,48 @@ app.delete('/suggestinfo/:name', authenticate, (req, res) => {
 
 // Show one anime, by name
 app.get('/anime/:name', (req, res) => {
-	log("AOO");
 	const xname = req.params.name;
 	const newname = xname.replace(/_/g, " ");
+
+	// Find this anime, and render it.
 	Anime.find({ $text: { $search: newname } }).then((animes) =>{
 		if(!animes){
 			res.status(404).send();
 		}else{
-			//res.send(animes)
-			//res.sendFile(__dirname + '/public/Anime.html');
 			res.render("Anime.hbs", {
 				userName: req.session.username,
 				animeName: xname
 			})
 		}
-		//log("oi");
 	}).catch((error) => {
-		log(error);
 		res.status(404).send();
 	})
-	//log("HERE");
 })
 
-// GET one anime, based on name
+// GET one anime info, based on name
 // Name is in the url, with underscore separating words
 // So kimi no na wa is kimi_no_na_wa . This is not case sensitive.
 app.get('/animeinfo/:name', (req, res) => {
 	const xname = req.params.name;
-	//log(xname);
 	const newname = xname.replace(/_/g, " ");
-	log(newname);
-	//log(Anime.find( { $name: { $search: newname } } ));
+	// Find and return the anime info
 	Anime.findOne({ $text: { $search: newname } }).then((animes) =>{
-		//log("SDADSAD");
 		if(!animes){
-			//log("NOT FOUND");
 			res.status(404).send();
 		}else{
-			//anm.loadd("Kimi No Na Wa");
-			//log("SEND");
-			//log(animes);
 			res.send(animes)
-			//res.sendFile(__dirname + '/public/Anime.html');
-			//res.render("Anime.hbs", {
-			//	animeName: newname
-			//})
 		}
-		//log("oi");
 	}).catch((error) => {
-		log(error);
 		res.status(404).send();
 	})
-	//log("HERE");
 })
 
-// Not ready yet!
-
+// Post a review to the anime referenced.
 app.post('/animeinfo/:name/review', authenticate, (req, res) => {
-	
 	const xname = req.params.name;
 	const newname = xname.replace(/_/g, " ");
-	log("HERE???");
 
+	// Review to be added.
 	const review = new Review({
 		animeName: newname.toLowerCase(),
 		reviewer: req.session.username,
@@ -484,173 +391,122 @@ app.post('/animeinfo/:name/review', authenticate, (req, res) => {
    		grade: req.body.grade
 	})
 
-
-	
 	Review.findOne({animeName: newname.toLowerCase(), reviewer: review.reviewer}).then((rev) =>{
-		if(!rev){ // This is the first one, create a new one!
-			log("Cant find you dwag!");
-			//anime.reviews.push(review);
-			//anime.averageScore = (anime.averageScore * (anime.reviews.length - 1) + review.grade)/anime.reviews.length;
-			//log(anime.averageScore);
-			/*anime.save().then((anime) => {
-				res.send(anime);
-			}, (error) => {
-				// Bad request
-				res.status(400).send(error);
-			})*/
+		
+		if(!rev){ 
+			// This is the first review by this person on this anime,
+			// create a new one!
 
 			Anime.findOne({ $text: { $search: newname } }).then((animes) =>{
-				//log("SDADSAD");
 				if(!animes){
-					log("NOT FOUND");
 					res.status(404).send();
 				}else{
-					log("UPADTE");
+					// Update the anime information.
 					animes.nReviews = animes.nReviews + 1;
 					animes.averageScore = animes.averageScore + review.grade;
 					animes.save().then((anime) => {}, (error) => {
 						res.status(400).send(error);
 					})
 				}
-				//log("oi");
 			}).catch((error) => {
-				log(error);
 				res.status(404).send();
 			})
-
+			// Save the review.
 			review.save().then((review) =>{
-				//log("here");
 				res.send(review);
 			}, (error) => {
 				res.status(400).send(error);
 			})
-			//log("!!!!Cant find you dwag!");
-			//res.send(review);
-			//res.status(404).send();
-		}else{ // Already there!
-			log("HAHAHAH here you are");
+		}else{ 
+			// If this person already has a review on this anime,
+			// I'll update it instead
 			let prevGrade = rev.grade;
-			//anime.reviews.findOne
-			/*anime.reviews.push(review);
-			anime.averageScore = (anime.averageScore * (anime.reviews.length - 1) + review.grade)/anime.reviews.length;
-			log(anime.averageScore);
-			anime.save().then((anime) => {
-				res.send(anime);
-			}, (error) => {
-				// Bad request
-				res.status(400).send(error);
-			})*/
 
+			// Update anime information
 			Anime.findOne({ $text: { $search: newname } }).then((animes) =>{
-				//log("SDADSAD");
 				if(!animes){
-					//log("NOT FOUND");
 					res.status(404).send();
 				}else{
-					//animes.nReviews = animes.nReviews + 1;
 					animes.averageScore = animes.averageScore + review.grade - prevGrade;
-					log(animes.averageScore);
-					log(review.grade);
-					log(prevGrade);
 					animes.save().then((anime) => {}, (error) => {
 						res.status(400).send(error);
 					})
 				}
-				//log("oi");
 			}).catch((error) => {
-				log(error);
 				res.status(404).send();
 			})
 
+			// Update review.
 			rev.review = req.body.review;
 			rev.grade = req.body.grade;
 			rev.save().then((review) =>{
-				//log("here");
 				res.send(review);
 			}, (error) => {
 				res.status(400).send(error);
 			})
 		}
 	}).catch((error) => {
-		log(error);
 		res.status(404).send();
 	})
 })
 
-
+// Get all reviews by the name of who reviewed it.
 app.get('/animeinfo/:name/review', (req, res) => {
 	const xname = req.params.name;
 	const newname = xname.replace(/_/g, " ");
 	
 	Review.find({animeName: newname.toLowerCase()}).then((rev) =>{
-		if(rev.length == 0){ // This is the first one, create a new one!
-			log("Cant find you dwag!");
+		if(rev.length == 0){
+			// If no reviews.
 			res.send([]);
-			//res.status(404).send();
-		}else{ // Already there!
+		}else{ 
 			res.send(rev);
-
 		}
 	}).catch((error) => {
-		log(error);
 		res.status(404).send();
 	})
 })
 
-//POST new report
+//POST a new report, needs to authenticate.
 app.post('/report', authenticate, (req, res) =>{
-
+	// Create the report
 	const report = new Report({
 		reporter: req.session.username,
 		reportee: req.body.reportee,
 		anime: req.body.anime,
 		reason: req.body.reason,
 	});
-
+	// Save the report
 	report.save().then((reportData) => {
-		log("SAVED REPORT");
 		res.send(reportData);
 	}, (error) =>{
-		log("CANT DOSVILLE");
 		res.status(400).send(error); // Bad request
 	})
 })
 
-//GET all reports
-
+// Load the report page with reviewer and anime name in place, needs
+// to be authenticated
 app.get('/report/:reviewer/:anime', authenticate, (req, res) => {
 	const xname = req.params.anime;
 	const newname = xname.replace(/_/g, " ");
-	//log("NEWNAME IS");
-	//log(newname);
-	log(req.session.username)
+
 	res.render('Report.hbs', {
 		reviewer: req.params.reviewer,
 		animeName: newname,
 		userName: req.session.username
-		//userName: "TEOsadasdasddasds"
 	})
 })
 
+// Get for all reports, need to authenticate.
 app.get('/report', authenticate, (req, res) => {
-	/*const id = req.params.id
-
-	if (!ObjectID.isValid(id)) {
-		return res.status(404).send()
-	}*/
-	log("HERER??");
 	Report.find().then((reports) => {
-		log("FOUND THESE REPORTS");
-		log(reports);
 		res.send(reports)
 	}).catch((error) => {
-		log("COULDNT FIND IT");
 		res.status(500).send()
 	})
-	log("WHAT");
 })
 
-//GET certain report
+// Get a report by id, needs to authenticate.
 app.get('/report/:id', authenticate, (req, res) => {
 	const id = req.params.id
 
@@ -670,7 +526,7 @@ app.get('/report/:id', authenticate, (req, res) => {
 	})
 })
 
-//DELETE certain report
+// Delete a report by id, needs to authenticate.
 app.delete('/report/:id', authenticate, (req, res) => {
 	const id = req.params.id
 
@@ -689,23 +545,23 @@ app.delete('/report/:id', authenticate, (req, res) => {
 	})
 })
 
+// Delete a report by the name of the person that was reported.
+// This is used when a user is banned, there is no reason to
+// keep reports about someone that was banned, needs to authenticate.
 app.delete('/reportbyname/:name', authenticate, (req, res) => {
 	const name = req.params.name
-	log("TRIED TO REMOVE");
-	log(name);
+	// Find those reports
 	Report.find({ $text: { $search: name } }).then((reports) =>{
 		if(!reports){
-			log("Did not find reports");
+			// No reports to remove.
 			res.status(404).send();
 		}else{
 			let ret = [];
+			// Remove each one.
 			for(let i = 0 ; i<reports.length; i++){
 				reports[i].remove().then((removed) => {
-					log("REMOVED!!!");
 					ret.push(removed);
-					//res.send(removed);
 				}).catch((error) => {
-					log(error)
 					res.status(404).send();
 				})
 			}
@@ -714,64 +570,59 @@ app.delete('/reportbyname/:name', authenticate, (req, res) => {
 	});
 })
 
+// Banning a user by username, needs to authenticate.
 app.delete('/user/:username', authenticate, (req, res) => {
 	User.findOne({ $text: { $search: req.params.username } }).then((user) =>{
 		if(!user){
-			log("Did not find user");
 			res.status(404).send();
 		}else{
 			user.remove().then((removed) => {
-				log("REMOVED user!!!");
 				res.send(removed);
 			}).catch((error) => {
-				log("remove error")
 				res.status(404).send();
 			})
 		}
 	});
 })
 
+// Delete a review by the name of the reviewer, to use when 
+// someone has been banned. Needs authentication.
 app.delete('/review/:reviewer', authenticate, (req, res) => {
 	const xname = req.params.reviewer;
 	const newname = xname.replace(/_/g, " ");
-	
+
+	// Find and remove all their reviews.
 	Review.find({reviewer: xname}).then((rev) =>{
 		if(!rev){
-			log("Did not find reviews");
 			res.status(404).send();
 		}else{
 			let ret = [];
 			for(let i = 0 ; i<rev.length; i++){
 				rev[i].remove().then((removed) => {
-					log("REMOVED!!!");
 					ret.push(removed);
-					//res.send(removed);
 				}).catch((error) => {
-					log(error)
 					res.status(404).send();
 				})
 			}
 			res.send(ret);
 		};
 	}).catch((error) => {
-		log(error);
 		res.status(404).send();
 	})
 })
 
+// Get reviews given a reviewer's name
 app.get('/review/:reviewer', (req, res) => {
 	const xname = req.params.reviewer;
 	const newname = xname.replace(/_/g, " ");
 	
 	Review.find({reviewer: xname}).then((rev) =>{
 		if(!rev){
-			log("Did not find reviews");
 			res.status(404).send();
 		}else{
 			res.send(rev);
 		};
 	}).catch((error) => {
-		log(error);
 		res.status(404).send();
 	})
 })

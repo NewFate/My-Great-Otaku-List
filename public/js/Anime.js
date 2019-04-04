@@ -1,101 +1,24 @@
-// New stuff:
-//const request = require('request')
-/*
-
-	Old stuff:
-
-*/
-
 const log = console.log
 
-/*
-
-let numberOfAnimes = 0;	// Total number of animes
-
-const animeList = [];	// List of animes
-
-
-
-class Review{
-	constructor(reviewer, review, grade){
-		this.reviewer = reviewer;
-		this.review = review;
-		this.grade = grade;
-	}
-}
-
-class Reviews{
-	constructor(){
-		this.reviewList = []; // List of reviews
-		this.numberOfReviews = 0;
-	}
-	addReview(review){
-		this.reviewList.push(review);
-		this.numberOfReviews++;
-	}
-	calculateAverageScore(){
-		if(this.numberOfReviews == 0){
-			return "N/A";
-		}
-		let ret = 0;
-		for(let i = 0; i < this.numberOfReviews; i++){
-			ret += parseInt(this.reviewList[i].grade);
-		}
-		return ret/this.numberOfReviews;
-	}
-}
-
-
-class Anime{
-	constructor(title, description, image){
-		this.title = title;
-		this.description = description;
-		this.image = image;
-
-		if(image == null){ // If no image was declared, use a pre-selected one.
-			this.image = "/img/image-not-available.jpg";
-		}
-		this.reviews = new Reviews();
-		this.averageScore = this.reviews.calculateAverageScore();
-		numberOfAnimes++;
-	}
-
-	createReview(review){
-		this.reviews.addReview(review);
-		this.averageScore = this.reviews.calculateAverageScore();
-	}
-}*/
-
-
-
-// Dummy data.
-/*
-
-animeList.push(new Anime("Hunter X Hunter", "The story focuses on a young boy named Gon Freecss, who discovers that his father, who he was told had left him at a young age, is actually a world renowned Hunter, a licensed profession for those who specialize in, but are not limited to fantastic pursuits such as locating rare or unidentified animal species, treasure hunting, surveying unexplored enclaves, or hunting down lawless individuals. In short, being a hunter is roughly the same as being a professional at a certain profession while being able to utilize the power system within the anime called Nen. Despite being abandoned by his father, Gon departs upon a journey to follow in his footsteps, pass the rigorous Hunter Examination, and eventually find his father. Along the way, Gon meets various other Hunters, including main cast members Kurapika, Leorio, and Killua, and also encounters the paranormal. ", "/img/hunter.jpg"));
-animeList.push(new Anime("Kimi No Na Wa", "Mitsuha and Taki are complete strangers living separate lives until they suddenly switch places. Mitsuha wakes up in Taki's body, and he in hers. This occurrence happens randomly, and they must adjust their lives around each other. Yet, somehow, it works. They build a connection by leaving notes for one another until they wish to finally meet. But something stronger than distance may keep them apart.", null));
-
-animeList[0].createReview(new Review("Gon", "The best anime I've ever seen! Recommend to everybody!!!!", 10));
-animeList[0].createReview(new Review("Killua", "MASTERPIECE!", 10));
-animeList[1].createReview(new Review("Mitsuha", "Very good movie, made me cry of how good it was.", 10));
-animeList[0].createReview(new Review("User23123", "Very good, but its not all its hyped to be...", 7));
-
-*/
 let guy = "";
 
 let currentAnime = "";
 
-// When someone clicks on submit review, grab the information, check if its valid and put in the right place.
+// When someone clicks on submit review, grab the information,
+// check if its valid and put in the right place.
 function submitReview(){
-	log("THIS GUY");
-	log(guy);
-	if(guy.length == 0){
+
+	// If you're not logged in.
+	if(guy.length == 0){	
 		window.location.href = "/login"
 		return;
 	}
 	
-	//let username = document.getElementById("usernameR").value;
+	// Get information from the page.
 	let review = document.getElementById("newReviewR").value;
 	let grade = document.getElementById("newGradeR").value;
+
+	// Check if they are valid
 	if( review == "" || grade == ""){
 		alert("Please fill all required information.");
 		return;
@@ -110,9 +33,8 @@ function submitReview(){
 		alert("Invalid grade. Grade is a number between 0 and 10.")
 		return;
 	}
-	// In this step, with the backend I'd check the username of the person instead of having them
-	// 		manually insert the username.
-
+	
+	// Send the data of this review to the server.
 	let data = {
 		animeName: currentAnime.toLowerCase(),
 		reviewer: "",
@@ -122,6 +44,7 @@ function submitReview(){
 	
 	const url = "/animeinfo/" + currentAnime +"/review";
 
+	// Send the request
 	const request = new Request(url, {
 		method: 'post',
 		body: JSON.stringify(data),
@@ -132,76 +55,43 @@ function submitReview(){
 	});
 	fetch(request).then(function(res){
 		if(res.status == 200){
-			alert("posted!");
+			alert("Your review has been submitted!");
 		}else{
-			alert("Cant dosville babydoll");
+			alert("There has been an error!");
 		}
 	}).catch((error) => {
 		log(error);
 	})
 
-	log("CONTINUE");/*
-	for(let i=0; i<numberOfAnimes; i++){
-		if(animeList[i].title == currentAnime){
-			animeList[i].createReview(new Review(username, review, grade));
-		}
-	}*/
-
-	//document.getElementById("usernameR").value = "";
+	// Clean the fields.
 	document.getElementById("newReviewR").value = "";
 	document.getElementById("newGradeR").value = "";
 
-	//load(currentAnime);	// Updating the page with the review.
-
-
-	log("VAI CRL");
-
-	//const newurl = 'localhost:3000/anime/' + currentAnime;
-	//const newurl = 'localhost:3000/SuggestAnime';
-	//log(newurl);
-	//window.location.href = newurl;
 	document.location.reload(true);
-	//window.location.replace(newurl);
 	return;
-
-	/*
-	fetch(url).then((res) => {
-		if(res.status == 200){
-			res.render();
-		}else{
-			alert("Could not load anime!");
-		}
-	})*/
-	//alert("Thank you for your review.")
 }
 
 function reportReview(reviewer, animeReviewed){	// Go to the report page.
-	//log(a, b);
-	// This would send the information to the report page, but needs to be done with backend.
-	// For now, it just goest to the report page.
+	// Make it have underscores in th name of the anime and call for that page.
 	animeReviewed=animeReviewed.replace(/ /g, "_");
 
 	window.location.href = "/report/" + reviewer + "/" + animeReviewed;
 }
 
-function download(){
-	// This function will download informations about the animes from the database and 
-	// Put it in the animeList array.
-}
 
 
-
-// Load selected anime to the page. It has to be on the animeList array.
-//module.exports.loadd = function loadd(title){
+// Load selected anime to the page.
 function load(title){
-
 	currentAnime = title;
+
+	// Remove the anime that was there before.
 	var elem = document.getElementById("Anime");
 	elem.parentNode.removeChild(elem);
 	const anime = document.createElement("div");
 	anime.setAttribute("id", "Anime");
 	document.body.appendChild(anime);
 
+	// Send a request to get this anime
 	const url = '/animeinfo/' + title;
 
 	fetch(url).then((res) => {
@@ -211,132 +101,101 @@ function load(title){
 			alert('Could not get Anime');
 		}
 	}).then((json) => {
-		log("here");
-		log(json.description);
+		// Create the new anime element.
 
-	//for(let i=0; i<numberOfAnimes; i++){
-		// Look for the correct Anime.
-		//if(animeList[i].title == title){
-			// Setting up everything in the anime.
-			const image = document.createElement("img");
-			image.setAttribute("src", json.imageURL);
-			image.className = "animeImage";
-			image.width = "200";
-			document.getElementById("Anime").appendChild(image);
+		const image = document.createElement("img");
+		image.setAttribute("src", json.imageURL);
+		image.className = "animeImage";
+		image.width = "200";
+		document.getElementById("Anime").appendChild(image);
 
-			const title = document.createElement("div");
-			const titleText = document.createTextNode(json.name);
-			title.className = "animeTitle";
-			title.appendChild(titleText);
-			document.getElementById("Anime").appendChild(title);
-			
-			const description = document.createElement("div");
-			const descriptionText = document.createTextNode(json.description);
-			description.appendChild(descriptionText);
-			description.className = "animeDescription";
-			document.getElementById("Anime").appendChild(description);
+		const title = document.createElement("div");
+		const titleText = document.createTextNode(json.name);
+		title.className = "animeTitle";
+		title.appendChild(titleText);
+		document.getElementById("Anime").appendChild(title);
+		
+		const description = document.createElement("div");
+		const descriptionText = document.createTextNode(json.description);
+		description.appendChild(descriptionText);
+		description.className = "animeDescription";
+		document.getElementById("Anime").appendChild(description);
 
-			const grade = document.createElement("div");
-			const gradeText = document.createTextNode("Anime rating: " + json.averageScore/Math.max(1, json.nReviews) + "/10");
-			grade.className = "animeGrade";
-			grade.appendChild(gradeText);
-			document.getElementById("Anime").appendChild(grade);
-			
-			const newReport = document.createElement("table");
-			newReport.className = "newReport";
-			let newRow = newReport.insertRow(0);
-			
-			let newReview = newRow.insertCell(0);
-			let newGrade = newRow.insertCell(1);
-			let submit = newRow.insertCell(2);
+		const grade = document.createElement("div");
+		const gradeText = document.createTextNode("Anime rating: " + json.averageScore/Math.max(1, json.nReviews) + "/10");
+		grade.className = "animeGrade";
+		grade.appendChild(gradeText);
+		document.getElementById("Anime").appendChild(grade);
+		
+		const newReport = document.createElement("table");
+		newReport.className = "newReport";
+		let newRow = newReport.insertRow(0);
+		
+		let newReview = newRow.insertCell(0);
+		let newGrade = newRow.insertCell(1);
+		let submit = newRow.insertCell(2);
 
-			
+		
 
-			const newReviewT = document.createElement("textarea");
-			newReviewT.setAttribute("id", "newReviewR");
-			newReviewT.setAttribute("rows", 4);
-			newReviewT.setAttribute("cols", 80);
-			const newReviewText = document.createTextNode("Review: ");
-			newReview.appendChild(newReviewText);
-			newReview.appendChild(newReviewT);
+		const newReviewT = document.createElement("textarea");
+		newReviewT.setAttribute("id", "newReviewR");
+		newReviewT.setAttribute("rows", 4);
+		newReviewT.setAttribute("cols", 80);
+		const newReviewText = document.createTextNode("Review: ");
+		newReview.appendChild(newReviewText);
+		newReview.appendChild(newReviewT);
 
-			const newGradeT = document.createElement("textarea");
-			newGradeT.setAttribute("id", "newGradeR");
-			newGradeT.setAttribute("rows", 1);
-			newGradeT.setAttribute("cols", 2);
-			const newGradeText1 = document.createTextNode("Grade: ");
-			//const newGradeText2 = document.createTextNode(" /10");
-			newGradeT.setAttribute("placeholder", '/10');
-			newGrade.appendChild(newGradeText1);
-			newGrade.appendChild(newGradeT);
-			//newGrade.appendChild(newGradeText2);
+		const newGradeT = document.createElement("textarea");
+		newGradeT.setAttribute("id", "newGradeR");
+		newGradeT.setAttribute("rows", 1);
+		newGradeT.setAttribute("cols", 2);
+		const newGradeText1 = document.createTextNode("Grade: ");
+		newGradeT.setAttribute("placeholder", '/10');
+		newGrade.appendChild(newGradeText1);
+		newGrade.appendChild(newGradeT);
 
-			const submitT = document.createElement("button");
-			submitT.className = "submitButton"
-			submitT.setAttribute("onclick", "submitReview()");
-			const submitText = document.createTextNode("Submit this review");
-			submitT.appendChild(submitText);
-			submit.appendChild(submitT);
+		const submitT = document.createElement("button");
+		submitT.className = "submitButton"
+		submitT.setAttribute("onclick", "submitReview()");
+		const submitText = document.createTextNode("Submit this review");
+		submitT.appendChild(submitText);
+		submit.appendChild(submitT);
 
-			document.getElementById("Anime").appendChild(newReport);
+		document.getElementById("Anime").appendChild(newReport);
 
-			const urlGetReview = url + '/review';
+		// Get all reviews for this anime.
+		const urlGetReview = url + '/review';
 
-			fetch(urlGetReview).then((res) => {
-				if(res.status == 200){
-					return res.json();
-				} else {
-					log("NO REVIEWS");
-					return [];
-					// no reviews, no problem
-				}
-			}).then((reviews) => {
-				log("HERE STILL");
-				const table = document.createElement("table");
-				table.className = "animeReviews";
-				for(let j=0; j<reviews.length; j++){
-					let row = table.insertRow(0);
-					let reviewerName = row.insertCell(0);
-					let review = row.insertCell(1);
-					let reviewGrade = row.insertCell(2);
-					let report = row.insertCell(3);
-					reviewerName.innerHTML = "Username: " + reviews[j].reviewer;
-					review.innerHTML = "Review: " + reviews[j].review;
-					reviewGrade.innerHTML = "Grade: " + reviews[j].grade + "/10";
-					const reportButton = document.createElement("button");
-					const reportText = document.createTextNode("Report this review");
-					reportButton.appendChild(reportText);
-					reportButton.className = "reviewReport";
-					const func = "reportReview('" + reviews[j].reviewer + "','" + json.name + "')";
-					log(func); 
-					reportButton.setAttribute("onclick", func);
-					reportButton.setAttribute("href", "/report");
-					report.appendChild(reportButton);
-				}
-				document.getElementById("Anime").appendChild(table);
-			})
-			
-			/*
-			for(let j=0; j<animeList[i].reviews.numberOfReviews; j++){
+		fetch(urlGetReview).then((res) => {
+			if(res.status == 200){
+				return res.json();
+			} else {
+				// If there are no reviews, just show nothing.
+				return [];
+			}
+		}).then((reviews) => {
+			const table = document.createElement("table");
+			table.className = "animeReviews";
+			for(let j=0; j<reviews.length; j++){
 				let row = table.insertRow(0);
 				let reviewerName = row.insertCell(0);
 				let review = row.insertCell(1);
 				let reviewGrade = row.insertCell(2);
 				let report = row.insertCell(3);
-				reviewerName.innerHTML = "Username: " + animeList[i].reviews.reviewList[j].reviewer;
-				review.innerHTML = "Review: " + animeList[i].reviews.reviewList[j].review;
-				reviewGrade.innerHTML = "Grade: " + animeList[i].reviews.reviewList[j].grade + "/10";
+				reviewerName.innerHTML = "Username: " + reviews[j].reviewer;
+				review.innerHTML = "Review: " + reviews[j].review;
+				reviewGrade.innerHTML = "Grade: " + reviews[j].grade + "/10";
 				const reportButton = document.createElement("button");
 				const reportText = document.createTextNode("Report this review");
 				reportButton.appendChild(reportText);
 				reportButton.className = "reviewReport";
-				reportButton.setAttribute("onclick", "reportReview()");
-				reportButton.setAttribute("href", "./report.html");
+				const func = "reportReview('" + reviews[j].reviewer + "','" + json.name + "')"; 
+				reportButton.setAttribute("onclick", func);
+				reportButton.setAttribute("href", "/report");
 				report.appendChild(reportButton);
 			}
 			document.getElementById("Anime").appendChild(table);
-			return;*/
-	//	}
+		})
 	})
 
 }
