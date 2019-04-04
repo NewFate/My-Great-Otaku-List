@@ -72,6 +72,7 @@ body {
   display: block;
   margin: 0px;
   background-color: #f6d3c0;
+  font-family: Delicious;
 }
 
 #NavigationBar ul {
@@ -112,5 +113,16 @@ li a:hover {
 
 #logout {
   float: right;
+}
+
+textarea {
+  width: 100%;
+  height: 50px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #FBF4EE;
+  resize: none;
 }
 

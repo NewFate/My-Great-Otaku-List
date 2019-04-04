@@ -261,10 +261,11 @@ function load(title){
 			newGradeT.setAttribute("rows", 1);
 			newGradeT.setAttribute("cols", 2);
 			const newGradeText1 = document.createTextNode("Grade: ");
-			const newGradeText2 = document.createTextNode(" /10");
+			//const newGradeText2 = document.createTextNode(" /10");
+			newGradeT.setAttribute("placeholder", '/10');
 			newGrade.appendChild(newGradeText1);
 			newGrade.appendChild(newGradeT);
-			newGrade.appendChild(newGradeText2);
+			//newGrade.appendChild(newGradeText2);
 
 			const submitT = document.createElement("button");
 			submitT.className = "submitButton"
