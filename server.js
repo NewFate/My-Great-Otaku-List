@@ -81,7 +81,6 @@ app.route('/anime').get((req, res) => {
 })
 
 app.route('/login').get((req, res) => {
-	
 	res.render('LoginRegister.hbs', {
 		userName: req.session.username
 	})
@@ -181,7 +180,7 @@ app.post('/register', (req, res) =>{
 });
 
 // Create view of user profile
-app.get('/userprofile', (req, res) => {
+app.get('/userprofile', authenticate, (req, res) => {
 	//res.sendFile(__dirname + '/public/dashboard.html')
 	let report_count = 0;
 	console.log("Render")
@@ -308,7 +307,7 @@ app.get('/users', (req, res) => {
 
 //}
 // POST one anime
-app.post('/animeinfo', (req, res) =>{
+app.post('/animeinfo', authenticate, (req, res) =>{
 	// Creating a new anime to be inserted
 	const anime = new Anime({
 		name: req.body.name,
@@ -331,7 +330,7 @@ app.post('/animeinfo', (req, res) =>{
 })
 
 // POST anime suggestion
-app.post('/suggestinfo', (req, res) =>{
+app.post('/suggestinfo', authenticate, (req, res) =>{
 	// Creating a new anime to be inserted
 	log("POSTING...");
 	const suggested = new Suggested({
@@ -397,7 +396,7 @@ app.get('/suggestinfo', (req, res) =>{
 	})
 })
 
-app.delete('/suggestinfo/:name', (req, res) => {
+app.delete('/suggestinfo/:name', authenticate, (req, res) => {
 	const xname = req.params.name;
 	const newname = xname.replace(/_/g, " ");
 	Suggested.findOne({ $text: { $search: newname } }).then((anime) =>{
@@ -633,7 +632,7 @@ app.get('/report/:reviewer/:anime', authenticate, (req, res) => {
 	})
 })
 
-app.get('/report', (req, res) => {
+app.get('/report', authenticate, (req, res) => {
 	/*const id = req.params.id
 
 	if (!ObjectID.isValid(id)) {
@@ -652,7 +651,7 @@ app.get('/report', (req, res) => {
 })
 
 //GET certain report
-app.get('/report/:id', (req, res) => {
+app.get('/report/:id', authenticate, (req, res) => {
 	const id = req.params.id
 
 	if (!ObjectID.isValid(id)) {
@@ -672,7 +671,7 @@ app.get('/report/:id', (req, res) => {
 })
 
 //DELETE certain report
-app.delete('/report/:id', (req, res) => {
+app.delete('/report/:id', authenticate, (req, res) => {
 	const id = req.params.id
 
 	if (!ObjectID.isValid(id)) {
@@ -690,7 +689,7 @@ app.delete('/report/:id', (req, res) => {
 	})
 })
 
-app.delete('/reportbyname/:name', (req, res) => {
+app.delete('/reportbyname/:name', authenticate, (req, res) => {
 	const name = req.params.name
 	log("TRIED TO REMOVE");
 	log(name);
@@ -715,7 +714,7 @@ app.delete('/reportbyname/:name', (req, res) => {
 	});
 })
 
-app.delete('/user/:username', (req, res) => {
+app.delete('/user/:username', authenticate, (req, res) => {
 	User.findOne({ $text: { $search: req.params.username } }).then((user) =>{
 		if(!user){
 			log("Did not find user");
@@ -732,7 +731,7 @@ app.delete('/user/:username', (req, res) => {
 	});
 })
 
-app.delete('/review/:reviewer', (req, res) => {
+app.delete('/review/:reviewer', authenticate, (req, res) => {
 	const xname = req.params.reviewer;
 	const newname = xname.replace(/_/g, " ");
 	

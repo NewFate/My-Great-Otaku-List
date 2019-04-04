@@ -1,14 +1,20 @@
 verify date of birth
+
 fix paths between all files (register in particular i think)
 
 change the name of the website from animelist to mygreatotakulist
+
 change layout of the admin
-make the review the same size always
+
+make the review the same size always on the anime page
 
 registering with the same email
 
-fix pictures size
-
-add authenticate to wherever
+fix pictures size to a specific size
 
 change color of report
+
+fill it with dummy data
+
+make sure there is an account: admin admin and account: user user 
+
