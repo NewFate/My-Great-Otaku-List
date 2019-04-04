@@ -7,6 +7,8 @@
 function update(name){
 	var elem = document.getElementById("l1");
 	var parent = elem.parentNode;
+	var ul = parent.parentNode;
+
 	elem.parentNode.removeChild(elem);
 	const anime = document.createElement("a");
 	if(name.length == 0){
@@ -25,5 +27,16 @@ function update(name){
 	if(name.length == 0){
 		elem.parentNode.removeChild(elem);
 	}
+	// Create a new button if you are admin.
+	if(name == "admin"){
+		var admin = document.createElement("li");
+		admin.setAttribute("id", "left");
+		var texxt = document.createElement("a");
+		texxt.innerText ='Admin Page';
+		texxt.setAttribute("href", "/admin");
+		admin.appendChild(texxt);
+		ul.appendChild(admin);
+	}
+	
 
 }

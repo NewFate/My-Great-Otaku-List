@@ -367,11 +367,16 @@ app.get('/animeinfo/:name', (req, res) => {
 	const xname = req.params.name;
 	const newname = xname.replace(/_/g, " ");
 	// Find and return the anime info
-	Anime.findOne({ $text: { $search: newname } }).then((animes) =>{
+	Anime.find({ $text: { $search: newname } }).then((animes) =>{
 		if(!animes){
 			res.status(404).send();
 		}else{
-			res.send(animes)
+			for(let i = 0; i<animes.length; i++){
+				if(newname.toLowerCase() == animes[i].name.toLowerCase()){
+					return res.send(animes[i]);
+				}
+			}
+			res.status(404).send();
 		}
 	}).catch((error) => {
 		res.status(404).send();

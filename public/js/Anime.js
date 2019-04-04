@@ -59,6 +59,8 @@ function submitReview(){
 		}else{
 			alert("There has been an error!");
 		}
+		document.location.reload(true);
+		return;
 	}).catch((error) => {
 		log(error);
 	})
@@ -67,7 +69,7 @@ function submitReview(){
 	document.getElementById("newReviewR").value = "";
 	document.getElementById("newGradeR").value = "";
 
-	document.location.reload(true);
+	
 	return;
 }
 

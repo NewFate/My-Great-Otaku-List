@@ -8,7 +8,7 @@ change layout of the admin (done)
 
 make the review the same size always on the anime page (done)
 
-registering with the same email
+registering with the same email (done)
 
 fix pictures size to a specific size (done)
 
@@ -18,3 +18,5 @@ fill it with dummy data
 
 make sure there is an account: admin admin and account: user user 
 
+
+clicking on dashboard for admin doesnt go to admin page
