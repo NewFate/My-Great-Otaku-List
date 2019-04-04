@@ -3,6 +3,7 @@ const loginRegister_form = document.querySelector('#login_or_register');
 const login_button = document.getElementById("login");
 const register_button = document.getElementById("register");
 
+const feedback = loginRegister_form.querySelector('#feedback');
 //the dummy data structures for username/passwords
 //we would make a call to the server to check the user list and match the password 
 // user:user and admin:admin credentials here
@@ -21,7 +22,7 @@ function register(e) {
 	const confPassword = loginRegister_form.querySelector('#confPassword').value;
     const dateOfBirth = loginRegister_form.querySelector('#dateOfBirth').value;
 
-    const feedback = loginRegister_form.querySelector('#feedback');
+    
 	
 	//check if user is in the database
 	// create account if not found
@@ -98,7 +99,10 @@ function createUser() {
             window.location.href = '/login';
         } else {
             console.log(res)
-        	console.log('Username/email has been taken!')
+        	//console.log('Username/email has been taken!')
+
+            feedback.innerText = 'Username/email already taken/ is invalid!'
+            feedback.setAttribute("style", "color: red")
             //message.innerText = 'Could not add student'
             //message.setAttribute("style", "color: red")
      
