@@ -468,7 +468,6 @@ app.get('/animeinfo/:name/review', (req, res) => {
 	const newname = xname.replace(/_/g, " ");
 	
 	Review.find({animeName: newname.toLowerCase()}).then((rev) =>{
-		log(rev);
 		if(rev.length == 0){
 			// If no reviews.
 			res.send([]);
