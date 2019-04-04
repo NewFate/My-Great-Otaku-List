@@ -1,6 +1,7 @@
 //This will listen for when the submit button is pressed
 const report_form = document.querySelector('#input_elements');
 report_form.addEventListener('submit', report_user);
+let message_in = false;
 
 //When implemented, this will send the required data to the admin's report block for review
 function report_user(e) {
@@ -37,6 +38,11 @@ function report_user(e) {
 			messageText = document.createTextNode('No user with this name exists!');
 			message.style.color = 'red';
 			message.appendChild(messageText);
+			if (message_in === false) {
+				message_in = true;
+			} else {
+				report_block.removeChild(report_block.children[-1])
+			}
 			report_block.appendChild(message);
 			return;
 		};
@@ -62,6 +68,11 @@ function report_user(e) {
 				messageText = document.createTextNode('No anime with this name exists!');
 				message.style.color = 'red';
 				message.appendChild(messageText);
+				if (message_in === false) {
+					message_in = true;
+				} else {
+					report_block.removeChild(report_block.children[-1])
+				}
 				report_block.appendChild(message);
 				return;
 			};
@@ -93,6 +104,11 @@ function report_user(e) {
 					messageText = document.createTextNode('The report has failed to send.');
 					message.style.color = 'red';
 					message.appendChild(messageText);
+				}
+				if (message_in === false) {
+					message_in = true;
+				} else {
+					report_block.removeChild(report_block.children[-1])
 				}
 				report_block.appendChild(message)
 			}).catch((error) => {
