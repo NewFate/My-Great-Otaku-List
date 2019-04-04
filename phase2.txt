@@ -9,9 +9,30 @@ To log in as an admin use:
 Username: admin
 Password: admin
 
+Basic admin functions once logged in:
+
+View anime pages 
+view main page and anime
+view all anime page 
+ban/ignore reported users 
+add/do not add new (approval) animes requested by users 
+add reviews to anime
+report a review
+logout
+
+
 To log in as a user use:
 Username: user
 Password: user
+
+Basic user functions once logged in:
+
+View anime pages
+view main page and anime
+view all anime page 
+add reviews to anime
+report a review
+logout
 
 The first part of the website (default index page) has a few components:
 	It has a Newest Anime section, that shows up to 4 animes that were added the most recently. As soon as a new anime gets added, it goes to the top of that page. Note you can go to the anime by clicking in its name.
