@@ -5,6 +5,14 @@ My Great Otaku List
 The goal of the website is to provide a source for people to advertise and discover
 new anime and manga that are fan made. Websites such as myAnimeList are only for official animes, and there is a lack of a centered website that lets people add their own original content to be reviewed and rated by users.
 
+To log in as an admin use:
+Username: admin
+Password: admin
+
+To log in as a user use:
+Username: user
+Password: user
+
 The first part of the website (default index page) has a few components:
 	It has a Newest Anime section, that shows up to 4 animes that were added the most recently. As soon as a new anime gets added, it goes to the top of that page. Note you can go to the anime by clicking in its name.
 	Under it there is the Newest Reviews section, where the same thing happens, but for reviews. As soon as any review is added on an anime/manga, it will appear on top there. It shows the user that commented, the anime it was commented on, the comment itself and the grade it was given. 
