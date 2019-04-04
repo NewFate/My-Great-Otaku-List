@@ -19,8 +19,9 @@
 
 body {
   display: block;
-    margin: 0px;
-	background: #D85428
+  margin: 0px;
+	background: #f6d3c0;
+  align-content: center;
 }
 
 #NavigationBar ul {
@@ -51,15 +52,21 @@ body {
 
 li a:hover {
   background-color: #f6d3c0;
+  text-align: center;
 }
 
 table, td, th {
 	border-collapse: collapse;
 	border: 1px solid black;
+  align-content: center;
+  border-radius: 3%;
 }
 
 #ContentBlocks {
 	display: block;
+  align-content: center;
+  border-radius: 3%;
+  width: 100%
 }
 
 #ReportInfo {
@@ -71,6 +78,7 @@ table, td, th {
 	background: #333;
 	color: white;
 	text-align: center;
+  align-content: center;
 }
 
 #AnimeApprovals {
@@ -93,4 +101,20 @@ table, td, th {
 
 #logout {
   float: right;
+}
+
+button {
+  border-radius: 5px;
+  background-color: #474747;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+
+button:hover {
+  background-color: #595959;
 }
