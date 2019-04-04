@@ -109,9 +109,14 @@ function updateReviews(name){
 	}).then((json) => {
 		for(let i=json.length - 1; i>=Math.max(json.length-5, 0); i--){
 			const elm = document.createElement("li");
+			const h2 = document.createElement("h2")
+			h2.innerText = json[i].animeName + ". Grade " + json[i].grade
+			h2.style.color = 'chocolate'
 			const p = document.createElement("p");
 			p.innerText = json[i].review;
-			elm.appendChild(p);
+			//h2.appendChild(p)
+			elm.appendChild(h2);
+			elm.append(p)
 			doc.appendChild(elm);
 		}
 	});
