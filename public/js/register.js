@@ -40,6 +40,8 @@ function register(e) {
             
             if(password != "" || confPassword != "")	{
                 //alert("Created Account!");
+                feedback.innerText = 'Creating account...'
+                feedback.setAttribute("style", "color: green")
                 createUser();
 
             }
