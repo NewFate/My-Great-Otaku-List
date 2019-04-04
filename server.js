@@ -586,7 +586,8 @@ app.delete('/user/:username', authenticate, (req, res) => {
 })
 
 // Delete a review by the name of the reviewer, to use when 
-// someone has been banned. Needs authentication.
+// someone has been banned. Also updates the anime that each
+// review was in. Needs authentication.
 app.delete('/review/:reviewer', authenticate, (req, res) => {
 	const xname = req.params.reviewer;
 	const newname = xname.replace(/_/g, " ");
@@ -598,6 +599,24 @@ app.delete('/review/:reviewer', authenticate, (req, res) => {
 		}else{
 			let ret = [];
 			for(let i = 0 ; i<rev.length; i++){
+				// Also need to update the anime 
+				//that wont have this review anymore.
+				const yname = rev[i].animeName;
+				const new2name = yname.replace(/_/g, " ");
+
+				// Find this anime, and render it.
+				Anime.findOne({ $text: { $search: new2name } }).then((anime) =>{
+					if(!anime){
+						res.status(404).send();
+					}else{
+						anime.nReviews = anime.nReviews - 1;
+						anime.averageScore = anime.averageScore - rev[i].grade;
+						anime.save();
+					}
+				}).catch((error) => {
+					res.status(404).send();
+				})
+
 				rev[i].remove().then((removed) => {
 					ret.push(removed);
 				}).catch((error) => {
