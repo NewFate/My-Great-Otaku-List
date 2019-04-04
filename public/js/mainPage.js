@@ -171,7 +171,7 @@ function update_top_ten() {
 //helper function that updates the whole page
 function update_main_page() {
 
-	update_top_three();
+	update_top_four();
 	update_trending_reviews();
 	update_top_ten();
 }
