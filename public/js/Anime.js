@@ -242,13 +242,7 @@ function load(title){
 			let newGrade = newRow.insertCell(2);
 			let submit = newRow.insertCell(3);
 
-			const usernameT = document.createElement("textarea");
-			usernameT.setAttribute("id", "usernameR");
-			usernameT.setAttribute("rows", 1);
-			usernameT.setAttribute("cols", 15);
-			const usernameText = document.createTextNode("Username: ");
-			username.appendChild(usernameText);
-			username.appendChild(usernameT);
+			
 
 			const newReviewT = document.createElement("textarea");
 			newReviewT.setAttribute("id", "newReviewR");
@@ -263,10 +257,11 @@ function load(title){
 			newGradeT.setAttribute("rows", 1);
 			newGradeT.setAttribute("cols", 2);
 			const newGradeText1 = document.createTextNode("Grade: ");
-			const newGradeText2 = document.createTextNode(" /10");
+			//const newGradeText2 = document.createTextNode(" /10");
+			newGradeT.setAttribute("placeholder", '/10');
 			newGrade.appendChild(newGradeText1);
 			newGrade.appendChild(newGradeT);
-			newGrade.appendChild(newGradeText2);
+			//newGrade.appendChild(newGradeText2);
 
 			const submitT = document.createElement("button");
 			submitT.className = "submitButton"

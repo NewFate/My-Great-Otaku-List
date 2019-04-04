@@ -31,40 +31,52 @@ function register(e) {
 	 
     var pattern =/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
 
-    if(pattern.test(dateOfBirth)){
-        
-    	//we would need to send this updated list/user detail to the server
-    	//check if passwords match
-    	if(password === confPassword ){
-    	   //check if email/username is in database
-            
-            if(password != "" || confPassword != "")	{
-                //alert("Created Account!");
-                createUser();
-
-            }
-
-            else{
-                feedback.innerText = 'Please enter a password!'
-                feedback.setAttribute("style", "color: red")
-                //alert("Please enter a password!");
-
-            }	
-    	}
-
-    	else{
-            feedback.innerText = 'Passwords need to match!'
-            feedback.setAttribute("style", "color: red")
-    		//alert("Passwords don't match!");
-		}
-
+    if(dateOfBirth === "" || username === "" || email === ""){
+        feedback.innerText = 'Please fill in the fields!'
+        feedback.setAttribute("style", "color: red")
     }
 
     else{
+        
 
-        feedback.innerText = 'Invalid date!'
-        feedback.setAttribute("style", "color: red")
-        //alert("Invalid date!");
+        if(pattern.test(dateOfBirth)){
+            
+            //we would need to send this updated list/user detail to the server
+            //check if passwords match
+            if(password === confPassword ){
+               //check if email/username is in database
+                
+                if(password != "" || confPassword != "")    {
+                    //alert("Created Account!");
+                    feedback.innerText = 'Creating account...'
+                    feedback.setAttribute("style", "color: green")
+                    createUser();
+
+                }
+
+                else{
+                    feedback.innerText = 'Please enter a password!'
+                    feedback.setAttribute("style", "color: red")
+                    //alert("Please enter a password!");
+
+                }   
+            }
+
+            else{
+                feedback.innerText = 'Passwords need to match!'
+                feedback.setAttribute("style", "color: red")
+                //alert("Passwords don't match!");
+            }
+
+        }
+
+        else{
+
+            feedback.innerText = 'Invalid date!'
+            feedback.setAttribute("style", "color: red")
+            //alert("Invalid date!");
+        }
+
     }
 
 }

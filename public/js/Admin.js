@@ -137,15 +137,25 @@ function reportActions (e) {
 	
 	const reportElement = document.createElement('p');
 	if (e.target.classList.contains('BanUser')) {
-		const deleteReportUrl = '/reportbyname/' + e.target.parentElement.firstElementChild.innerText;
+		const deleteReportUrl = '/reportbyname/' + e.target.parentElement.parentElement.firstElementChild.innerText;
+		const deleteReviewUrl = '/review/' + e.target.parentElement.parentElement.firstElementChild.innerText;
 		//console.log("REMOVIN")
 		const deleteReport = new Request(deleteReportUrl, {
 	        method: 'delete'
 	    });
+		const deleteReviews = new Request(deleteReviewUrl, {
+			method: 'delete'
+		});
 		fetch(deleteReport)
 		.then((res) => {
 			if (res.status != 200) {
 				alert("There was an issue in removing the report from the database")
+			}
+		})
+		fetch(deleteReviews)
+		.then((res) => {
+			if (res.status != 200) {
+				alert("There was an issue in removing the reviews from the database")
 			}
 		})
 

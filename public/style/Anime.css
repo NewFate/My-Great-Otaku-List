@@ -72,6 +72,7 @@ body {
   display: block;
   margin: 0px;
   background-color: #f6d3c0;
+  font-family: Delicious;
 }
 
 #NavigationBar ul {
@@ -80,6 +81,7 @@ body {
   padding: 0;
   overflow: hidden;
   background-color: #333;
+  font-family: Delicious;
 }
 
 #NavigationBar ul li {
@@ -111,5 +113,31 @@ li a:hover {
 
 #logout {
   float: right;
+}
+
+textarea {
+  width: 100%;
+  height: 50px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #FBF4EE;
+  resize: none;
+}
+
+button {
+  border-radius: 5px;
+  background-color: #474747;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #595959;
 }
 

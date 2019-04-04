@@ -641,7 +641,7 @@ app.delete('/reportbyname/:name', (req, res) => {
 			for(let i = 0 ; i<reports.length; i++){
 				reports[i].remove().then((removed) => {
 					log("REMOVED!!!");
-					ret.add(removed);
+					ret.push(removed);
 					//res.send(removed);
 				}).catch((error) => {
 					log(error)
@@ -668,6 +668,34 @@ app.delete('/user/:username', (req, res) => {
 			})
 		}
 	});
+})
+
+app.delete('/review/:reviewer', (req, res) => {
+	const xname = req.params.reviewer;
+	const newname = xname.replace(/_/g, " ");
+	
+	Review.find({reviewer: xname}).then((rev) =>{
+		if(!rev){
+			log("Did not find reviews");
+			res.status(404).send();
+		}else{
+			let ret = [];
+			for(let i = 0 ; i<rev.length; i++){
+				rev[i].remove().then((removed) => {
+					log("REMOVED!!!");
+					ret.push(removed);
+					//res.send(removed);
+				}).catch((error) => {
+					log(error)
+					res.status(404).send();
+				})
+			}
+			res.send(ret);
+		};
+	}).catch((error) => {
+		log(error);
+		res.status(404).send();
+	})
 })
 
 app.listen(port, () => {
