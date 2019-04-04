@@ -139,7 +139,7 @@ function update_top_ten() {
 		const tbl = document.createElement('table');
 		animeList.appendChild(tbl);
 
-		for(let key = 0; key<=Math.min(10, json.length-1); key++){
+		for(let key = 0; key<=Math.min(9, json.length-1); key++){
 
 			const animeListElmt = document.createElement('li');
 
