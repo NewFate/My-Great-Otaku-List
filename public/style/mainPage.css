@@ -195,6 +195,7 @@ input[type=submit]:hover {
 }
 
 .anime_tile_small {
+  display: block;
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 5px;
@@ -214,6 +215,7 @@ input[type=submit]:hover {
 }
 
 .top_ten ol li a {
+  display: block;
   color: white;
   text-decoration: none;
   padding: 10px;
