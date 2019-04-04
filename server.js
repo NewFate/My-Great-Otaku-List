@@ -176,20 +176,25 @@ app.get('/userprofile', (req, res) => {
 	let report_count = 0;
 	console.log("Render")
 	Report.find().then((reports) => {
+			let review_count = 0;
+			log("REPORT");
 			for(let i = 0; i < reports.length; i++){
 				log(reports[i].reporter);
 				log(req.session.username)
+
 				if(reports[i].reporter === req.session.username){
 					report_count++;
 				}
 			}
-				let review_count = 0;
-				let reviews_list = 0;
+			
 		//console.log("Render")
-		Review.find().then((reviews) => {
+			Review.find().then((reviews) => {
+				log("REVIEWS")
 				for(let i = 0; i < reviews.length; i++){
-					if(reviews[i].reporter === req.session.username){
-						reviews_list.push(reviews[i].review)
+					log(reviews[i].reviewer);
+					log(req.session.username)
+					if(reviews[i].reviewer === req.session.username){
+						//reviews_list.push(reviews[i].review)
 						review_count++;
 					}
 				}
@@ -198,8 +203,8 @@ app.get('/userprofile', (req, res) => {
 					email: req.session.email,
 					dob: req.session.dob,
 					reviewCount: review_count,
-					reportCount: report_count,
-					reviewList: reviews_list
+					reportCount: report_count
+					//reviewList: reviews_list
 				})
 			}).catch((error) => {
 				res.status(500).send()
