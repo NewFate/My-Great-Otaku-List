@@ -237,10 +237,10 @@ function load(title){
 			const newReport = document.createElement("table");
 			newReport.className = "newReport";
 			let newRow = newReport.insertRow(0);
-			let username = newRow.insertCell(0);
-			let newReview = newRow.insertCell(1);
-			let newGrade = newRow.insertCell(2);
-			let submit = newRow.insertCell(3);
+			
+			let newReview = newRow.insertCell(0);
+			let newGrade = newRow.insertCell(1);
+			let submit = newRow.insertCell(2);
 
 			
 

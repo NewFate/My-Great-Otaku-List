@@ -1,33 +1,20 @@
+verify date of birth (good enough?)
 
-NOTE: Remove what you have done, and let ppl know of what you are working so we dont have multiple ppl doing the same thing
+fix paths between all files (register in particular i think)
 
-verify date of birth (just check if the month is <=12 and >=1 and day >=1 <=31 and year >=1900 and <=2019)
+change the name of the website from animelist to mygreatotakulist (done)
 
-change the name of the website from animelist to mygreatotakulist
-
-change layout of the admin
+change layout of the admin (just needs to center table)
 
 make the review the same size always on the anime page
 
 registering with the same email
 
-fix pictures size to a specific size
+fix pictures size to a specific size (done)
 
-change color of report
-
-SHOVON: (or whoever is willing) Add the option to upload a pic in the profile, the code to do that is super simple (look at suggestAnime.js)
-
-I still need to figure out how to let ppl submit pics that are decently sized.
-
-
-END OF THE DAY:
-
-comment files
-
-remove logs
+change color of report (done)
 
 fill it with dummy data
 
 make sure there is an account: admin admin and account: user user 
 
-make sure heroku is working
