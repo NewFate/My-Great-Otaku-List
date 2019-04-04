@@ -146,6 +146,7 @@ function update_top_ten() {
 			const animeA = document.createElement('a');
 			const animeImg = document.createElement('img');
 			const tr = document.createElement('tr');
+			tr.className = "box";
 
 			//We will be using the server data here to construct the elements dynamically
 			let title_underscore = json[key].name;
