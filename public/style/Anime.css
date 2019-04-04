@@ -126,3 +126,18 @@ textarea {
   resize: none;
 }
 
+button {
+  border-radius: 5px;
+  background-color: #474747;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #595959;
+}
+
