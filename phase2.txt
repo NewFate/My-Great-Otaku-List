@@ -3,7 +3,7 @@ https://mygreatotakulist.herokuapp.com/
 My Great Otaku List
 
 The goal of the website is to provide a source for people to advertise and discover
-new anime and manga that are fan made. Websites such as myAnimeList are only for official animes, and there is a lack of a centered website that lets people add their own original content to be reviewed and rated by users.
+new anime and manga that are fan made. Websites such as myAnimeList are only for official animes, and there is a lack of a centered website that lets people add their own original content to be reviewed and rated by users. Our database that contains the animes and mangas is 100% populated by the users with the new animes and mangas that they create and submit.
 
 To log in as an admin use:
 Username: admin
